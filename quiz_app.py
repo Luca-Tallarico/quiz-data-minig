@@ -456,7 +456,7 @@ def show_home_page(all_questions):
                 <div class="card-title text-blue">🏋️ Quizzone</div>
                 <div class="card-desc">La modalità classica per esercitarsi senza pressione.</div>
                 <ul class="feature-list">
-                    <li class="feature-item"><span class="icon-box bg-blue-light">📚</span> Accesso a <b>137 domande</b></li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">📚</span> Accesso a&nbsp;<b>137&nbsp;domande</b></li>
                     <li class="feature-item"><span class="icon-box bg-blue-light">♾️</span> Senza limiti di tempo</li>
                     <li class="feature-item"><span class="icon-box bg-blue-light">💡</span> Feedback immediato</li>
                     <li class="feature-item"><span class="icon-box bg-blue-light">🔍</span> Verifica passo-passo</li>
@@ -478,8 +478,7 @@ def show_home_page(all_questions):
                 <div class="card-title text-green">⏱️ Simulazione d'esame</div>
                 <div class="card-desc">Mettiti alla prova con una simulazione realistica.</div>
                 <ul class="feature-list">
-                    <li class="feature-item"><span class="icon-box bg-green-light">🎯</span> <b>20 Domande</b></li>
-                    <li class="feature-item"><span class="icon-box bg-green-light">⏳</span> Timer <b>30 Minuti</b></li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">🎯</span> <b>20 Domande</b> - 30 Min</li>
                     <li class="feature-item"><span class="icon-box bg-green-light">✅</span> <b>+1.5</b>&nbsp;Corretta</li>
                     <li class="feature-item"><span class="icon-box bg-green-light">❌</span> <b>-0.5</b>&nbsp;Errata</li>
                     <li class="feature-item"><span class="icon-box bg-green-light">⚪</span> <b>0</b>&nbsp;Omessa</li>
@@ -503,7 +502,7 @@ def show_home_page(all_questions):
                 <div class="card-title text-purple">📂 Materiale</div>
                 <div class="card-desc">Accedi a tutte le lecture e agli appunti del corso.</div>
                 <ul class="feature-list">
-                    <li class="feature-item"><span class="icon-box bg-purple-light">📄</span> <b>Slide</b> e Dispense</li>
+                    <li class="feature-item"><span class="icon-box bg-purple-light">📄</span> <b>Slide</b>&nbsp;e&nbsp;Dispense</li>
                     <li class="feature-item"><span class="icon-box bg-purple-light">📥</span> <b>Download</b> PDF</li>
                     <li class="feature-item"><span class="icon-box bg-purple-light">👁️</span> Visione in-app</li>
                     <li class="feature-item"><span class="icon-box bg-purple-light">🗂️</span> Archivio Completo</li>
