@@ -338,26 +338,98 @@ def run_practice_mode(questions, correct_answers):
 def run_exam_mode(questions, correct_answers):
     # Timer Logic
     time_limit = timedelta(minutes=30)
-    elapsed = datetime.now() - st.session_state.exam_start_time
-    remaining = time_limit - elapsed
+    
+    # Placeholder for timer
+    timer_placeholder = st.empty()
+    
+    # We need to loop to update the timer visually
+    # But we can't loop forever or it blocks usage. 
+    # Streamlit rerun is triggered by interactions.
+    # To make it "smooth" without blocking, we use st.empty() and just calculate diff.
+    # But for REAL-TIME countdown we need a loop or Streamlit's fragment/autorefresh.
+    # Simple fix: Just update calculation on every interaction (which is default).
+    # "Fluid" usually means it ticks down. Streamlit can't do that easily without custom component or experimental_fragment.
+    # Let's try `time.sleep` loop? No, blocks UI.
+    # BEST APPROACH for standard Streamlit: Show "Ends at HH:MM" and current remaining specific to reload.
+    # OR: use st_autorefresh (external lib) -> not available standard.
+    # OR: use a simple async loop with `rerun`? No, too much flickering.
+    
+    # Compromise: We show the end time and the current remaining time.
+    # To make it "tick", we can use `stream` generator or just accept static update.
+    # USER WANTS SMOOTH: Only way in pure python streamlit is `st.empty` loop? 
+    # Actually, let's use a small JS injection for visual countdown if possible, OR
+    # just stick to "Update on interaction" but make it clear.
+    
+    # WAIT! New `st.markdown` with auto-refresh script? 
+    # Let's use a simpler trick: `time.sleep(1)` inside a `while` loop is bad.
+    
+    # Let's Implement a "Poor Man's Live Timer" using st.asyncio or just
+    # Rely on the fact user answers questions frequently.
+    
+    # ACTUALLY: Let's try adding a simple JS script to update a DOM element.
+    # Streamlit 1.30+ supports `st.stream`.
+    
+    # LET'S DO THIS:
+    end_time = st.session_state.exam_start_time + time_limit
+    now = datetime.now()
+    remaining = end_time - now
     
     if remaining.total_seconds() <= 0:
         if not st.session_state.submitted:
             st.session_state.submitted = True
-            st.error("⏰ TEMPO SCADUTO! Il quiz è stato inviato automaticamente.")
-            # Trigger rerun to show results immediately
+            st.error("⏰ TEMPO SCADUTO!")
             st.rerun()
-    
-    st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
-    
-    # Header Info
-    st.title("⏱️ Simulazione Esame")
+            
+    # Display Timer
     mins, secs = divmod(int(remaining.total_seconds()), 60)
     timer_color = "red" if mins < 5 else "blue"
-    if st.session_state.submitted:
-        st.markdown("### 🏁 Esame Terminato")
-    else:
-        st.markdown(f"### Tempo Rimanente: :{timer_color}[{mins:02d}:{secs:02d}]")
+    
+    # Dynamic JS Timer (Visual Only)
+    # We inject a small script that calculates remaining time client-side
+    
+    timer_html = f"""
+    <div style="
+        font-size: 24px; 
+        font-weight: bold; 
+        color: {timer_color}; 
+        padding: 10px; 
+        border: 2px solid {timer_color}; 
+        border-radius: 10px; 
+        text-align: center;
+        margin-bottom: 20px;">
+        ⏱️ Tempo Rimanente: <span id="timer-display">{mins:02d}:{secs:02d}</span>
+    </div>
+    <script>
+    function startTimer(duration, display) {{
+        var timer = duration, minutes, seconds;
+        var interval = setInterval(function () {{
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {{
+                clearInterval(interval);
+                display.textContent = "00:00";
+            }}
+        }}, 1000);
+    }}
+    
+    // Calculate remaining seconds from server side
+    var remainingSeconds = {int(remaining.total_seconds())};
+    var display = document.querySelector('#timer-display');
+    startTimer(remainingSeconds, display);
+    </script>
+    """
+    
+    st.markdown(timer_html, unsafe_allow_html=True)
+
+    st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
+    
+    st.title("⏱️ Simulazione Esame")
 
     # Sync widgets
     for q in questions:
