@@ -14,34 +14,162 @@ st.set_page_config(
 # Custom CSS for styling
 st.markdown("""
     <style>
+    /* Global Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    
+    html, body, [class*="css"]  {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* Radio Button Styling */
     .stRadio > div {
-        background-color: #f0f2f6;
-        padding: 10px;
-        border-radius: 10px;
-        margin-bottom: 10px;
+        background-color: #f8fafc;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 12px;
+        transition: all 0.2s ease;
+    }
+    .stRadio > div:hover {
+        border-color: #cbd5e1;
+        background-color: #f1f5f9;
     }
     .stRadio * {
-        color: black !important;
+        color: #334155 !important;
     }
+    
+    /* Feedback Colors */
     .correct-answer {
-        background-color: #d4edda;
-        padding: 5px;
-        border-radius: 5px;
-        border-left: 5px solid #28a745;
+        background-color: #dcfce7;
+        padding: 10px;
+        border-radius: 8px;
+        border-left: 5px solid #22c55e;
+        color: #14532d;
     }
     .wrong-answer {
-        background-color: #f8d7da;
-        padding: 5px;
-        border-radius: 5px;
-        border-left: 5px solid #dc3545;
+        background-color: #fee2e2;
+        padding: 10px;
+        border-radius: 8px;
+        border-left: 5px solid #ef4444;
+        color: #7f1d1d;
     }
-    /* Simple card style for home page */
-    .mode-card {
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        background-color: #f9f9f9;
-        margin-bottom: 20px;
+
+    /* CARD SYSTEM (Antigravity Grid) */
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 24px; /* Rounded-XL equivalent */
+        padding: 24px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Elegant Shadow */
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px); /* Glassmorphism */
+        height: 100%;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .card-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Card Accents */
+    .card-blue {
+        border-top: 6px solid #3b82f6; /* Blue-500 */
+        background: linear-gradient(to bottom right, #eff6ff, #ffffff);
+    }
+    .card-green {
+        border-top: 6px solid #10b981; /* Emerald-500 */
+        background: linear-gradient(to bottom right, #ecfdf5, #ffffff);
+    }
+
+    /* Typography */
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.025em;
+    }
+    .text-blue { color: #1e40af; }
+    .text-green { color: #065f46; }
+
+    .card-desc {
+        font-size: 0.95rem;
+        color: #64748b;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    /* Feature List */
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-grow: 1; /* Pushes button down if flex container */
+    }
+    .feature-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+        color: #334155;
+        font-weight: 500;
+    }
+    .icon-box {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        margin-right: 12px;
+        font-size: 1.1rem;
+    }
+    .bg-blue-light { background-color: #dbeafe; color: #2563eb; }
+    .bg-green-light { background-color: #d1fae5; color: #059669; }
+
+    /* Button Styling Override */
+    /* Targeting buttons based on column structure requires this hack or just relying on Primary style */
+    div[data-testid="column"]:nth-of-type(1) button {
+         border-radius: 12px;
+         font-weight: 600;
+         border: 2px solid #bfdbfe;
+         transition: all 0.2s;
+    }
+    div[data-testid="column"]:nth-of-type(1) button:hover {
+         border-color: #3b82f6;
+         background-color: #eff6ff;
+         color: #1d4ed8;
+    }
+
+    div[data-testid="column"]:nth-of-type(2) button {
+         border-radius: 12px;
+         font-weight: 600;
+         border: 2px solid #a7f3d0;
+    }
+     div[data-testid="column"]:nth-of-type(2) button:hover {
+         border-color: #10b981;
+         background-color: #ecfdf5;
+         color: #047857;
+    }
+    
+    /* Dark Mode Overrides */
+    @media (prefers-color-scheme: dark) {
+        .card-container {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        .card-blue { background: linear-gradient(to bottom right, #1e293b, #0f172a); border-top-color: #3b82f6; }
+        .card-green { background: linear-gradient(to bottom right, #1e293b, #0f172a); border-top-color: #10b981; }
+        .card-title { color: #f1f5f9; }
+        .feature-item { color: #cbd5e1; }
+        .bg-blue-light { background-color: #1e3a8a; color: #93c5fd; }
+        .bg-green-light { background-color: #064e3b; color: #6ee7b7; }
+        .text-blue { color: #60a5fa; }
+        .text-green { color: #34d399; }
+        .stRadio > div { background-color: #1e293b; border-color: #334155; }
+        .stRadio * { color: #e2e8f0 !important; }
     }
     </style>
 """, unsafe_allow_html=True)
@@ -255,43 +383,82 @@ def generate_exam_questions(all_questions, total_needed=20):
 # -----------------------------------------------------------------------------
 
 def show_home_page(all_questions):
-    st.title("🎓 Data Mining & Text Analytics")
-    st.markdown("Benvenuto! Scegli la modalità di preparazione.")
+    st.markdown("<h1 style='text-align: center; margin-bottom: 50px; font-weight: 800; font-size: 3rem; background: -webkit-linear-gradient(45deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>🎓 Data Mining & Text Analytics</h1>", unsafe_allow_html=True)
     
-    col1, col2 = st.columns(2)
+    # Grid System with Gap
+    col1, col2 = st.columns(2, gap="large")
     
     with col1:
-        st.info("### 🏋️ Quizzone (Esercitazione)")
+        # Card HTML Content
         st.markdown("""
-        **Caratteristiche:**
-        - Tutte le **134 domande** disponibili.
-        - **Senza limiti di tempo**.
-        - Feedback immediato (verde/rosso).
-        - Possibilità di verificare ogni singola risposta.
-        - Ideale per ripassare e studiare.
-        """)
-        if st.button("Avvia Quizzone", use_container_width=True):
+        <div class="card-container card-blue">
+            <div>
+                <div class="card-title text-blue">🏋️ Quizzone</div>
+                <div class="card-desc">La modalità classica per esercitarsi senza pressione.</div>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="icon-box bg-blue-light">📚</span> 
+                        <span>Accesso a <b>134 domande</b> totali</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="icon-box bg-blue-light">♾️</span> 
+                        <span>Nessun limite di tempo</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="icon-box bg-blue-light">💡</span> 
+                        <span>Feedback immediato risposte</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="icon-box bg-blue-light">🔍</span> 
+                        <span>Verifica passo-passo</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- Spacer handled by flexbox space-between -->
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Button positioned visually "inside" thanks to CSS structure or just cleanly below
+        st.markdown('<div style="margin-top: -20px;"></div>', unsafe_allow_html=True) # Manual adjustment
+        if st.button("🚀 Avvia Esercitazione", key="btn_practice", use_container_width=True):
             reset_state()
             st.session_state.mode = 'practice'
             st.rerun()
 
     with col2:
-        st.warning("### ⏱️ Simulazione Esame")
+        # Card HTML Content
         st.markdown("""
-        **Caratteristiche:**
-        - **20 domande** bilanciate per argomento.
-        - **Durata: 30 minuti**.
-        - **Sistema di votazione reale**:
-            - ✅ Risposta corretta: **+1.5 punti**
-            - ⬜ Risposta non data: **0 punti**
-            - ❌ Risposta errata: **-0.5 punti**
-        - Voto finale in **30esimi**.
-        """)
-        if st.button("Avvia Simulazione Esame", use_container_width=True):
+        <div class="card-container card-green">
+            <div>
+                <div class="card-title text-green">⏱️ Simulazione Esame</div>
+                <div class="card-desc">Mettiti alla prova con una simulazione realistica.</div>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="icon-box bg-green-light">🎯</span> 
+                        <span><b>20 Domande</b> bilanciate (Sampling)</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="icon-box bg-green-light">⏳</span> 
+                        <span>Timer rigido di <b>30 Minuti</b></span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="icon-box bg-green-light">⚖️</span> 
+                        <span>Voto in <b>30esimi</b> (+1.5 / -0.5)</span>
+                    </li>
+                    <li class="feature-item">
+                        <span class="icon-box bg-green-light">📊</span> 
+                        <span>Report finale dettagliato</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown('<div style="margin-top: -20px;"></div>', unsafe_allow_html=True) 
+        if st.button("📝 Avvia Simulazione", key="btn_exam", use_container_width=True):
             reset_state()
             st.session_state.mode = 'exam'
             st.session_state.exam_start_time = datetime.now()
-            # Select 20 stratified questions
             st.session_state.exam_questions = generate_exam_questions(all_questions, 20)
             st.rerun()
 
