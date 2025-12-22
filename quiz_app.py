@@ -479,9 +479,10 @@ def show_home_page(all_questions):
                 <div class="card-desc">Mettiti alla prova con una simulazione realistica.</div>
                 <ul class="feature-list">
                     <li class="feature-item"><span class="icon-box bg-green-light">🎯</span> <b>20 Domande</b></li>
-                    <li class="feature-item"><span class="icon-box bg-green-light">✅</span> <b>+1.5</b> Risposta Corretta</li>
-                    <li class="feature-item"><span class="icon-box bg-green-light">❌</span> <b>-0.5</b> Risposta Errata</li>
-                    <li class="feature-item"><span class="icon-box bg-green-light">⚪</span> <b>0</b> Risposta Omessa</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">⏳</span> Timer <b>30 Minuti</b></li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">✅</span> <b>+1.5</b>&nbsp;Corretta</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">❌</span> <b>-0.5</b>&nbsp;Errata</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">⚪</span> <b>0</b>&nbsp;Omessa</li>
                 </ul>
             </div>
         </div>
