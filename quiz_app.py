@@ -2,8 +2,8 @@ import streamlit as st
 import re
 import os
 import random
-import random
 import base64
+import urllib.parse
 from datetime import datetime, timedelta
 
 # Set page config
@@ -533,9 +533,6 @@ def run_materials_mode():
     }
 
     # Layout for viewer
-    # Sidebar selection for viewing? Or just list?
-    # Better: List on left (col1), Viewer on right (col2)
-    
     col_list, col_view = st.columns([1, 2])
     
     with col_list:
@@ -543,46 +540,80 @@ def run_materials_mode():
         selected_file_key = st.radio("Seleziona un file da visionare:", list(files_map.keys()))
         
         filename = files_map[selected_file_key]
+        file_path = os.path.join("static", filename)
         
-        # Download Button
-        if os.path.exists(filename):
-            with open(filename, "rb") as f:
-                btn = st.download_button(
-                    label=f"⬇️ Scarica {filename}",
-                    data=f,
-                    file_name=filename,
-                    mime="application/pdf",
-                    use_container_width=True
-                )
+        
+        
+        # Access Control Logic for "APPUNTI COMPLETI"
+        is_protected = "APPUNTI COMPLETI" in selected_file_key
+        
+        if is_protected:
+            st.warning("🔒 **File Protetto**")
+            st.info("Per scaricare questi appunti è necessaria l'approvazione dell'autore.")
+            
+            # Pre-filled Email Link
+            email_subject = urllib.parse.quote("Richiesta Appunti Data Mining")
+            email_body = urllib.parse.quote("Ciao Luca,\n\nVorrei richiedere una copia degli appunti completi di Data Mining.\n\nGrazie.")
+            mailto_link = f"mailto:luca.tallarico99@gmail.com?subject={email_subject}&body={email_body}"
+            
+            st.markdown(f'''
+                <a href="{mailto_link}" target="_blank" style="
+                    display: inline-block;
+                    background-color: #d9534f;
+                    color: white;
+                    padding: 12px 24px;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    font-size: 16px;
+                    width: 100%;
+                ">📨 Richiedi Copia via Email</a>
+                <p style="margin-top: 10px; font-size: 0.9em; color: gray;">
+                    Cliccando verrai reindirizzato al tuo client di posta.<br>
+                    L'invio del file è a discrezione dell'autore.
+                </p>
+            ''', unsafe_allow_html=True)
+
         else:
-            st.error(f"File {filename} non trovato sul server.")
+            # Standard Download for non-protected files
+            if os.path.exists(file_path):
+                with open(file_path, "rb") as f:
+                    st.download_button(
+                        label=f"⬇️ Scarica {filename}",
+                        data=f,
+                        file_name=filename,
+                        mime="application/pdf",
+                        use_container_width=True
+                    )
+            else:
+                st.error(f"File {filename} non trovato in {file_path}.")
 
     with col_view:
         st.subheader("Anteprima")
-        filename = files_map[selected_file_key]
         
-        if os.path.exists(filename):
-            # Display PDF
-            try:
-                with open(filename, "rb") as f:
-                    base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+        if is_protected:
+             st.image("https://img.icons8.com/clouds/200/lock.png", width=150)
+             st.markdown("### 🚫 Anteprima non disponibile")
+             st.write("Questo contenuto è riservato. Invia una richiesta per ottenerlo.")
+        else:
+            filename = files_map[selected_file_key]
+            file_path = os.path.join("static", filename)
+            
+            if os.path.exists(file_path):
+                # Using Static File Serving (Streamlit >= 1.18)
+                encoded_filename = urllib.parse.quote(filename)
+                pdf_url = f"static/{encoded_filename}"
                 
-                # Embedding PDF
-                # IFRAME approach often blocked. Switching to OBJECT/EMBED.
+                # Use simple iframe with the static URL
                 pdf_display = f'''
-                    <div style="display:flex; justify-content:center; width:100%;">
-                        <object data="data:application/pdf;base64,{base64_pdf}" type="application/pdf" width="100%" height="800px">
-                            <iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800px">
-                            <p>Il tuo browser non supporta l'anteprima PDF integrata. Usa il tasto <b>Download</b> sopra per leggerlo.</p>
-                            </iframe>
-                        </object>
-                    </div>
+                    <iframe src="{pdf_url}" width="100%" height="800px" style="border: none;">
+                    <p>Il tuo browser non supporta l'anteprima PDF. <a href="{pdf_url}" target="_blank">Clicca qui per aprire</a>.</p>
+                    </iframe>
                 '''
                 st.markdown(pdf_display, unsafe_allow_html=True)
-            except Exception as e:
-                st.error(f"Errore nella visualizzazione: {e}")
-        else:
-            st.warning("File non disponibile per l'anteprima. Verifica che sia stato caricato su GitHub.")
+            else:
+                st.warning("File non disponibile per l'anteprima. Verifica la cartella static.")
 
 def run_practice_mode(questions, correct_answers):
     st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
