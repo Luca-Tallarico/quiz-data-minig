@@ -814,6 +814,30 @@
    C. Regression *(Regressione)*
    D. Cluster Analysis *(Analisi dei Cluster)*
 
+135. Which of the following represents the biggest amount of data type on the Web? *(Quale delle seguenti rappresenta la maggior quantità di tipi di dati sul Web?)*
+   A. Semi-structured Data
+   B. Unstructured Data
+   C. Structured Data
+   D. None of the above *(Nessuna delle precedenti)*
+
+136. Which of the following is an Acronym representing Data Mining from a formal perspective? *(Quale dei seguenti è un acronimo che rappresenta il Data Mining da una prospettiva formale?)*
+   A. KDD
+   B. KDP
+   C. DM
+   D. All of the above *(Tutte le precedenti)*
+
+137. Buys(X,Laptop) => [Buys(X,'wireless keyboard'), support=3%, confidence=45%] Which of the following statements is correct? *(Dato: Buys(X,Laptop) => [Buys(X,'wireless keyboard'), support=3%, confidence=45%]. Quale delle seguenti affermazioni è corretta?)*
+   A. 97% of all transactions include both wireless keyboard and laptop *(Il 97% di tutte le transazioni include sia tastiera wireless che laptop)*
+   B. 3% of all transactions include both wireless and laptop *(Il 3% di tutte le transazioni include sia wireless che laptop)*
+   C. There is a 45% chance that customers purchasing a keyboard will buy a laptop *(C'è una probabilità del 45% che i clienti che acquistano una tastiera comprino un laptop)*
+   D. None of the above *(Nessuna delle precedenti)*
+
+138. You're dealing with a transactional DB gathering all information pertaining to purchases: (Id_transaction, amount, date, article_category, id_user) and (Id_category, promotional_offer, discount); If you are interested in running a query to extract discounts for a single user, what IT section are you currently dealing with? *(Stai lavorando con un DB transazionale che raccoglie informazioni sugli acquisti... Se sei interessato a eseguire una query per estrarre gli sconti per un singolo utente, con quale sezione IT stai lavorando?)*
+   A. Data Warehouse
+   B. DBMS (Data Base Management System)
+   C. Data Lake
+   D. Data Mart
+
 ---
 ### RISPOSTE CORRETTE
 
@@ -830,4 +854,5 @@
 101:D, 102:B, 103:C, 104:D, 105:C, 106:A, 107:C, 108:A, 109:C, 110:D,
 111:B, 112:C, 113:D, 114:A, 115:C, 116:B, 117:B, 118:C, 119:D, 120:C,
 122:C, 123:A, 124:A, 125:C, 126:A, 127:D, 128:A, 129:D, 130:D, 131:B,
-132:C, 133:C, 134:A
+132:C, 133:C, 134:A,
+135:B, 136:A, 137:B, 138:B
