@@ -616,13 +616,13 @@ def run_materials_mode():
                 # Ensure we point to the static route
                 pdf_url = f"static/{encoded_filename}"
                 
-                # Use EMBED tag which is better for PDFs than iframe
-                # and add a fallback link
+                # Use standard iframe with a PROMINENT link above it
+                # This ensures usability even if the preview fails
+                st.markdown(f'<a href="{pdf_url}" target="_blank" style="display: block; text-align: center; margin-bottom: 10px; padding: 10px; background-color: #f0f2f6; border-radius: 5px; text-decoration: none; font-weight: bold; color: #31333F;">📄 Clicca qui se non vedi l\'anteprima per aprire il PDF</a>', unsafe_allow_html=True)
+                
                 pdf_display = f'''
-                    <embed src="{pdf_url}" type="application/pdf" width="100%" height="800px">
-                        <p>Il tuo browser non sta visualizzando il PDF. 
-                        <a href="{pdf_url}" target="_blank">Clicca qui per scaricarlo/aprirlo</a>.</p>
-                    </embed>
+                    <iframe src="{pdf_url}" width="100%" height="800px" style="border: none;">
+                    </iframe>
                 '''
                 st.markdown(pdf_display, unsafe_allow_html=True)
             else:
