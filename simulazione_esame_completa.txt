@@ -738,101 +738,103 @@
    C. I pesi (o coefficienti)
    D. il bias
 
-122. Complete the following statement: "A data warehouse is ..." *(Completa la seguente affermazione: "Un Data Warehouse è ...")*
-   A. A group of database *(Un gruppo di database)*
-   B. None of the above *(Nessuna delle precedenti)*
-   C. A system that handles data coming from different sources. *(Un sistema che gestisce dati provenienti da diverse fonti)*
-   D. A DBMS *(Un DBMS)*
+121. Completa la seguente affermazione: "Un Data Warehouse è..."
+   A. Un gruppo di database
+   B. Nessuna delle precedenti
+   C. Un sistema che gestisce dati provenienti da diverse fonti (A system that handles data coming from different sources)
+   D. Un DBMS
 
-123. Knowledge Discovery Process (KDP). Which of the following includes the first four steps of KDP? *(Knowledge Discovery Process (KDP). Quale delle seguenti opzioni include i primi quattro passaggi del KDP?)*
+122. Knowledge Discovery Process (KDP). Quale delle seguenti opzioni include i primi quattro passaggi del KDP?
    A. Data Cleaning, Data Integration, Data Selection, Data Transformation
-   B. None of the above *(Nessuna delle precedenti)*
+   B. Nessuna delle precedenti
    C. Data Cleaning, Data Integration, Data Selection, Pattern Evaluation
    D. Knowledge Representation, Data Mining, Pattern Evaluation, Data Cleaning
 
-124. Which of the following statements is correct? *(Quale delle seguenti affermazioni è corretta?)*
-   A. Data Mining comes into play to extract patterns that cannot be easily found with stats and trends *(Il Data Mining entra in gioco per estrarre pattern che non possono essere facilmente trovati con statistiche e trend)*
-   B. Data Mining is run before extracting stats and trends on data *(Il Data Mining viene eseguito prima di estrarre statistiche e trend sui dati)*
-   C. Stats and trends allow us to find all patterns in data *(Statistiche e trend ci permettono di trovare tutti i pattern nei dati)*
+123. Quale delle seguenti affermazioni è corretta?
+   A. Il Data Mining entra in gioco per estrarre pattern che non possono essere facilmente trovati con statistiche e trend
+   B. Il Data Mining viene eseguito prima di estrarre statistiche e trend sui dati
+   C. Statistiche e trend ci permettono di trovare tutti i pattern nei dati
+   D. Nessuna delle precedenti
 
-125. What does KDD stand for? *(Cosa significa l'acronimo KDD?)*
+124. Cosa significa l'acronimo KDD?
    A. Knowledge Database Discovery
    B. Knowledge Discovery Data
-   C. None of the above *(Nessuna delle precedenti)*
+   C. Nessuna delle precedenti (Knowledge Discovery from Data)
    D. Knowledge Detection in Databases
 
-126. Relational Scheme. Tick the answer that represents relational database properties the most. *(Schema Relazionale. Seleziona la risposta che rappresenta meglio le proprietà di un database relazionale.)*
+125. Schema Relazionale. Seleziona la risposta che rappresenta meglio le proprietà di un database relazionale.
    A. Structured data; Tables; Primary Key
    B. **Tables** (Tabelle/Entità)
    C. Unstructured data; Tables; Primary Key
    D. Structured data; Tables; Primary Key; External Key
 
-127. Which one of the following words would you use to complete the statement below: "A spreadsheet file contains _______ data." *(Quale delle seguenti parole useresti per completare la frase: "Un file foglio di calcolo contiene dati wns _______.")*
-   A. semi-structured *(semi-strutturati)*
-   B. none of the above *(nessuna delle precedenti)*
-   C. structured *(strutturati)*
-   D. unstructured *(non strutturati)*
+126. Quale delle seguenti parole useresti per completare la frase: "Un file foglio di calcolo (spreadsheet) contiene dati _______."
+   A. semi-structured (semi-strutturati)
+   B. nessuna delle precedenti
+   C. structured (strutturati)
+   D. unstructured (non strutturati)
 
-128. Which of the following stands on the highest position in the hierarchical data analysis management? *(Quale delle seguenti opzioni si trova nella posizione più in alto nella gerarchia della gestione dell'analisi dei dati?)*
+127. Quale delle seguenti opzioni si trova nella posizione più in alto nella gerarchia della gestione dell'analisi dei dati?
    A. Data Mining
    B. Database
    C. Data Warehose
+   D. Data Cleaning
 
-129. Data Warehouse scenario. You want to dissect data on specific attributes. Which of the following corresponds to a zoom-in on data? *(Scenario Data Warehouse. Vuoi analizzare i dati su attributi specifici. Quale delle seguenti opzioni corrisponde a uno "zoom-in" sui dati?)*
-   A. OLAP
-   B. None of the above *(Nessuna delle precedenti)*
+128. Scenario Data Warehouse. Vuoi analizzare i dati su attributi specifici (es. zoom-in). A quale delle seguenti operazioni OLAP corrisponde?
+   A. OLAP (On-Line Analytical Processing)
+   B. Nessuna delle precedenti
    C. Roll-up
    D. Drill-down
 
-130. When can results be considered statistically significant? *(Quando i risultati possono essere considerati statisticamente significativi?)*
-   A. none of the above *(nessuna delle precedenti)*
-   B. when they do not pass a statistical hypothesis test *(quando non superano un test di ipotesi statistica)*
-   C. when they relate to big sized databases *(quando si riferiscono a database di grandi dimensioni)*
-   D. when they pass a statistical hypothesis test *(quando superano un test di ipotesi statistica)*
+129. Quando i risultati possono essere considerati statisticamente significativi?
+   A. Nessuna delle precedenti
+   B. Quando non superano un test di ipotesi statistica
+   C. Quando si riferiscono a database di grandi dimensioni
+   D. Quando superano un test di ipotesi statistica (statistically significant hypothesis test)
 
-131. A data analyst uses OLAP to analyse multidimensional data at several granularity levels. What does OLAP stand for? *(Un analista dati usa OLAP per analizzare dati multidimensionali a diversi livelli di granularità. Cosa significa l'acronimo OLAP?)*
+130. Un analista dati usa OLAP per analizzare dati multidimensionali a diversi livelli di granularità. Cosa significa l'acronimo OLAP?
    A. On-line Analytical Preprocessing
    B. On-line Analytical Processing
-   C. None of the above *(Nessuna delle precedenti)*
+   C. Nessuna delle precedenti
    D. On-line Analytical Postprocessing
 
-132. You have some uncategorised data. How can you generate labels from uncategorised data? *(Hai dei dati non categorizzati. Come puoi generare delle etichette a partire da dati non categorizzati?)*
-   A. You can generate labels by performing classification *(Puoi generare etichette eseguendo una classificazione)*
-   B. You can generate labels by using regression *(Puoi generare etichette usando la regressione)*
-   C. You can generate labels by using cluster analysis *(Puoi generare etichette usando l'analisi dei cluster)*
-   D. None of the above *(Nessuna delle precedenti)*
+131. Hai dei dati non categorizzati (uncategorised data). Come puoi generare delle etichette (labels) a partire da essi?
+   A. Puoi generare etichette eseguendo una classificazione
+   B. Puoi generare etichette usando la regressione
+   C. Puoi generare etichette usando l'analisi dei cluster (Cluster Analysis)
+   D. Nessuna delle precedenti
 
-133. You have been asked to provide trends about customers' interest in purchasing a new item in summer. Which of the following suits the case scenario most? *(Ti è stato chiesto di fornire trend sull'interesse dei clienti nell'acquisto di un nuovo articolo in estate. Quale delle seguenti opzioni si adatta meglio allo scenario?)*
-   A. Cluster Analysis *(Analisi dei Cluster)*
-   B. Classification *(Classificazione)*
-   C. Regression *(Regressione)*
-   D. None of the above *(Nessuna delle precedenti)*
+132. Ti è stato chiesto di fornire trend sull'interesse dei clienti nell'acquisto di un nuovo articolo in estate. Quale dei seguenti approcci si adatta meglio allo scenario?
+   A. Cluster Analysis
+   B. Classification
+   C. Regression (Regressione)
+   D. Nessuna delle precedenti
 
-134. If you have a training set available, which of the following approaches can be run? *(Se hai un training set disponibile, quale dei seguenti approcci può essere eseguito?)*
-   A. Classification *(Classificazione)*
-   B. None of the above *(Nessuna delle precedenti)*
-   C. Regression *(Regressione)*
-   D. Cluster Analysis *(Analisi dei Cluster)*
+133. Se hai un training set disponibile, quale dei seguenti approcci può essere eseguito?
+   A. Classification (Classificazione)
+   B. Nessuna delle precedenti
+   C. Regression (Regressione)
+   D. Cluster Analysis
 
-135. Which of the following represents the biggest amount of data type on the Web? *(Quale delle seguenti rappresenta la maggior quantità di tipi di dati sul Web?)*
+134. Quale delle seguenti rappresenta la maggior quantità di tipi di dati sul Web?
    A. Semi-structured Data
-   B. Unstructured Data
+   B. Unstructured Data (Dati non strutturati)
    C. Structured Data
-   D. None of the above *(Nessuna delle precedenti)*
+   D. None of the above
 
-136. Which of the following is an Acronym representing Data Mining from a formal perspective? *(Quale dei seguenti è un acronimo che rappresenta il Data Mining da una prospettiva formale?)*
-   A. KDD
+135. Quale dei seguenti è un acronimo che rappresenta il Data Mining da una prospettiva formale?
+   A. KDD (Knowledge Discovery in Databases)
    B. KDP
    C. DM
-   D. All of the above *(Tutte le precedenti)*
+   D. All of the above (Tutte le precedenti)
 
-137. Buys(X,Laptop) => [Buys(X,'wireless keyboard'), support=3%, confidence=45%] Which of the following statements is correct? *(Dato: Buys(X,Laptop) => [Buys(X,'wireless keyboard'), support=3%, confidence=45%]. Quale delle seguenti affermazioni è corretta?)*
-   A. 97% of all transactions include both wireless keyboard and laptop *(Il 97% di tutte le transazioni include sia tastiera wireless che laptop)*
-   B. 3% of all transactions include both wireless and laptop *(Il 3% di tutte le transazioni include sia wireless che laptop)*
-   C. There is a 45% chance that customers purchasing a keyboard will buy a laptop *(C'è una probabilità del 45% che i clienti che acquistano una tastiera comprino un laptop)*
-   D. None of the above *(Nessuna delle precedenti)*
+136. Dato: Buys(X,Laptop) => [Buys(X,'wireless keyboard'), support=3%, confidence=45%]. Quale delle seguenti affermazioni è corretta?
+   A. Il 97% di tutte le transazioni include sia tastiera wireless che laptop
+   B. Il 3% di tutte le transazioni include sia tastiera wireless che laptop
+   C. C'è una probabilità del 45% che i clienti che acquistano una tastiera comprino un laptop
+   D. Nessuna delle precedenti
 
-138. You're dealing with a transactional DB gathering all information pertaining to purchases: (Id_transaction, amount, date, article_category, id_user) and (Id_category, promotional_offer, discount); If you are interested in running a query to extract discounts for a single user, what IT section are you currently dealing with? *(Stai lavorando con un DB transazionale che raccoglie informazioni sugli acquisti... Se sei interessato a eseguire una query per estrarre gli sconti per un singolo utente, con quale sezione IT stai lavorando?)*
+137. Stai lavorando con un DB transazionale che raccoglie informazioni sugli acquisti: (Id_transaction, amount, date, article_category, id_user) e (Id_category, promotional_offer, discount). Se sei interessato a eseguire una query per estrarre gli sconti per un singolo utente, con quale sezione IT stai lavorando?
    A. Data Warehouse
    B. DBMS (Data Base Management System)
    C. Data Lake
@@ -853,6 +855,5 @@
 91:A, 92:A, 93:C, 94:B, 95:C, 96:A, 97:B, 98:C, 99:A, 100:D,
 101:D, 102:B, 103:C, 104:D, 105:C, 106:A, 107:C, 108:A, 109:C, 110:D,
 111:B, 112:C, 113:D, 114:A, 115:C, 116:B, 117:B, 118:C, 119:D, 120:C,
-122:C, 123:A, 124:A, 125:C, 126:A, 127:D, 128:A, 129:D, 130:D, 131:B,
-132:C, 133:C, 134:A,
-135:B, 136:A, 137:B, 138:B
+121:C, 122:A, 123:A, 124:C, 125:A, 126:D, 127:A, 128:D, 129:D, 130:B,
+131:C, 132:C, 133:A, 134:B, 135:A, 136:B, 137:B
