@@ -536,10 +536,10 @@ def run_materials_mode():
         "📙 Lecture 01.5 - SQL Handouts": "Lecture_01.5_Handouts_SQL_queries.pdf",
         "📗 Lecture 02 - Clustering Techniques": "Lecture_02_Clustering_Techniques.pdf",
         "📕 Lecture 03 - Perceptron & Learning": "Lecture_03_Perceptron_and_Learning_Process.pdf",
-        "📔 Lecture 04 - Text Mining 1": "Lecture_04. Text Mining_1.pdf",
-        "📓 Lecture 05 - Text Mining 2": "Lecture_05 Text_Mining_2.pdf",
-        "📒 Lecture 06 - Text Classification": "Lecture_06 Text Classification.pdf",
-        "📝 APPUNTI COMPLETI": "APPUNTI LEZIONE_mining copia.pdf"
+        "📔 Lecture 04 - Text Mining 1": "Lecture_04._Text_Mining_1.pdf",
+        "📓 Lecture 05 - Text Mining 2": "Lecture_05_Text_Mining_2.pdf",
+        "📒 Lecture 06 - Text Classification": "Lecture_06_Text_Classification.pdf",
+        "📝 APPUNTI COMPLETI": "APPUNTI_LEZIONE_mining_copia.pdf"
     }
 
     # Layout for viewer
