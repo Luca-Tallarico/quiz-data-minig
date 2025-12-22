@@ -1,0 +1,619 @@
+import streamlit as st
+import re
+import os
+import random
+from datetime import datetime, timedelta
+
+# Set page config
+st.set_page_config(
+    page_title="Simulazione Esame - Data Mining",
+    page_icon="🎓",
+    layout="wide"
+)
+
+# Custom CSS for styling
+st.markdown("""
+    <style>
+    .stRadio > div {
+        background-color: #f0f2f6;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+    .stRadio * {
+        color: black !important;
+    }
+    .correct-answer {
+        background-color: #d4edda;
+        padding: 5px;
+        border-radius: 5px;
+        border-left: 5px solid #28a745;
+    }
+    .wrong-answer {
+        background-color: #f8d7da;
+        padding: 5px;
+        border-radius: 5px;
+        border-left: 5px solid #dc3545;
+    }
+    /* Simple card style for home page */
+    .mode-card {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        margin-bottom: 20px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# -----------------------------------------------------------------------------
+# PARSING LOGIC
+# -----------------------------------------------------------------------------
+def load_quiz_data(file_path):
+    if not os.path.exists(file_path):
+        return None, None
+    
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    parts = content.split('---')
+    if len(parts) < 2:
+        return None, None
+    
+    questions_text = parts[0]
+    answers_text = parts[1]
+
+    # Parse Questions
+    questions = {}
+    q_blocks = re.split(r'\n(\d+)\.\s+', questions_text)
+    
+    lines = questions_text.split('\n')
+    parsed_questions = []
+    current_q = None
+    
+    q_start_pattern = re.compile(r'^\s*(\d+)\.\s+(.*)')
+    opt_pattern = re.compile(r'^\s+([A-D])\.\s+(.*)')
+    section_pattern = re.compile(r'^###\s+(.*)')
+    
+    current_section_title = ""
+    
+    for line in lines:
+        stripped = line.strip()
+        m_sec = section_pattern.match(line)
+        if m_sec:
+            current_section_title = m_sec.group(1)
+            continue
+            
+        m_q = q_start_pattern.match(line)
+        if m_q:
+            if current_q:
+                parsed_questions.append(current_q)
+            q_id = int(m_q.group(1))
+            q_text = m_q.group(2)
+            current_q = {
+                "id": q_id,
+                "text": q_text,
+                "options": {},
+                "section": current_section_title,
+                "lines": [q_text]
+            }
+            continue
+            
+        m_opt = opt_pattern.match(line)
+        if m_opt:
+            if current_q:
+                opt_key = m_opt.group(1)
+                opt_val = m_opt.group(2)
+                current_q["options"][opt_key] = opt_val
+            continue
+            
+        if current_q and not current_q['options'] and stripped:
+             current_q['lines'].append(stripped)
+             current_q['text'] = " ".join(current_q['lines'])
+
+    if current_q:
+        parsed_questions.append(current_q)
+
+    answer_map = {}
+    matches = re.findall(r'(\d+):([A-D])', answers_text)
+    for q_id, char in matches:
+        answer_map[int(q_id)] = char
+        
+    return parsed_questions, answer_map
+
+# -----------------------------------------------------------------------------
+# STATE MANAGEMENT
+# -----------------------------------------------------------------------------
+def init_session_state():
+    if 'mode' not in st.session_state:
+        st.session_state.mode = None # 'practice', 'exam', None
+    if 'answers' not in st.session_state:
+        st.session_state.answers = {}
+    if 'submitted' not in st.session_state:
+        st.session_state.submitted = False
+    if 'verified_ids' not in st.session_state:
+        st.session_state.verified_ids = set()
+    
+    # Exam specific
+    if 'exam_questions' not in st.session_state:
+        st.session_state.exam_questions = []
+    if 'exam_start_time' not in st.session_state:
+        st.session_state.exam_start_time = None
+
+def reset_state():
+    st.session_state.answers = {}
+    st.session_state.submitted = False
+    st.session_state.verified_ids = set()
+    st.session_state.exam_start_time = None
+    st.session_state.exam_questions = []
+
+# -----------------------------------------------------------------------------
+# LOGIC: STRATIFIED SAMPLING
+# -----------------------------------------------------------------------------
+def generate_exam_questions(all_questions, total_needed=20):
+    """
+    Selects 20 questions ensuring they are distributed across sections 
+    proportionally to the section size.
+    """
+    if not all_questions:
+        return []
+    
+    # 1. Group by section
+    sections = {}
+    for q in all_questions:
+        sec = q.get('section', 'Unknown')
+        if sec not in sections:
+            sections[sec] = []
+        sections[sec].append(q)
+    
+    # 2. Calculate quotas
+    total_q = len(all_questions)
+    selected_questions = []
+    
+    # Prepare to track remainder
+    quotas = {}
+    for sec, q_list in sections.items():
+        # Raw proportion
+        proportion = len(q_list) / total_q
+        count = proportion * total_needed
+        quotas[sec] = {
+            'list': q_list,
+            'target': int(count),
+            'remainder': count - int(count)
+        }
+    
+    # 3. Initial Fill
+    current_count = 0
+    for sec, data in quotas.items():
+        # Sample the integer part
+        k = min(data['target'], len(data['list']))
+        if k > 0:
+            picked = random.sample(data['list'], k)
+            selected_questions.extend(picked)
+            current_count += len(picked)
+            # Remove picked from list to avoid dups if we needed to pull more? 
+            # (Not needed as random.sample is unique, but we won't sample again from same pool unless logic specifically asks)
+    
+    # 4. Fill Gap (Round-robin based on largest remainder)
+    needed = total_needed - current_count
+    if needed > 0:
+        # Sort sections by remainder descending
+        sorted_secs = sorted(quotas.keys(), key=lambda s: quotas[s]['remainder'], reverse=True)
+        
+        for sec in sorted_secs:
+            if needed == 0:
+                break
+            
+            # Check if we have questions left to pick in this section?
+            # We already picked 'target'. Let's pick one more if possible.
+            # But wait, random.sample returned a new list. We need to respect unique IDs.
+            # Simplified approach:
+            # Re-sample from the full list excluding already selected IDs is safer.
+            
+            # Let's verify:
+            # quotas[sec]['list'] is the full list of that section.
+            # We picked `quotas[sec]['target']` amount.
+            # If len > target, we can pick 1 more.
+             
+            already_picked_count = quotas[sec]['target']
+            total_available = len(quotas[sec]['list'])
+            
+            if total_available > already_picked_count:
+                # We need to pick one that wasn't already picked.
+                # Since we didn't store exactly WHICH were picked in step 3 (we just extended selected_questions),
+                # we need effectively "sample k+1" instead of "sample k".
+                
+                # To make this clean, let's just update the target in quotas and re-run sampling at the end? 
+                # No, simpler: just increment target for these top remainder sections.
+                quotas[sec]['target'] += 1
+                needed -= 1
+
+    # 5. Final Execution
+    # Now valid targets are set. Let's do the actual sampling here.
+    final_selection = []
+    for sec, data in quotas.items():
+        k = data['target']
+        # Safety clamp
+        k = min(k, len(data['list']))
+        if k > 0:
+            final_selection.extend(random.sample(data['list'], k))
+            
+    # If still short (e.g. small sections), fill with random remaining
+    if len(final_selection) < total_needed:
+        selected_ids = {q['id'] for q in final_selection}
+        pool = [q for q in all_questions if q['id'] not in selected_ids]
+        needed = total_needed - len(final_selection)
+        final_selection.extend(random.sample(pool, min(needed, len(pool))))
+        
+    # Shuffle final list so topics are mixed (simulating real exam)
+    random.shuffle(final_selection)
+    
+    return final_selection
+
+# -----------------------------------------------------------------------------
+# MODES
+# -----------------------------------------------------------------------------
+
+def show_home_page(all_questions):
+    st.title("🎓 Data Mining & Text Analytics")
+    st.markdown("Benvenuto! Scegli la modalità di preparazione.")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.info("### 🏋️ Quizzone (Esercitazione)")
+        st.markdown("""
+        **Caratteristiche:**
+        - Tutte le **134 domande** disponibili.
+        - **Senza limiti di tempo**.
+        - Feedback immediato (verde/rosso).
+        - Possibilità di verificare ogni singola risposta.
+        - Ideale per ripassare e studiare.
+        """)
+        if st.button("Avvia Quizzone", use_container_width=True):
+            reset_state()
+            st.session_state.mode = 'practice'
+            st.rerun()
+
+    with col2:
+        st.warning("### ⏱️ Simulazione Esame")
+        st.markdown("""
+        **Caratteristiche:**
+        - **20 domande** bilanciate per argomento.
+        - **Durata: 30 minuti**.
+        - **Sistema di votazione reale**:
+            - ✅ Risposta corretta: **+1.5 punti**
+            - ⬜ Risposta non data: **0 punti**
+            - ❌ Risposta errata: **-0.5 punti**
+        - Voto finale in **30esimi**.
+        """)
+        if st.button("Avvia Simulazione Esame", use_container_width=True):
+            reset_state()
+            st.session_state.mode = 'exam'
+            st.session_state.exam_start_time = datetime.now()
+            # Select 20 stratified questions
+            st.session_state.exam_questions = generate_exam_questions(all_questions, 20)
+            st.rerun()
+
+def run_practice_mode(questions, correct_answers):
+    st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
+    st.title("🏋️ Quizzone - Tutte le Domande")
+    
+    # Sync widgets logic (Critical for Progress Bar)
+    for q in questions:
+        qid = q['id']
+        key = f"q_{qid}"
+        if key in st.session_state and st.session_state[key]:
+            val = st.session_state[key]
+            letter = val.split(".")[0]
+            st.session_state.answers[qid] = letter
+
+    # Sidebar
+    with st.sidebar:
+        st.title("📊 Controllo")
+        total_q = len(questions)
+        answered_q = len(st.session_state.answers)
+        progress = answered_q / total_q if total_q > 0 else 0
+        st.progress(progress)
+        st.caption(f"Risposte: {answered_q}/{total_q}")
+        
+        if not st.session_state.submitted:
+            if st.button("📝 INVIA QUIZ", type="primary", use_container_width=True):
+                st.session_state.submitted = True
+                st.rerun()
+        else:
+            if st.button("🔄 Reset Quizzone", type="secondary", use_container_width=True):
+                reset_state()
+                st.session_state.mode = 'practice' # Keep mode
+                st.rerun()
+        
+        st.divider()
+        # Navigation Grid
+        with st.expander("🗺️ Navigatore", expanded=False):
+            render_nav_grid(questions, correct_answers)
+
+    # Render Questions (Practice Logic)
+    render_questions(questions, correct_answers, is_exam=False)
+
+def run_exam_mode(questions, correct_answers):
+    # Timer Logic
+    time_limit = timedelta(minutes=30)
+    elapsed = datetime.now() - st.session_state.exam_start_time
+    remaining = time_limit - elapsed
+    
+    if remaining.total_seconds() <= 0:
+        if not st.session_state.submitted:
+            st.session_state.submitted = True
+            st.error("⏰ TEMPO SCADUTO! Il quiz è stato inviato automaticamente.")
+            # Trigger rerun to show results immediately
+            st.rerun()
+    
+    st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
+    
+    # Header Info
+    st.title("⏱️ Simulazione Esame")
+    mins, secs = divmod(int(remaining.total_seconds()), 60)
+    timer_color = "red" if mins < 5 else "blue"
+    if st.session_state.submitted:
+        st.markdown("### 🏁 Esame Terminato")
+    else:
+        st.markdown(f"### Tempo Rimanente: :{timer_color}[{mins:02d}:{secs:02d}]")
+
+    # Sync widgets
+    for q in questions:
+        qid = q['id']
+        key = f"q_{qid}"
+        if key in st.session_state and st.session_state[key]:
+            val = st.session_state[key]
+            letter = val.split(".")[0]
+            st.session_state.answers[qid] = letter
+
+    # Sidebar
+    with st.sidebar:
+        st.title("📊 Esame")
+        st.markdown(f"**Tempo:** {mins:02d}:{secs:02d}")
+        
+        answered_q = len(st.session_state.answers)
+        st.caption(f"Risposte: {answered_q}/{len(questions)}")
+        
+        if not st.session_state.submitted:
+            if st.button("📝 TERMINA ESAME", type="primary", use_container_width=True):
+                st.session_state.submitted = True
+                st.rerun()
+        else:
+            if st.button("🔄 Nuovo Esame", type="secondary", use_container_width=True):
+                 # Revert to home or restart exam? Let's restart exam logic
+                 reset_state()
+                 st.session_state.mode = 'exam'
+                 st.session_state.exam_start_time = datetime.now()
+                 # Need to re-sample questions, handled by caller logic usually, but here we are inside function.
+                 # Better to go home or reload manually. 
+                 # Let's just go home for safety or re-init here.
+                 # To re-sample we need all questions.
+                 # Let's just set mode to None to force home
+                 st.session_state.mode = None
+                 st.rerun()
+
+        st.divider()
+        with st.expander("🗺️ Navigatore", expanded=True):
+             render_nav_grid(questions, correct_answers)
+
+    # Render Questions (Exam Logic)
+    render_questions(questions, correct_answers, is_exam=True)
+
+    # Grading (Specific to Exam)
+    if st.session_state.submitted:
+        calculate_exam_grade(questions, correct_answers)
+
+
+def calculate_exam_grade(questions, correct_answers):
+    st.divider()
+    score = 0
+    details = []
+    
+    correct_count = 0
+    wrong_count = 0
+    blank_count = 0
+    
+    for q in questions:
+        qid = q['id']
+        u_ans = st.session_state.answers.get(qid)
+        c_ans = correct_answers.get(qid)
+        
+        if not u_ans:
+            blank_count += 1
+            # 0 points
+        elif u_ans == c_ans:
+            score += 1.5
+            correct_count += 1
+        else:
+            score -= 0.5
+            wrong_count += 1
+            
+    # Max score possible: 20 * 1.5 = 30
+    # Min score possible: 20 * -0.5 = -10 (but usually floor at 0 or 18 for display?) 
+    # User asked for "Voto in 30esimi".
+    
+    final_vote = max(0, score) # No negative grades on transcript typically
+    
+    st.markdown(f"## 📝 Risultati Esame")
+    
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Voto Finale", f"{final_vote:.1f} / 30")
+    col2.metric("✅ Corrette (+1.5)", correct_count)
+    col3.metric("❌ Errate (-0.5)", wrong_count)
+    col4.metric("⬜ Non date (0)", blank_count)
+    
+    if final_vote >= 18:
+        st.success("🎉 ESAME SUPERATO!")
+        st.balloons()
+    else:
+        st.error("🚫 ESAME NON SUPERATO.")
+
+
+# Helper for Grid
+def render_nav_grid(questions, correct_answers):
+    st.markdown("""
+    <style>
+    .nav-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+    .nav-item { 
+        display: flex; align-items: center; justify_content: center; 
+        padding: 5px; border-radius: 5px; font-size: 12px; font-weight: bold; 
+        text-decoration: none; color: black !important;
+    }
+    .nav-answered { background-color: #d1e7dd; border: 1px solid #badbcc; }
+    .nav-empty { background-color: #f8f9fa; border: 1px solid #dee2e6; }
+    .nav-wrong { background-color: #f8d7da; border: 1px solid #f5c6cb; }
+    .nav-correct { background-color: #198754; color: white !important; }
+    
+    @media (prefers-color-scheme: dark) {
+            .nav-empty { background-color: #343a40; border-color: #495057; color: white !important; }
+            .nav-answered { background-color: #0f5132; border-color: #146c43; color: white !important; }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    html_grid = '<div class="nav-grid">'
+    for q in questions:
+        qid = q['id']
+        css_class = "nav-item nav-empty"
+        
+        if st.session_state.submitted:
+            u_ans = st.session_state.answers.get(qid)
+            c_ans = correct_answers.get(qid)
+            if u_ans == c_ans:
+                css_class = "nav-item nav-correct"
+            elif u_ans:
+                css_class = "nav-item nav-wrong"
+        else:
+            if qid in st.session_state.answers:
+                css_class = "nav-item nav-answered"
+        
+        html_grid += f'<a href="#q_{qid}" class="{css_class}">{qid}</a>'
+    html_grid += '</div>'
+    st.markdown(html_grid, unsafe_allow_html=True)
+
+
+# Helper for Questions
+def render_questions(questions, correct_answers, is_exam):
+    # Group by sections if Practice, or just List if Exam?
+    # Exam usually just list or maybe Sections if available.
+    # Let's keep sections logic if available, otherwise just list.
+    
+    if is_exam:
+        # Just simple list 1 to 20
+        for i, q in enumerate(questions):
+            render_single_question(q, correct_answers, i+1)
+    else:
+        # Group by sections
+        sections = {}
+        for q in questions:
+            sec = q['section']
+            if sec not in sections: sections[sec] = []
+            sections[sec].append(q)
+            
+        for sec_name, sec_questions in sections.items():
+            st.header(sec_name)
+            for q in sec_questions:
+                render_single_question(q, correct_answers)
+                
+    # Practice Mode Results (at buttom)
+    if not is_exam and st.session_state.submitted:
+         st.divider()
+         score = 0
+         total = len(questions)
+         for q in questions:
+             if st.session_state.answers.get(q['id']) == correct_answers.get(q['id']):
+                 score += 1
+         st.markdown(f"### 🏆 Risultato: {score} / {total}")
+         st.progress(score/total)
+
+
+def render_single_question(q, correct_answers, display_num=None):
+    q_id = q['id']
+    title_text = f"{display_num}. {q['text']}" if display_num else f"{q_id}. {q['text']}"
+    
+    # Anchor
+    st.markdown(f"<div id='q_{q_id}'></div>", unsafe_allow_html=True)
+    
+    show_feedback = st.session_state.submitted or (q_id in st.session_state.verified_ids)
+    
+    status_md = ""
+    if show_feedback:
+        u_ans = st.session_state.answers.get(q_id)
+        c_ans = correct_answers.get(q_id)
+        if not u_ans:
+            status_md = "⚠️ Non risposta"
+        elif u_ans == c_ans:
+            status_md = f"✅ Corretto ({c_ans})"
+        else:
+            c_text = q['options'].get(c_ans, "N/A")
+            status_md = f"❌ Errato. Corretta: **{c_ans}** ({c_text})"
+    
+    with st.container(border=True):
+        st.markdown(f"**{title_text}**")
+        
+        opts = q['options']
+        options_display = [f"{k}. {v}" for k, v in opts.items()]
+        
+        index = None
+        if q_id in st.session_state.answers:
+            saved = st.session_state.answers[q_id]
+            for i, o in enumerate(options_display):
+                if o.startswith(f"{saved}."):
+                    index = i
+                    break
+        
+        sel = st.radio(
+            "Opzioni:", 
+            options_display, 
+            index=index, 
+            key=f"q_{q_id}", 
+            disabled=show_feedback,
+            label_visibility="collapsed"
+        )
+        
+        if sel:
+            st.session_state.answers[q_id] = sel.split(".")[0]
+            
+        # Verify Button (Only in Practice)
+        if st.session_state.mode == 'practice' and not show_feedback:
+             if st.button("Verifica", key=f"btn_ver_{q_id}"):
+                 st.session_state.verified_ids.add(q_id)
+                 st.rerun()
+                 
+        if show_feedback:
+            if "✅" in status_md: st.success(status_md)
+            elif "❌" in status_md: st.error(status_md)
+            else: st.warning(status_md)
+
+
+# -----------------------------------------------------------------------------
+# MAIN
+# -----------------------------------------------------------------------------
+def main():
+    FILE_PATH = "simulazione_esame_completa.txt"
+    all_questions, correct_answers = load_quiz_data(FILE_PATH)
+    
+    if not all_questions:
+        st.error("File dati non trovato.")
+        return
+
+    init_session_state()
+
+    if st.session_state.mode is None:
+        show_home_page(all_questions)
+        
+    elif st.session_state.mode == 'practice':
+        run_practice_mode(all_questions, correct_answers)
+        
+    elif st.session_state.mode == 'exam':
+        # Ensure we have exam questions selected
+        if not st.session_state.exam_questions:
+             # Fallback if empty (shouldn't happen if initialized correctly)
+             st.session_state.exam_questions = random.sample(all_questions, 20)
+        
+        run_exam_mode(st.session_state.exam_questions, correct_answers)
+
+if __name__ == "__main__":
+    main()

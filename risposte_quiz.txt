@@ -1,0 +1,408 @@
+# Risposte Quiz Data Mining
+
+In questo file verranno salvate le risposte alle domande del quiz.
+
+---
+
+## Domanda 1
+**Cos'è CBOW?**
+- Opzione A: CBOW sta per Continuous Bag of Words è una delle architetture su cui si basa la tecnica Word2Vec
+- Opzione B: CBOW sta per Continuous Bag of Words è una tecnica che permette di effettuare la tokenization
+- Opzione C: CBOW sta per Continuous Bag of Words è una tecnica che permette di effettuare la Named Entity Recognition (NER)
+- Opzione D: Nessuna delle opzioni rappresenta una corretta definizione di CBOW
+
+**Risposta Corretta:** Opzione A
+
+**Spiegazione:**
+Il testo conferma che CBOW (Continuous Bag of Words) è una delle due architetture principali utilizzate dalla tecnica **word2vec** (l'altra è skip-gram).
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf*
+> "Un metodo di rilievo è word2vec, sviluppato da Google, che utilizza architetture come continuous bag-of-words (CBOW) e continuous skip-gram..."
+
+---
+
+## Domanda 2
+**A cosa si fa riferimento quando si legge la seguente definizione: "… si riferisce ai valori veri e verificati o alle etichette utilizzate come benchmark per l'addestramento e la valutazione di modelli."?**
+- Opzione A: clustering a partizionamento
+- Opzione B: clustering gerarchico
+- Opzione C: ground-truth
+- Opzione D: falsi positivi, falsi negativi
+
+**Risposta Corretta:** Opzione C
+
+**Spiegazione:**
+La definizione nella domanda corrisponde esattamente alla descrizione di **Ground Truth** (verità di base) fornita nelle slide. Si riferisce ai valori o alle etichette verificate (etichette "label") usate come riferimento standard per addestrare e valutare i modelli.
+
+**Riferimento nel testo:**
+Documento: *Lecture_02_Clustering_Techniques.pdf*
+> "In data science, Ground Truth refers to the true, verified values or labels used as a benchmark to train and evaluate models."
+
+---
+
+## Domanda 3
+**Dati e Noise. Qual è l'obiettivo di una funzione di "image denoising"? Scegli la risposta che ritieni più opportuna.**
+- Opzione A: Eliminare il cosiddetto "noise" e il "bias" a livello dei pixel.
+- Opzione B: Eliminare il cosiddetto "noise" a livello dei pixel
+- Opzione C: Eliminare il cosiddetto "bias" a livello dei pixel
+- Opzione D: Nessuna delle opzioni è corretta
+
+**Risposta Corretta:** Opzione B
+
+**Spiegazione:**
+Nel documento "APPUNTI LEZIONE", si distingue nettamente tra **Rumore (noise)** e **Bias**.
+Il **Rumore** viene descritto, ad esempio, come "Rumore sale e pepe (pixel bianchi e neri sull'immagine)" che può essere cancellato con filtri (denoising).
+Il **Bias** è invece definito come "pregiudizi" (es. di genere) riflessi nei dati, non un disturbo a livello di pixel.
+Pertanto, l'image denoising agisce sul noise (pixel), non sul bias.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Introduzione)
+> "Rumore sale e pepe (pixel bianchi e neri sull'immagine), attraverso il filtro mediano è possibile cancellare il rumore [...] Bias (altro tipo di rumore) —> pregiudizi..."
+
+---
+
+## Domanda 4
+**Quale tecnica di text mining fornisce un output del genere?**
+"Tim Cook" - PERSON (People, including fictional)
+"Microsoft" - ORG (Companies, agencies, institutions)
+"Seattle" - GPE (Countries, cities, states)
+"Friday" - DATE (Absolute or relative dates or periods)
+"AI" - ORG (Companies, agencies, institutions)
+"$50 million" - MONEY
+- Opzione A: POS Tagging
+- Opzione B: NER
+- Opzione C: Tokenization
+- Opzione D: Nessuna delle opzioni
+
+**Risposta Corretta:** Opzione B
+
+**Spiegazione:**
+L'esempio fornito nella domanda è identico a quello presente nelle dispense per spiegare il **NER (Named Entity Recognition)**. Questa tecnica identifica e classifica entità come persone, organizzazioni, luoghi, date e valori monetari all'interno del testo.
+Il *POS Tagging* identifica le parti del discorso (verbi, nomi, ecc.), mentre la *Tokenization* divide il testo in parole/unità. L'output mostrato è chiaramente NER.
+
+**Riferimento nel testo:**
+Documento: *Lecture_05 Text_Mining_2.pdf* (Slide "NER – an example") e *APPUNTI LEZIONE_mining copia.pdf*
+> "NER output [...] 'Tim Cook' - PERSON [...] 'Microsoft' - ORG [...]"
+
+---
+
+## Domanda 5
+**Quale delle seguenti opzioni rappresenta una corretta definizione di Lexicon?**
+- Opzione A: Archivia i significati e gli usi di ogni parola. Codifica le relazioni tra parole e significati.
+- Opzione B: Archivia la sintassi e gli usi di ogni frase di un corpus testuale
+- Opzione C: Archivia i significati e gli usi di ogni parola, ma non codifica le relazioni tra le parole e i loro significati.
+- Opzione D: Nessuna delle opzioni fornite è corretta
+
+**Risposta Corretta:** Opzione A
+
+**Spiegazione:**
+Hai ragione! Controllando testualmente il documento "APPUNTI LEZIONE_mining copia.pdf" a pagina 32 (circa riga 2332-2336 nel file di testo consolidato), la definizione data è esattamente:
+*"Lessico (Lexicon): Generalmente ha una forma altamente strutturata, immagazzinando i significati e gli usi di ciascuna parola e codificando le relazioni tra parole e significati."*
+Differisce dalla definizione linguistica standard (che spesso distingue il lessico dalle ontologie relazionali), ma ai fini dell'esame vale quanto scritto negli appunti.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf*
+> "Lessico (Lexicon): Generalmente ha una forma altamente strutturata, immagazzinando i significati e gli usi di ciascuna parola e codificando le relazioni tra parole e significati."
+
+---
+
+## Domanda 6
+**A cosa si fa riferimento quando si legge la seguente definizione? "… contiene un sottoinsieme dei dati aziendali complessivi di valore per uno specifico gruppo di utenti, come quelli appartenenti a un reparto aziendale. L’ambito è limitato a soggetti specifici."**
+- Opzione A: Enterprise Data Warehouse
+- Opzione B: Data Mart
+- Opzione C: Data Lake
+- Opzione D: Nessuna delle opzioni fornite è corretta
+
+**Risposta Corretta:** Opzione B
+
+**Spiegazione:**
+La definizione data nella domanda è copiata quasi parola per parola dalla sezione degli appunti che definisce il **Data Mart**. Un Data Mart è descritto proprio come un sottoinsieme del Data Warehouse focalizzato su uno specifico dipartimento o gruppo di utenti (es. marketing).
+L'Enterprise Data Warehouse (Option A) raccoglie invece i dati dell'*intera* organizzazione.
+Il Data Lake (Option (C) raccoglie dati *grezzi* di varia natura.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Data Mart")
+> "Data Mart: Contiene un sottoinsieme di dati aziendali di valore per un gruppo specifico di utenti (ad esempio un dipartimento). Il suo ambito è limitato a determinati soggetti."
+
+---
+
+## Domanda 7
+**Il dendrogramma è una rappresentazione grafica che consente di analizzare e leggere informazioni relative a ... (scegli l'opzione corretta).**
+- Opzione A: K-means
+- Opzione B: Clustering gerarchico
+- Opzione C: DBSCAN
+- Opzione D: Nessuna delle opzioni fornite è corretta
+
+**Risposta Corretta:** Opzione B
+
+**Spiegazione:**
+Il **Dendrogramma** è il diagramma ad albero fondamentale e distintivo utilizzato per visualizzare i risultati del **Clustering Gerarchico** (Hierarchical Clustering). Mostra come i cluster vengono uniti (approccio agglomerativo) o divisi (approccio divisivo) passa dopo passo.
+K-means e DBSCAN non producono dendrogrammi nativamente.
+
+**Riferimento nel testo:**
+Documento: *Lecture_02_Clustering_Techniques.pdf* (Sezione "Dendrogram")
+> "A dendrogram is a tree-like diagram that records the sequences of merges or splits." (Nel contesto delle slide sul Hierarchical Clustering).
+
+---
+
+## Domanda 8
+**Quale degli step di Text Mining è caratterizzato dalla seguente proprietà? "… è un approccio statistico che assegna una probabilità di argomento a ogni parola."**
+- Opzione A: NER (Named Entity Recognition)
+- Opzione B: Tokenization
+- Opzione C: Lemming
+- Opzione D: Topic Modeling
+
+**Risposta Corretta:** Opzione D
+
+**Spiegazione:**
+La definizione nella domanda proviene direttamente dal paragrafo degli appunti relativo al **Topic Model** (o Topic Modeling). Lì si afferma che è un "approccio statistico che assegna un valore di probabilità di argomento a ciascuna parola", permettendo di capire di cosa parla un documento analizzando le parole che lo compongono.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf*
+> "Il Modello di Argomento (Topic Model) è un approccio statistico che assegna un valore di probabilità di argomento a ciascuna parola."
+
+---
+
+## Domanda 9
+**Quale delle seguenti affermazioni relative al concetto di pattern è corretta?**
+- Opzione A: I pattern possono essere trovati solo nei dati strutturati
+- Opzione B: I pattern possono essere trovati solo nei dati non strutturati
+- Opzione C: I pattern possono essere trovati sia nei dati strutturati che nei dati non strutturati
+- Opzione D: Nessuna delle opzioni fornite è corretta
+
+**Risposta Corretta:** Opzione C
+
+**Spiegazione:**
+Gli appunti affermano esplicitamente che i pattern possono emergere e essere trovati in entrambe le tipologie di dati: sia **dati strutturati** (database relazionali, tabelle) sia **dati non strutturati** (testi, immagini, flussi log).
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Paragrafo "4. Tipologia di dati")
+> "I pattern possono emergere sia da dati strutturati (tabelle, database relazionali) sia da dati non strutturati (testi, immagini, flussi di log)."
+
+---
+
+## Domanda 10
+**Quale delle seguenti affermazioni è corretta?**
+- Opzione A: Il criterio di convergenza del perceptron dipende dalla separabilità lineare dei dati.
+- Opzione B: Il criterio di convergenza del perceptron non dipende dalla separabilità lineare dei dati.
+- Opzione C: Il criterio di convergenza del perceptron dipende dal numero di variabili di input
+- Opzione D: Il criterio di convergenza del perceptron dipende esclusivamente dal valore dei pesi assegnati
+
+**Risposta Corretta:** Opzione A
+
+**Spiegazione:**
+Il Teorema di convergenza del Perceptron (e quanto riportato specificamente in *Lecture 03*) stabilisce che l'algoritmo **garantisce la convergenza** (ossia di trovare un iperpiano di separazione e smettere di aggiornare i pesi) **solo se e quando** i dati di input sono **linearmente separabili**. Se i dati non lo sono, (senza accorgimenti come il limite di epoche) l'algoritmo continuerebbe a ciclare all'infinito cercando una soluzione che non esiste.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Vincoli e Limitazioni del Perceptron") e *Lecture_03_Perceptron_and_Learning_Process.pdf*
+> "Quando i dati sono linearmente separabili, l'algoritmo di apprendimento del Perceptron è garantito di convergere... Al contrario, se i dati non sono linearmente separabili, il Perceptron non convergerà..."
+
+---
+
+## Domanda 11
+**Qual è il ruolo dei Pooling Layer nelle CNNs (Convolutional Neural Networks)?**
+- Opzione A: I layer di pooling permettono di estrarre caratteristiche a partire dai filtri di convoluzione.
+- Opzione B: I layer di pooling permettono di fornire una versione più piccola del dato che viene elaborato (sottocampionamento)
+- Opzione C: I layer di pooling rappresentano l'output layer delle CNNs
+- Opzione D: I layer di pooling permettono di restituire una versione più grande del dato che viene elaborato in input (sovracampionamento)
+
+**Risposta Corretta:** Opzione B
+
+**Spiegazione:**
+Nelle dispense (Lecture 06) si afferma esplicitamente che i "Pooling layers" servono a fare **downsample** (sottocampionamento) dei feature vectors, ottenendo una "smaller representation" (versione più piccola) dei dati.
+L'opzione A si riferisce ai *Convolutional Layers* (che estraggono le feature), mentre l'opzione D descrive l'opposto del pooling (upsampling).
+
+**Riferimento nel testo:**
+Documento: *Lecture_06 Text Classification.pdf* (Sezione "Convolutional Neural Networks")
+> "Pooling layers downsample the feature vectors and obtain a smaller representation of data."
+
+---
+
+## Domanda 12
+**Quanti step sono inclusi nel cosiddetto KDP (Knowledge Discovery Process)?**
+- Opzione A: 3
+- Opzione B: 4
+- Opzione C: 7
+- Opzione D: 5
+
+**Risposta Corretta:** Opzione C
+
+**Spiegazione:**
+Nel documento "APPUNTI LEZIONE", nella sezione "La Scoperta di Conoscenza come Processo", viene affermato quasi testualmente: *"The Knowledge Discovery Process comprises 7 steps"*.
+I passaggi elencati includono tipicamente:
+1.  Data Cleaning
+2.  Data Integration
+3.  Data Selection
+4.  Data Transformation
+5.  Data Mining
+6.  Pattern Evaluation
+7.  Knowledge Presentation
+
+(Nota: Sebbene alcuni framework ne contino 5, il testo del corso ne specifica espressamente **7**).
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf*
+> "La Scorperta di Conoscenza come Processo (Knowledge Discovery as a Process)... This process comprises 7 steps."
+
+---
+
+## Domanda 13
+**Quando si tratta di Multilayer Feedforward Neural Network, quale delle seguenti affermazioni NON è corretta?**
+- Opzione A: Si tratta di reti neurali in cui l'elaborazione dell'informazione si propaga in avanti.
+- Opzione B: Si tratta di reti neurali in cui l'elaborazione dell'informazione si propaga all'indietro.
+- Opzione C: Si tratta di reti neurali in cui l'elaborazione dell'informazione prevede l'uso di input layer, layer intermedi (hidden) e output layer.
+- Opzione D: Sono reti neurali in cui si utilizzano le cosiddette funzioni di attivazione per fornire l'output di ogni singolo "nodo".
+
+**Risposta Corretta:** Opzione B
+
+**Spiegazione:**
+Il termine "Feedforward" significa letteralmente "che alimenta in avanti". In queste reti, l'informazione viaggia solo in una direzione: dall'input, attraverso i layer nascosti (hidden), fino all'output. Non ci sono cicli o loop.
+L'opzione B afferma che l'informazione si propaga *all'indietro*, il che è falso per la fase di elaborazione (inference). La propagazione all'indietro (backpropagation) avviene solo durante l'addestramento per aggiornare i pesi, ma non definisce il flusso dell'informazione nella rete feedforward stessa. Essendo una domanda che chiede cosa NON è corretto, la B è la risposta giusta.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Multilayer Feed-Forward Neural Network")
+> Descrive l'architettura con Input Layer -> Hidden Layers -> Output Layer (flusso in avanti).
+
+---
+
+## Domanda 14
+**Un file HTML è un esempio di ... (completa la frase utilizzando una delle opzioni a disposizione).**
+- Opzione A: dato strutturato
+- Opzione B: dato non strutturato
+- Opzione C: dato semistrutturato
+- Opzione D: Nessuna delle opzioni è corretta
+
+**Risposta Corretta:** Opzione C
+
+**Spiegazione:**
+Nel documento "APPUNTI LEZIONE" (Sezione "Dati semistrutturati" o "La Struttura del Contenuto Testuale"), i file **HTML** sono elencati insieme a XML come esempi classici di **dati semistrutturati** (Semi-Structured Data).
+Questo perché, pur non avendo uno schema rigido come una tabella di database (dati strutturati), possiedono un'organizzazione interna data dai tag e dalla gerarchia che li distingue dal semplice testo libero (dati non strutturati).
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Dati Semistrutturati")
+> "Dati Semistrutturati (Semi-Structured Data): ... Esempi includono documenti XML e pagine web HTML/file HTML."
+
+---
+
+## Domanda 15
+**Quando si tratta di algoritmi di clustering divisivo e agglomerativo, si fa riferimento a ... (scegli l'opzione corretta).**
+- Opzione A: Clustering a partizionamento
+- Opzione B: Clustering gerarchico
+- Opzione C: DBSCAN
+- Opzione D: K-means
+
+**Risposta Corretta:** Opzione B
+
+**Spiegazione:**
+Tra i principali metodi di clustering, il **Clustering Gerarchico** (Hierarchical Clustering) è quello che si divide in due famiglie, descritte negli appunti come:
+1.  **Agglomerativo (Agglomerative)**: Approccio *bottom-up*, dove si parte da tanti cluster quanti sono i punti e si uniscono.
+2.  **Divisivo (Divisive)**: Approccio *top-down*, dove si parte da un unico cluster e lo si divide ricorsivamente.
+Il K-means è un clustering a partizionamento, mentre DBSCAN è basato sulla densità.
+
+**Riferimento nel testo:**
+Documento: *Lecture_02_Clustering_Techniques.pdf* (e *APPUNTI LEZIONE_mining copia.pdf*)
+> "Un metodo di Clustering Gerarchico funziona raggruppando i dati in un albero di cluster. Esistono due approcci principali per costruire questa gerarchia: Agglomerativo (Bottom-Up) e Divisivo (Top-Down)."
+
+---
+
+## Domanda 16
+**Si considerino le seguenti tre parole: "gattone", "pescatore", "giocare". Qual è il risultato della lemmatizzazione?**
+- Opzione A: gattone → gatto, pescatore → pescatore, giocare → giocare
+- Opzione B: gattone → gattone, pescatore → pesca, giocare → gioco
+- Opzione C: gattone → gattone, pescatore → pescatore, giocare → giocare
+- Opzione D: gattone → gatto, pescatore → pescare, giocare → giocare
+
+**Risposta Corretta:** Opzione A
+
+**Spiegazione:**
+Come indicato a pagina 33 degli appunti, la **Lemmatizzazione** riporta le parole alla loro forma base (lemma) nel dizionario, mentre lo **Stemming** tronca i suffissi (es. *fisher* → *fish*).
+Applicando le definizioni:
+- **Pescatore**: A differenza dello stemming, la lemmatizzazione *mantiene* la distinzione tra sostantivo agente e verbo/radice. Quindi resta **pescatore** (non diventa *pesca* o *pescare*).
+- **Giocare**: È l'infinito del verbo, quindi resta **giocare**.
+- **Gattone**: In questo contesto specificato dalla domanda, viene apparentemente trattato come una forma alterata da ricondurre al lemma radice **gatto**, distinguendo così l'opzione A dall'opzione C (che lasciava gattone invariato). Essendo l'opzione C errata (come da segnalazione), la normalizzazione di *gattone* in *gatto* è la chiave corretta.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Pagina 33)
+> Distinzione tra Lemmatizzazione (ripristino forma originale) e Stemming (rimozione affissi, es. fisher -> fish). La lemmatizzazione non "mutila" pescatore in pesca.
+
+---
+
+## Domanda 17
+**La Word Vector Representation è una tecnica ampiamente utilizzata nel text mining. Quale delle seguenti opzioni correttamente rappresenta una sfida per la tecnica menzionata?**
+- Opzione A: La connessione della semantica lessicale delle parole con la semantica di frasi, enunciati, paragrafi e documenti
+- Opzione B: La connessione della sintassi con la semantica di frasi, enunciati, paragrafi e documenti
+- Opzione C: La connessione della semantica lessicale delle parole con la sintassi di frasi, enunciati, paragrafi e documenti
+- Opzione D: Nessuna delle opzioni rappresenta una sfida per la Word Vector Representation.
+
+**Risposta Corretta:** Opzione A
+
+**Spiegazione:**
+Il documento "APPUNTI LEZIONE_mining copia.pdf" contiene un paragrafo intitolato "La Sfida della Rappresentazione Vettoriale".
+In esso si legge testualmente: *"Nonostante l'efficacia a livello lessicale, il limite risiede nel collegamento della semantica delle singole parole alla semantica di insiemi più grandi di parole, come frasi, proposizioni, paragrafi e la semantica del discorso."*
+Questo concetto si riferisce alla difficoltà di passare dalla semantica delle parole singole (dove word2vec eccelle) alla semantica composizionale di frasi intere.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Sezione "La Sfida della Rappresentazione Vettoriale")
+> *"il limite risiede nel collegamento della semantica delle singole parole alla semantica di insiemi più grandi di parole..."*
+
+---
+
+## Domanda 18
+**Quale delle seguenti affermazioni relative ai sistemi di clustering a partizionamento NON è corretta?**
+- Opzione A: I sistemi di clustering a partizionamento possono modificare il numero di cluster di output durante l'esecuzione.
+- Opzione B: I sistemi di clustering a partizionamento devono conoscere il numero di cluster di output in anticipo
+- Opzione C: I sistemi di clustering a partizionamento suddividono i data points in gruppi esclusivi (i dati appartenenti al cluster A non possono appartenere al cluster B).
+- Opzione D: Tutte le opzioni fornite sono corrette
+
+**Risposta Corretta:** Opzione A
+
+**Spiegazione:**
+La caratteristica fondamentale (e limitazione) dei metodi di clustering a partizionamento standard come il **K-Mmeans**, come riportato negli appunti, è che *"richiede obbligatoriamente la specifica del numero k di cluster in anticipo"* (Opzione B è vera).
+Inoltre, creano partizioni esclusive (un punto sta in un solo cluster, Opzione C è vera).
+Di conseguenza, l'affermazione che **NON è corretta** è la A: questi sistemi *non* modificano dinamicamente il numero di cluster durante l'esecuzione; il numero *k* è fissato all'inizio.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Sezione "K-Means: Un Metodo di Partizionamento")
+> "Limitazioni (Cons) significative: richiede obbligatoriamente la specifica del numero k di cluster in anticipo."
+
+---
+
+## Domanda 19
+**A cosa si fa riferimento quando si legge la seguente definizione? "... è l’estrazione automatizzata o facilitata di modelli che rappresentano conoscenza implicitamente memorizzata o acquisita in grandi basi di dati, data warehouse, il Web, altri grandi archivi di informazioni o flussi di dati."**
+- Opzione A: Pattern Extraction
+- Opzione B: Knowledge Discovery Process
+- Opzione C: Knowledge Discovery from Data
+- Opzione D: Nessuna delle opzioni fornite è corretta
+
+**Risposta Corretta:** Opzione C
+
+**Spiegazione:**
+La frase riportata nella domanda è la prima parte della **Definizione formale di Data Mining** presente nella sezione introduttiva degli appunti, che recita: *"Il data mining, comunemente noto anche come Knowledge Discovery from Data (KDD), è l’estrazione automatizzata o facilitata di pattern che rappresentano conoscenza implicitamente memorizzata o catturata in grandi database..."*.
+Il termine *Knowledge Discovery from Data* (KDD) è usato come sinonimo formale di Data Mining.
+Il *Knowledge Discovery Process* (Opzione B) si riferisce tipicamente all'intero ciclo di 7 step (che include anche Data Cleaning, ecc.), ma la definizione testuale fornita coincide con l'etichetta KDD/Data Mining.
+
+**Riferimento nel testo:**
+Documento: *APPUNTI LEZIONE_mining copia.pdf* (Intro, "Definizione formale di Data Mining")
+> *"Il data mining, comunemente noto anche come Knowledge Discovery from Data (KDD), è l’estrazione automatizzata..."*
+
+---
+
+## Domanda 20
+**Cosa indicano i termini w(i) nell'architettura del perceptron?**
+- Opzione A: I pesi (o coefficienti) e il bias
+- Opzione B: il bias
+- Opzione C: I pesi (o coefficienti)
+- Opzione D: I valori di input
+
+**Risposta Corretta:** Opzione C
+
+**Spiegazione:**
+Nell'architettura del Perceptron descritta negli appunti (Lecture 03), viene specificato: *"Each input (xi) is multiplied by its corresponding weight (wi)."*
+Separatamente, viene introdotto *b* come *"an extra input (or parameter) accounting for BIAS"*.
+Quindi, la notazione indicizzata $w_i$ (o w(i)) si riferisce specificamente ai **pesi** (weights) o coefficienti che moltiplicano gli input, distinti dal bias.
+
+**Riferimento nel testo:**
+Documento: *Lecture_03_Perceptron_and_Learning_Process.pdf*
+> "Each input (xi) is multiplied by its corresponding weight (wi)."
+
+---

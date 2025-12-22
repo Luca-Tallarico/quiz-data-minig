@@ -1,0 +1,263 @@
+# Risposte Quiz Data Mining - Parte 2
+
+Questo file contiene le risposte alle domande fornite tramite screenshot (Domanda_1.png - Domanda_13.png).
+
+---
+
+## Domanda 1
+**Complete the following statement: "A data warehouse is ..."**
+*(Completa la seguente affermazione: "Un Data Warehouse è ...")*
+
+- **Opzioni:**
+    - A group of database *(Un gruppo di database)*
+    - A system that handles data coming from different sources. *(Un sistema che gestisce dati provenienti da diverse fonti)*
+    - A DBMS *(Un DBMS)*
+    - None of the above *(Nessuna delle precedenti)*
+
+**Risposta Corretta:** A system that handles data coming from different sources.
+
+**Spiegazione:**
+Il **Data Warehouse** è definito negli appunti come un sistema progettato per supportare la Business Intelligence integrando dati che provengono da una "molteplicità di fonti" (es. database transazionali, log, CRM) in uno schema unificato. L'opzione "Un gruppo di database" è imprecisa, mentre la definizione sulla gestione di fonti multiple è quella che meglio descrive la sua funzione di integrazione (Data Integration).
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Data Warehouse").
+
+---
+
+## Domanda 2
+**Knowledge Discovery Process (KDP). Which of the following includes the first four steps of KDP?**
+*(Knowledge Discovery Process (KDP). Quale delle seguenti opzioni include i primi quattro passaggi del KDP?)*
+
+- **Opzioni:**
+    - Knowledge Representation, Data Mining, Pattern Evaluation, Data Cleaning
+    - Data Cleaning, Data Integration, Data Selection, Pattern Evaluation
+    - Data Cleaning, Data Integration, Data Selection, Data Transformation
+    - None of the above *(Nessuna delle precedenti)*
+
+**Risposta Corretta:** Data Cleaning, Data Integration, Data Selection, Data Transformation
+
+**Spiegazione:**
+Il processo tipico di **Knowledge Discovery (KDD)** segue questo ordine sequenziale nei primi passaggi:
+1. **Data Cleaning** (Pulizia dei dati)
+2. **Data Integration** (Integrazione dei dati)
+3. **Data Selection** (Selezione dei dati rilevanti)
+4. **Data Transformation** (Trasformazione dei dati per il mining)
+Il **Data Mining** avviene successivamente (step 5), seguito da **Pattern Evaluation** e **Knowledge Presentation**. L'opzione indicata è l'unica che elenca correttamente i primi quattro step in ordine logico (o quasi, a seconda delle varianti, ma Selection e Transformation precedono sempre il Mining e l'Evaluation).
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "KDP: Passi principali").
+
+---
+
+## Domanda 3
+**Which of the following statements is correct?**
+*(Quale delle seguenti affermazioni è corretta?)*
+
+- **Opzioni:**
+    - Stats and trends allow us to find all patterns in data *(Statistiche e trend ci permettono di trovare tutti i pattern nei dati)*
+    - Data Mining comes into play to extract patterns that cannot be easily found with stats and trends *(Il Data Mining entra in gioco per estrarre pattern che non possono essere facilmente trovati con statistiche e trend)*
+    - Data Mining is run before extracting stats and trends on data *(Il Data Mining viene eseguito prima di estrarre statistiche e trend sui dati)*
+
+**Risposta Corretta:** Data Mining comes into play to extract patterns that cannot be easily found with stats and trends
+
+**Spiegazione:**
+Gli appunti specificano che mentre statistiche e trend possono rivelare alcune correlazioni semplici, altri pattern sono "non altrettanto semplici da estrarre". Il **Data Mining** serve proprio a scoprire "conoscenza nascosta" o relazioni non ovvie (unknown patterns) che sfuggono all'analisi statistica tradizionale o descrittiva di base.
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Statistiche e Tendenze").
+
+---
+
+## Domanda 4
+**What does KDD stand for?**
+*(Cosa significa l'acronimo KDD?)*
+
+- **Opzioni:**
+    - Knowledge Discovery Data
+    - None of the above *(Nessuna delle precedenti)*
+    - Knowledge Detection in Databases
+    - Knowledge Database Discovery
+
+**Risposta Corretta:** None of the above
+
+**Spiegazione:**
+L'acronimo **KDD** sta formalmente per **"Knowledge Discovery in Databases"** (o come citato negli appunti specifici, talvolta "Knowledge Discovery from Data").
+- L'opzione "Knowledge Discovery Data" è grammaticalmente incompleta (manca "from" o "in").
+- "Knowledge Detection in Databases" usa "Detection" al posto di "Discovery".
+- "Knowledge Database Discovery" ha un ordine errato.
+Pertanto, "Nessuna delle precedenti" è la risposta tecnicamente più rigorosa.
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Definizione formale di Data Mining").
+
+---
+
+## Domanda 5
+**Relational Scheme. Tick the answer that represents relational database properties the most.**
+*(Schema Relazionale. Seleziona la risposta che rappresenta meglio le proprietà di un database relazionale.)*
+
+- **Opzioni:**
+    - Unstructured data; Tables; Primary Key
+    - Structured data; Tables; Primary Key
+    - Structured data; Tables; Primary Key; External Key
+
+**Risposta Corretta:** Structured data; Tables; Primary Key; External Key
+
+**Spiegazione:**
+I **Database Relazionali** gestiscono **Structured Data** (dati strutturati). Le loro proprietà fondamentali descritte negli schemi logici includono:
+- **Tables** (Tabelle/Entità)
+- **Primary Key** (Chiave Primaria per identificare le righe)
+- **External Key** (o Foreign Key/Chiave Esterna) per stabilire le relazioni tra le tabelle.
+L'opzione che include anche la "External Key" è la più completa e rappresentativa della natura "relazionale".
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Databases" e "Schemi logici").
+
+---
+
+## Domanda 6
+**Which one of the following words would you use to complete the statement below: "A spreadsheet file contains _______ data."**
+*(Quale delle seguenti parole useresti per completare la frase: "Un file foglio di calcolo contiene dati wns _______.")*
+
+- **Opzioni:**
+    - unstructured *(non strutturati)*
+    - structured *(strutturati)*
+    - semi-structured *(semi-strutturati)*
+    - none of the above *(nessuna delle precedenti)*
+
+**Risposta Corretta:** structured
+
+**Spiegazione:**
+Negli appunti, nella sezione "Tipologia di dati", i **Dati Strutturati** vengono descritti come dati con un elevato grado di organizzazione, e viene fatto esplicitamente l'esempio: *"in modo simile a un foglio di calcolo"* (spreadsheet). Pertanto, nel contesto di questo corso, i fogli di calcolo sono considerati contenitori di dati strutturati.
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "4. Tipologia di dati -> Dati strutturati").
+
+---
+
+## Domanda 7
+**Which of the following stands on the highest position in the hierarchical data analysis management?**
+*(Quale delle seguenti opzioni si trova nella posizione più in alto nella gerarchia della gestione dell'analisi dei dati?)*
+
+- **Opzioni:**
+    - Database
+    - Data Warehose
+    - Data Mining
+
+**Risposta Corretta:** Data Mining
+
+**Spiegazione:**
+Questa domanda si riferisce all'evoluzione o alla piramide della conoscenza/analisi.
+1. Il **Database** gestisce i dati operativi (livello base).
+2. Il **Data Warehouse** integra questi dati per l'analisi (Business Intelligence, livello intermedio).
+3. Il **Data Mining** rappresenta il livello più avanzato ("highest position"), dove si applicano algoritmi intelligenti sui dati (spesso provenienti dal Data Warehouse) per estrarre nuova conoscenza e pattern predittivi. È il culmine del processo di valorizzazione del dato.
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Evoluzione da Database a Data Warehouse a Data Mining).
+
+---
+
+## Domanda 8
+**Data Warehouse scenario. You want to dissect data on specific attributes. Which of the following corresponds to a zoom-in on data?**
+*(Scenario Data Warehouse. Vuoi analizzare i dati su attributi specifici. Quale delle seguenti opzioni corrisponde a uno "zoom-in" sui dati?)*
+
+- **Opzioni:**
+    - Roll-up
+    - Drill-down
+    - OLAP
+    - None of the above *(Nessuna delle precedenti)*
+
+**Risposta Corretta:** Drill-down
+
+**Spiegazione:**
+Il **Drill-down** è l'operazione che permette di scendere nel dettaglio (zoom-in) dei dati, passando da una visualizzazione più aggregata a una più specifica (es. dalle vendite annuali a quelle mensili o per singolo prodotto). Il Roll-up è l'operazione inversa che aggrega i dati (zoom-out).
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Data Warehouse | Drill-down, Roll-up").
+
+---
+
+## Domanda 9
+**When can results be considered statistically significant?**
+*(Quando i risultati possono essere considerati statisticamente significativi?)*
+
+- **Opzioni:**
+    - when they relate to big sized databases *(quando si riferiscono a database di grandi dimensioni)*
+    - when they do not pass a statistical hypothesis test *(quando non superano un test di ipotesi statistica)*
+    - when they pass a statistical hypothesis test *(quando superano un test di ipotesi statistica)*
+    - none of the above *(nessuna delle precedenti)*
+
+**Risposta Corretta:** when they pass a statistical hypothesis test
+
+**Spiegazione:**
+In ambito statistico e di data mining, un risultato è definito "significativo" se supera un **test di ipotesi statistica** (ad esempio, se il p-value è inferiore a una soglia critica come 0.05). Questo indica che il risultato osservato ha una bassissima probabilità di essere dovuto al caso. La semplice dimensione del database non implica significatività.
+
+**Riferimento:** Concetti base di Statistica per il Data Mining.
+
+---
+
+## Domanda 10
+**A data analyst uses OLAP to analyse multidimensional data at several granularity levels. What does OLAP stand for?**
+*(Un analista dati usa OLAP per analizzare dati multidimensionali a diversi livelli di granularità. Cosa significa l'acronimo OLAP?)*
+
+- **Opzioni:**
+    - On-line Analytical Postprocessing
+    - On-line Analytical Preprocessing
+    - On-line Analytical Processing
+    - None of the above *(Nessuna delle precedenti)*
+
+**Risposta Corretta:** On-line Analytical Processing
+
+**Spiegazione:**
+**OLAP** è l'acronimo di **On-Line Analytical Processing**. Rappresenta l'insieme di tecniche software per l'analisi interattiva e veloce di grandi quantità di dati multidimensionali (i "cubi"), tipicamente estratti da un Data Warehouse.
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Data Warehouse", riga 567).
+
+---
+
+## Domanda 11
+**You have some uncategorised data. How can you generate labels from uncategorised data?**
+*(Hai dei dati non categorizzati. Come puoi generare delle etichette a partire da dati non categorizzati?)*
+
+- **Opzioni:**
+    - You can generate labels by performing classification *(Puoi generare etichette eseguendo una classificazione)*
+    - You can generate labels by using regression *(Puoi generare etichette usando la regressione)*
+    - You can generate labels by using cluster analysis *(Puoi generare etichette usando l'analisi dei cluster)*
+    - None of the above *(Nessuna delle precedenti)*
+
+**Risposta Corretta:** You can generate labels by using cluster analysis
+
+**Spiegazione:**
+L'**Analisi dei Cluster (Cluster Analysis)** è una tecnica di apprendimento non supervisionato utilizzata proprio quando non si hanno etichette predefinite (dati non categorizzati). L'algoritmo raggruppa i dati simili in cluster; successivamente, l'analista può assegnare un'etichetta (label) a ciascun cluster identificato, "generando" così una categorizzazione che prima non esisteva. La Classificazione, al contrario, *richiede* etichette già esistenti per l'addestramento.
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Cluster Analysis").
+
+---
+
+## Domanda 12
+**You have been asked to provide trends about customers' interest in purchasing a new item in summer. Which of the following suits the case scenario most?**
+*(Ti è stato chiesto di fornire trend sull'interesse dei clienti nell'acquisto di un nuovo articolo in estate. Quale delle seguenti opzioni si adatta meglio allo scenario?)*
+
+- **Opzioni:**
+    - Classification *(Classificazione)*
+    - Cluster Analysis *(Analisi dei Cluster)*
+    - Regression *(Regressione)*
+    - None of the above *(Nessuna delle precedenti)*
+
+**Risposta Corretta:** Regression
+
+**Spiegazione:**
+La **Regressione** è la tecnica statistica d'elezione per individuare e modellare **trend** (tendenze) e fare previsioni su valori continui. Negli appunti viene specificato che l'analisi di regressione è "particolarmente adatta per... individuare i trend di distribuzione nei dati" (es. prevedere l'andamento delle vendite o dell'interesse d'acquisto nel tempo).
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Regressione", circa riga 765).
+
+---
+
+## Domanda 13
+**If you have a training set available, which of the following approaches can be run?**
+*(Se hai un training set disponibile, quale dei seguenti approcci può essere eseguito?)*
+
+- **Opzioni:**
+    - Cluster Analysis *(Analisi dei Cluster)*
+    - Classification *(Classificazione)*
+    - Regression *(Regressione)*
+    - None of the above *(Nessuna delle precedenti)*
+
+**Risposta Corretta:** Classification
+
+**Spiegazione:**
+Il **Training Set** (insieme di dati con etichette note) è il componente fondamentale dell'apprendimento supervisionato ed è esplicitamente richiesto per addestrare un modello di **Classificazione**. Gli appunti recitano: "Per addestrare un modello di classificazione, si utilizza un training set". (Anche la regressione usa un training set, ma in questi quiz la Classificazione è la risposta canonica associata all'uso discriminante di un set di addestramento per imparare le classi).
+
+**Riferimento:** *APPUNTI LEZIONE_mining copia.pdf* (Sezione "Classificazione per Analisi Predittiva", riga 741).

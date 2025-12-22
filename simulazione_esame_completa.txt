@@ -1,0 +1,833 @@
+# SIMULAZIONE ESAME COMPLETE - DATA MINING E TEXT ANALYTICS
+# Questa simulazione copre tutti gli argomenti del corso.
+# Le risposte corrette sono elencate in fondo al documento.
+
+### PARTE 1: INTRODUZIONE E processo KDP
+
+1. Qual è la relazione tra il *Knowledge Discovery Process (KDP)* e il *Data Mining*?
+   A. I due termini sono sostanzialmente intercambiabili e vengono usati indistintamente sia in ambito accademico che industriale.
+   B. Il Data Mining comprende l'intero flusso di lavoro, dalla pulizia dei dati alla visualizzazione, mentre il KDP è limitato alla sola parte teorica.
+   C. Il KDP è l'intero processo strutturato (Cleaning, Integration, ecc.), di cui il Data Mining è solo una fase specifica (tipicamente lo step 4/5).
+   D. Il KDP è una metodologia specifica per i Data Warehouse relazionali, mentre il Data Mining si riferisce esclusivamente all'analisi di dati non strutturati.
+
+2. In quale fase del processo KDP avviene la rimozione del *Noise* e dei dati inconsistenti?
+   A. Pattern Evaluation, dove si filtrano i risultati inutili.
+   B. Data Cleaning, per eliminare errori e outlier.
+   C. Data Transformation, durante la normalizzazione dei valori.
+   D. Data Integration, unendo diverse sorgenti dati.
+
+3. Cosa si intende per *Bias* nei dati in questo contesto?
+   A. Una distorsione sistematica o pregiudizio (es. sociale, razziale, o di campionamento) che influenza la rappresentatività dei dati.
+   B. La varianza statistica intrinseca di un modello di regressione non lineare.
+   C. Un particolare tipo di rumore casuale ad alta frequenza, simile all'effetto "sale e pepe" nelle immagini digitali.
+   D. Un errore di sintassi generato durante l'importazione dei dati nel DBMS.
+
+4. Quale delle seguenti è la definizione più appropriata di Data Mining?
+   A. L'inserimento manuale e la correzione di record in fogli di calcolo.
+   B. Il processo automatizzato di esplorazione di grandi moli di dati per individuare pattern, correlazioni e strutture non banali.
+   C. La procedura di backup e ripristino dei database aziendali per garantire la sicurezza.
+   D. La semplice rappresentazione grafica dei dati tramite istogrammi e diagrammi a torta per reportistica.
+
+5. I dati strutturati sono caratterizzati da:
+   A. Testo libero privo di qualsiasi formattazione o metadato.
+   B. Formati flessibili come JSON o XML che usano tag ma non impongono uno schema rigido.
+   C. Un'organizzazione rigida in tabelle con righe e colonne definite da uno schema fisso (es. RDBMS).
+   D. Contenuti multimediali complessi come flussi video e archivi di immagini.
+
+6. Qual è l'obiettivo principale della fase di *Data Integration*?
+   A. Suddividere il dataset in Training Set e Test Set per la validazione.
+   B. Comprimere i file di dati per ottimizzare lo spazio di archiviazione su disco.
+   C. Discretizzare le variabili continue in intervalli categorici per l'analisi.
+   D. Unificare e combinare dati provenienti da molteplici sorgenti eterogenee in un unico deposito coerente.
+
+7. Un *Pattern* nel contesto del Data Mining è definito come:
+   A. Un comando SQL utilizzato per estrarre record specifici dal database.
+   B. Una struttura, modello o sequenza ricorrente che esibisce una regolarità sistematica all'interno dei dati.
+   C. Un valore anomalo o errato che deve essere rimosso durante il cleaning.
+   D. L'attributo che funge da chiave primaria in una tabella relazionale.
+
+8. Quale categoria di dati include tipicamente file XML o JSON?
+   A. Dati Binari (immagini, eseguibili)
+   B. Dati Semi-strutturati (con tag/marcatori ma senza schema rigido)
+   C. Dati Non Strutturati (testo libero, audio)
+   D. Dati Strutturati (tabelle relazionali)
+
+9. Qual è la distinzione chiave tra Data Mining *Predittivo* e *Descrittivo*?
+   A. Il Predittivo utilizza esclusivamente linguaggi di query come SQL, mentre il Descrittivo richiede programmazione in Python o R.
+   B. Il Predittivo mira a costruire modelli per stimare valori futuri o sconosciuti, mentre il Descrittivo cerca di interpretare e trovare pattern nei dati attuali.
+   C. In realtà non esiste alcuna differenza sostanziale, sono solo terminologie diverse per indicare le stesse tecniche di analisi statistica.
+   D. Il Predittivo si occupa di riassumere le performance storiche passate, mentre il Descrittivo proietta scenari ipotetici nel futuro.
+
+10. Qual è la sequenza logica tipica dei passi nel processo KDP?
+    A. Evaluation -> Data Mining -> Transformation -> Cleaning -> Integration
+    B. Data Mining -> Cleaning -> Integration -> Evaluation -> Selection
+    C. Selection -> Data Mining -> Cleaning -> Integration -> Transformation
+    D. Cleaning -> Integration -> Transformation -> Data Mining -> Evaluation
+
+### PARTE 2: DATABASE E DATA WAREHOUSE
+
+11. Che cos'è un *DBMS* (Database Management System)?
+    A. Un dispositivo hardware specializzato per l'archiviazione ad alta velocità.
+    B. Un algoritmo avanzato per il clustering di dati multidimensionali.
+    C. Un software di sistema progettato per definire, manipolare, recuperare e gestire i dati in un database.
+    D. Un formato di file compresso utilizzato per i backup.
+
+12. Qual è la funzione primaria di un *Data Warehouse*?
+    A. Supportare i processi decisionali e la Business Intelligence (OLAP) integrando dati storici da varie fonti.
+    B. Gestire le transazioni operative quotidiane (OLTP) con la massima velocità e consistenza.
+    C. Archiviare esclusivamente dati non strutturati come documenti, email e file multimediali.
+    D. Fornire un'estensione virtuale della memoria RAM per i server di calcolo.
+
+13. Quale elemento garantisce l'unicità di ogni record (tupla) in una tabella relazionale?
+    A. La Foreign Key (Chiave Esterna).
+    B. Un qualsiasi attributo numerico (es. Età).
+    C. La Primary Key (Chiave Primaria).
+    D. Il nome assegnato alla tabella nel database.
+
+14. Come si definisce un *Data Lake*?
+    A. Un piccolo database dipartimentale (Data Mart) specifico per un singolo team.
+    B. Un vasto repository che immagazzina grandi quantità di dati grezzi nel loro formato nativo (strutturati e non).
+    C. Un dashboard grafico per la visualizzazione dei flussi di dati in tempo reale.
+    D. Un sistema di backup su nastro per l'archiviazione a lungo termine.
+
+15. Quale operazione OLAP consente di aumentare il livello di dettaglio dei dati visualizzati (es. passando dalle vendite annuali a quelle mensili)?
+    A. Drill-down
+    B. Pivot (Rotazione)
+    C. Roll-up
+    D. Slice and Dice
+
+16. In cosa differisce un *Data Mart* da un Enterprise Data Warehouse?
+    A. È focalizzato su un sottoinsieme specifico di dati aziendali (es. un dipartimento), piuttosto che sull'intera organizzazione.
+    B. Contiene l'integrazione completa di tutti i dati aziendali di tutte le filiali globali.
+    C. Non supporta l'esecuzione di query SQL standard per l'analisi.
+    D. È progettato esclusivamente per contenere dati non strutturati come video e immagini.
+
+17. Nella query SQL `SELECT * FROM Customers WHERE country = 'USA'`, la clausola `WHERE` serve a:
+    A. Eseguire un join con una tabella esterna.
+    B. Ordinare i risultati in base a un criterio alfabetico o numerico.
+    C. Filtrare le righe restituite, includendo solo quelle che soddisfano la condizione specificata.
+    D. Selezionare quali colonne visualizzare nel risultato finale.
+
+18. Quale tipo di *JOIN* restituisce tutte le righe della tabella di sinistra, anche se non vi è corrispondenza nella tabella di destra?
+    A. INNER JOIN (solo corrispondenze esatte)
+    B. LEFT JOIN (tutto a sinistra + match a destra o NULL)
+    C. FULL JOIN (tutto da entrambe le tabelle)
+    D. RIGHT JOIN (tutto a destra + match a sinistra o NULL)
+
+19. Qual è il ruolo di una *Foreign Key* in un database relazionale?
+    A. Criptare i dati sensibili per garantire la sicurezza delle informazioni.
+    B. Eliminare automaticamente i record duplicati o obsoleti.
+    C. Identificare univocamente un record all'interno della sua stessa tabella.
+    D. Creare un collegamento logico riferendosi alla Primary Key di un'altra tabella.
+
+20. Cosa contengono tipicamente i dati di un *Transactional Database*?
+    A. Dettagli operativi come ID transazione, data, e lista degli articoli acquistati.
+    B. Informazioni puramente anagrafiche e statiche sui dipendenti.
+    C. Report statistici aggregati su base annuale per il management.
+    D. Collezioni di file multimediali non strutturati.
+
+### PARTE 3: CLUSTERING (Unsupervised Learning)
+
+21. Il *Clustering* appartiene alla categoria:
+    A. Reinforcement Learning (Apprendimento per Rinforzo)
+    B. Database Management & Administration
+    C. Supervised Learning (Apprendimento Supervisionato)
+    D. Unsupervised Learning (Apprendimento Non Supervisionato)
+
+22. Nel contesto dell'*Unsupervised Learning*, quale elemento fondamentale manca rispetto all'apprendimento supervisionato?
+    A. La potenza di calcolo necessaria per processare i dati.
+    B. Gli attributi (features) descrittivi dei dati.
+    C. Le etichette di classe (target labels) o la "Ground Truth" per guidare l'apprendimento.
+    D. I dati di input grezzi su cui effettuare l'analisi.
+
+23. Qual è l'obiettivo fondamentale di un algoritmo di Clustering?
+    A. Stimare con precisione un valore numerico continuo futuro.
+    B. Identificare ed eliminare sistematicamente tutti gli outlier dal dataset.
+    C. Assegnare i dati a classi predefinite note a priori dal dominio.
+    D. Massimizzare la similarità tra oggetti nello stesso gruppo e minimizzarla tra gruppi diversi.
+
+24. Nell'algoritmo *K-means*, cosa indica il parametro 'K'?
+    A. La distanza massima consentita tra due punti nello stesso cluster.
+    B. Il tasso di apprendimento (learning rate) dell'algoritmo.
+    C. Il numero di cluster che l'algoritmo deve formare, deciso a priori dall'utente.
+    D. Il numero massimo di iterazioni prima che l'algoritmo si arresti.
+
+25. Qual è uno dei principali limiti o svantaggi dell'algoritmo *K-means*?
+    A. È applicabile esclusivamente a dataset con esattamente due cluster naturali.
+    B. Richiede di specificare K a priori e tende a funzionare male con cluster di forma non sferica o dimensioni molto diverse.
+    C. Ha una complessità computazionale così elevata da renderlo inutilizzabile su dataset moderni.
+    D. Non è in grado di processare alcun tipo di dato numerico.
+
+26. Come procede il *Clustering Gerarchico Agglomerativo* (Bottom-up)?
+    A. Richiede obbligatoriamente di definire il numero finale di cluster K prima di iniziare.
+    B. Utilizza dei centroidi mobili che vengono ricalcolati iterativamente come nel K-means.
+    C. Parte da un unico grande cluster contenente tutti i dati e lo suddivide ricorsivamente.
+    D. Inizia trattando ogni punto come un cluster singolo e unisce iterativamente le coppie più vicine.
+
+27. Quale informazione fornisce un *Dendrogramma*?
+    A. Una rappresentazione della distribuzione probabilistica delle variabili.
+    B. La visualizzazione della gerarchia dei cluster e delle distanze a cui avvengono le unioni.
+    C. Lo schema dell'architettura della rete neurale utilizzata.
+    D. L'andamento temporale delle metriche di vendita nel tempo.
+
+28. Nel metodo di Ward (Ward's linkage), la distanza tra due cluster viene calcolata per:
+    A. Minimizzare l'incremento della varianza interna al cluster (Sum of Squared Errors) risultante dall'unione.
+    B. Massimizzare la distanza tra i due membri più lontani dei rispettivi cluster.
+    C. Minimizzare la distanza tra i due membri più vicini dei rispettivi cluster.
+    D. Calcolare semplicemente la media aritmetica delle distanze tra tutti i punti.
+
+29. Su quale principio si basa l'algoritmo *DBSCAN* per formare i cluster?
+    A. Sulla densità dei punti in una regione dello spazio (Density-Based Clustering).
+    B. Sulla minimizzazione della distanza dai centroidi (Centroid-Based).
+    C. Su regole decisionali gerarchiche predefinite (Tree-Based).
+    D. Sull'utilizzo di etichette fornite manualmente dagli utenti.
+
+30. In DBSCAN, come viene etichettato un punto che non ha sufficienti vicini nel raggio Epsilon e non è raggiungibile da un Core Point?
+    A. Border Point (Punto di Confine)
+    B. Centroid (Centroide del cluster)
+    C. Core Point (Punto Centrale)
+    D. Noise Point (Rumore/Outlier)
+
+31. Qual è un vantaggio significativo di DBSCAN rispetto a K-means?
+    A. Richiede necessariamente di conoscere il numero di cluster K in anticipo.
+    B. È computazionalmente più veloce su dataset estremamente piccoli e semplici.
+    C. Tende a trovare esclusivamente cluster di forma sferica o convessa.
+    D. È capace di individuare cluster di forma arbitraria e di gestire efficacemente il rumore (outlier).
+
+32. L'algoritmo K-means garantisce di convergere a:
+    A. Un ottimo locale, che dipende fortemente dalla scelta iniziale dei centroidi.
+    B. La corretta densità di distribuzione dei dati originali.
+    C. L'ottimo globale assoluto, indipendentemente dall'inizializzazione.
+    D. Il numero esatto di cluster naturali presenti nei dati.
+
+33. Quale metrica di distanza è comunemente utilizzata nell'implementazione standard del K-means?
+    A. Distanza di Manhattan (L1).
+    B. Distanza Euclidea (L2).
+    C. Similarità del Coseno.
+    D. Coefficiente di Jaccard.
+
+34. Cosa indica il termine *Ground Truth* nel Machine Learning?
+    A. I dati grezzi originali prima di qualsiasi elaborazione o pulizia.
+    B. L'infrastruttura hardware fisica (server) su cui vengono eseguiti i calcoli.
+    C. Le etichette reali e verificate ("verità di base") usate per valutare l'accuratezza di un modello.
+    D. Un algoritmo specifico per la pulizia profonda dei dati.
+
+35. Nel *Single Linkage* (clustering gerarchico), come si misura la distanza tra due cluster?
+    A. Come distanza tra i centroidi (punti medi) dei due cluster.
+    B. Come media di tutte le distanze tra le coppie di punti dei due cluster.
+    C. Come distanza tra i due punti più lontani appartenenti ai due cluster diversi.
+    D. Come distanza tra i due punti più vicini appartenenti ai due cluster diversi.
+
+### PARTE 4: NEURAL NETWORKS & DEEP LEARNING
+
+36. Il *Perceptron* ideato da Rosenblatt trae ispirazione da:
+    A. I principi della meccanica quantistica applicata al calcolo.
+    B. I processi metabolici del fegato umano.
+    C. La teoria matematica dei grafi complessi.
+    D. La struttura e il funzionamento del neurone biologico.
+
+37. Quali sono i componenti strutturali chiave di un Perceptron classico?
+    A. Unicamente un nodo di Input e un nodo di Output diretti.
+    B. Una complessa struttura ad albero decisionale (Random Forest).
+    C. Tabelle di database relazionali interconnesse.
+    D. Input, Pesi (Weights), Bias, e una Funzione di Attivazione a soglia.
+
+38. A cosa serve la funzione di attivazione a soglia nel Perceptron originale?
+    A. A convertire stringhe di testo in valori numerici.
+    B. Ad eliminare i dati errati o corrotti dal dataset.
+    C. A determinare l'output binario (es. +1/-1) verificando se la somma pesata supera una certa soglia.
+    D. A calcolare la somma aritmetica semplice di tutti gli input senza pesi.
+
+39. In che modo avviene l'"apprendimento" in un Perceptron?
+    A. Modificando iterativamente i valori dei pesi (w) e del bias (b) in risposta agli errori di previsione commessi.
+    B. Aggiungendo fisicamente nuovi neuroni e connessioni alla rete.
+    C. Sostituendo la funzione di attivazione con una più complessa.
+    D. Memorizzando staticamente tutte le coppie input-output del dataset.
+
+40. Da quali strati è composta una *Multi-layer Feed-Forward Neural Network (MFFNN)*?
+    A. Esclusivamente da uno strato di input e uno di output, senza intermediari.
+    B. Soltanto da una serie di strati nascosti (hidden layers) interconnessi.
+    C. Da una sequenza ciclica di nodi che formano un anello chiuso.
+    D. Uno strato di Input, uno o più Strati Nascosti (Hidden Layers) e uno strato di Output.
+
+41. Cos'è l'algoritmo di *Backpropagation*?
+    A. Una tecnica statistica per prevedere le tendenze future del mercato azionario.
+    B. Il metodo standard per calcolare il gradiente della funzione di errore e aggiornare i pesi della rete procedendo dall'output all'indietro.
+    C. Un approccio di clustering per raggruppare neuroni simili.
+    D. Un tipo di malware che attacca le reti neurali profonde.
+
+42. Quale funzione matematica viene minimizzata durante l'addestramento di una rete neurale?
+    A. La funzione di attivazione del singolo neurone.
+    B. Il numero totale di neuroni attivi nella rete.
+    C. La frequenza di clock della CPU utilizzata per il calcolo.
+    D. La Loss Function (Funzione di Perdita o Costo) che misura l'errore del modello.
+
+43. Le *Convolutional Neural Networks (CNN)* eccellono particolarmente in:
+    A. Analisi di semplici fogli di calcolo con poche colonne.
+    B. Previsione di serie temporali finanziarie basate puramente su dati storici numerici.
+    C. Compiti di Computer Vision (immagini) e riconoscimento di pattern locali in dati griglia.
+    D. Segmentazione della clientela basata su dati demografici tabellari.
+
+44. Qual è la funzione degli strati di *Pooling* in una architettura CNN?
+    A. Invertire i colori dell'immagine per creare un negativo.
+    B. Calcolare la somma pesata degli input per la classificazione.
+    C. Ridurre la dimensionalità spaziale (downsampling) delle feature map, rendendo la rappresentazione più compatta e robusta.
+    D. Aumentare artificialmente la risoluzione dell'immagine di input.
+
+45. Per quale tipo di dati sono ideali le *Recurrent Neural Networks (RNN)*?
+    A. Immagini statiche ad alta risoluzione.
+    B. Dati sequenziali (es. testo, audio, serie storiche) dove l'ordine temporale o posizionale è significativo.
+    C. Dataset statici dove i record sono completamente indipendenti l'uno dall'altro.
+    D. Compiti di clustering non supervisionato su dati tabellari.
+
+46. Qual è la definizione corretta di *Deep Learning*?
+    A. Un metodo mnemonico per apprendere grandi quantità di informazioni testuali.
+    B. L'analisi manuale approfondita dei dati da parte di esperti umani.
+    C. Un sinonimo esatto dell'algoritmo K-means.
+    D. Una sottoclasse del Machine Learning che utilizza reti neurali profonde (molti strati) per apprendere rappresentazioni gerarchiche dei dati.
+
+47. In un neurone artificiale, come viene calcolato l'output $y$ prima dell'applicazione della funzione di attivazione?
+    A. $y = x_1 - x_2$ (Differenza degli input)
+    B. $y = x_1 \times x_2 \times x_3$ (Prodotto degli input)
+    C. $y = \sum (w_i \times x_i) + b$ (Somma pesata degli input più il bias)
+    D. $y = \max(x_i)$ (Massimo valore tra gli input)
+
+48. Cosa può accadere se il *Learning Rate* ($\alpha$) è impostato su un valore troppo alto?
+    A. Il modello potrebbe oscillare violentemente attorno al minimo senza mai convergere, o addirittura divergere.
+    B. Non succede nulla di rilevante, il training procede normalmente.
+    C. Il modello diventa eccessivamente preciso e va in overfitting quasi immediatamente.
+    D. Il modello apprende troppo lentamente, richiedendo un tempo eccessivo per convergere.
+
+49. Qual è la principale differenza concettuale tra il *Neurode* (McCulloch-Pitts) e il *Perceptron*?
+    A. Il Neurode opera su segnali digitali, mentre il Perceptron è una macchina analogica.
+    B. Sono essenzialmente identici e i termini sono sinonimi storici.
+    C. Il Neurode possiede pesi adattabili, mentre il Perceptron è fisso.
+    D. Il Perceptron introduce pesi e bias *apprendibili*, mentre il Neurode implementava una logica fissa predeterminata.
+
+50. La funzione di attivazione *Softmax* viene tipicamente utilizzata:
+    A. Per rimuovere l'influenza del bias dai calcoli.
+    B. Per inizializzare tutti i pesi della rete a zero.
+    C. Nello strato di output di reti per classificazione multi-classe, per trasformare i valori in una distribuzione di probabilità.
+    D. Nello strato di input per normalizzare i dati grezzi.
+
+### PARTE 5: TEXT MINING & NLP
+
+51. Qual è lo scopo primario del *Text Mining*?
+    A. Estrarre conoscenza implicita, pattern e informazioni di valore da grandi collezioni di testo non strutturato.
+    B. Correggere automaticamente gli errori grammaticali e sintattici nei documenti.
+    C. Tradurre fedelmente testi da una lingua naturale ad un'altra (Machine Translation).
+    D. Sintetizzare vocalmente il testo scritto per l'interazione uomo-macchina.
+
+52. Come si differenziano *NLP* (Natural Language Processing) e *Text Mining*?
+    A. Non esiste alcuna differenza reale, sono termini intercambiabili per la stessa disciplina.
+    B. L'NLP si focalizza sulla comprensione e generazione del linguaggio (spesso frase per frase), mentre il TM mira all'estrazione di pattern statistici da grandi corpora.
+    C. L'NLP si occupa solo di dati numerici, mentre il TM gestisce le parole.
+    D. Il Text Mining è una disciplina molto più antica e obsoleta rispetto al moderno NLP.
+
+53. In cosa consiste il processo di *Tokenizzazione*?
+    A. Nel segmentare il flusso di testo continuo in unità elementari discrete (token), come parole, numeri o punteggiatura.
+    B. Nel rimuovere tutte le parole ritenute inutili o ridondanti.
+    C. Nell'identificare il soggetto logico e il verbo principale della frase.
+    D. Nel convertire ogni parola nel suo corrispondente codice numerico ASCII.
+
+54. Cosa sono le *Stop Words* nell'analisi testuale?
+    A. Parole chiave di altissima importanza che riassumono il contenuto del documento.
+    B. Errori ortografici comuni che devono essere corretti prima dell'analisi.
+    C. Parole speciali che segnalano la fine (stop) di un file o di una sezione.
+    D. Parole ad alta frequenza (es. "il", "di", "a") che portano scarso contenuto semantico e vengono spesso rimosse.
+
+55. Qual è la differenza tecnica tra *Stemming* e *Lemmatizzazione*?
+    A. Lo Stemming è un processo molto più lento e preciso della Lemmatizzazione.
+    B. La Lemmatizzazione funziona solo per la lingua inglese, lo Stemming è universale.
+    C. Lo Stemming tronca grezzamente suffissi/prefissi (spesso creando radici non valide), mentre la Lemmatizzazione riduce la parola alla sua forma base corretta (lemma) usando regole morfologiche.
+    D. Lo Stemming utilizza un dizionario completo, mentre la Lemmatizzazione si basa su semplici regole euristiche.
+
+56. L'algoritmo di *Porter* è un esempio classico di:
+    A. Stemmer (Algoritmo di Stemming).
+    B. Text Classifier (Classificatore di Testo).
+    C. Tokenizer (Algoritmo di segmentazione).
+    D. POS Tagger (Part-of-Speech Tagger).
+
+57. A cosa serve il *POS Tagging* (Part-of-Speech Tagging)?
+    A. Ad assegnare a ogni parola nel testo la sua corretta categoria grammaticale (es. Nome, Verbo, Aggettivo).
+    B. A rimuovere tutta la punteggiatura e i caratteri speciali dal testo.
+    C. A trovare sinonimi e contrari per arricchire il vocabolario del testo.
+    D. A tradurre la frase in una lingua target mantenendo la struttura sintattica.
+
+58. Il sistema *NER* (Named Entity Recognition) è progettato per identificare:
+    A. Esclusivamente i verbi di azione e i loro tempi.
+    B. La lunghezza media delle frasi e la complessità del testo.
+    C. Entità specifiche nel testo e classificarle in categorie come Persone, Organizzazioni, Luoghi, Date.
+    D. Errori grammaticali e stilistici nella scrittura.
+
+59. Cosa rappresenta un *Dependency Tree* (Albero di Dipendenza)?
+    A. Le relazioni grammaticali dirette e funzionali tra le parole (es. chi è il soggetto di quale verbo).
+    B. La struttura gerarchica della frase divisa in costituenti sintattici (Sintagma Nominale, Verbale).
+    C. La frequenza assoluta di ogni parola all'interno del documento.
+    D. L'albero genealogico dell'autore del testo analizzato.
+
+60. Il modello *Bag of Words* (BoW) rappresenta un documento come:
+    A. Un vettore o insieme di frequenze delle parole, ignorando completamente l'ordine e la struttura grammaticale.
+    B. Una sequenza ordinata di parole che preserva il contesto sintattico originale.
+    C. Un breve riassunto generato automaticamente del contenuto del testo.
+    D. Una semplice lista delle parole da escludere (stop words).
+
+61. Cosa indicano *TF* (Term Frequency) e *DF* (Document Frequency)?
+    A. La velocità di lettura media richiesta per comprendere il testo.
+    B. TF: frequenza del termine nel singolo documento; DF: numero di documenti nel corpus che contengono il termine.
+    C. Il numero di errori grammaticali (TF) e sintattici (DF) presenti nel testo.
+    D. La lunghezza del documento in parole (TF) e in caratteri (DF).
+
+62. Cos'è un *Word Embedding*?
+    A. Una tecnica per inserire (embed) celle di testo in fogli di calcolo Excel.
+    B. Un particolare tipo di font ottimizzato per la lettura su schermo.
+    C. Un algoritmo di compressione per ridurre la dimensione dei file di testo.
+    D. Una rappresentazione vettoriale densa delle parole, dove parole semanticamente simili hanno vettori spazialmente vicini.
+
+63. Nel contesto della classificazione, cos'è il *Training Set*?
+    A. L'insieme di dati non etichettati che il modello deve categorizzare.
+    B. Un insieme di dati riservato esclusivamente per la verifica finale delle prestazioni.
+    C. Il manuale utente che spiega come utilizzare il software.
+    D. L'insieme di dati con etichette note utilizzato per addestrare i parametri del modello.
+
+64. Qual è la caratteristica distintiva del classificatore *Naïve Bayes*?
+    A. È basato su reti neurali profonde multistrato.
+    B. Non utilizza alcun concetto probabilistico nel suo funzionamento.
+    C. Applica il teorema di Bayes assumendo l'indipendenza condizionale "ingenua" (naïve) tra le feature.
+    D. È un metodo di clustering non supervisionato e non di classificazione.
+
+65. Come opera una *Support Vector Machine (SVM)* nella classificazione binaria lineare?
+    A. Cerca l'iperpiano che separa le due classi massimizzando il margine (distanza dai support vectors).
+    B. Genera una serie di regole If-Then casuali fino a trovare una combinazione funzionante.
+    C. Raggruppa i dati in cerchi concentrici basati sulla densità.
+    D. Calcola semplicemente la media dei punti di ogni classe e usa quella come riferimento.
+
+66. La *Sentiment Analysis* è classificabile come un compito di:
+    A. Machine Translation (Traduzione Automatica).
+    B. Data Cleaning e pulizia del testo.
+    C. Text Classification (es. classificare un testo come Positivo, Negativo o Neutro).
+    D. Text Clustering (raggruppamento senza etichette).
+
+67. Cosa si intende per *Features* nel Text Mining tradizionale?
+    A. Le caratteristiche numeriche estratte dal testo (es. presenza di parole, n-grammi) usate come input per gli algoritmi.
+    B. I difetti o bug non ancora risolti nel software di analisi.
+    C. Le voci del menu di configurazione del programma.
+    D. I colori utilizzati nei grafici dei risultati.
+
+68. Qual è un vantaggio chiave del Deep Learning rispetto al Machine Learning classico per il testo?
+    A. Richiede dataset di addestramento molto più piccoli.
+    B. I modelli sono molto più semplici da interpretare e spiegare (White Box).
+    C. Funziona in modo efficiente anche su hardware obsoleto e CPU lente.
+    D. Esegue il *Feature Learning* automatico, eliminando la necessità di una complessa ingegnerizzazione manuale delle feature.
+
+69. Se un compito di classificazione prevede output come "Sport", "Politica", "Tecnologia", si tratta di:
+    A. Regressione Lineare.
+    B. Classificazione Binaria (Binary Classification).
+    C. Clustering Non Supervisionato.
+    D. Classificazione Multi-classe (Multi-class Classification).
+
+70. Come si distingue nel testo la parola "Apple" (Azienda) da "Apple" (Frutta)?
+    A. Convertendo tutto il testo in minuscolo (Lowercasing).
+    B. Applicando lo Stemming (riducendo entrambe a "Appl").
+    C. Rimuovendo le Stop Words circostanti.
+    D. Analizzando il contesto semantico e usando il Named Entity Recognition (NER) o Embeddings contestuali.
+
+### PARTE 6: MISTI E SCENARI APPLICATIVI
+
+71. Un'azienda vuole segmentare i clienti in gruppi comportamentali simili senza categorie predefinite. Quale tecnica userà?
+    A. Query SQL di selezione semplice.
+    B. Classificazione Supervisionata.
+    C. Clustering (Analisi dei Gruppi).
+    D. Regressione Lineare.
+
+72. Se l'obiettivo è prevedere il valore esatto del fatturato del prossimo mese (un numero continuo), si userà:
+    A. Association Rules (Regole di Associazione).
+    B. Clustering.
+    C. Classificazione.
+    D. Regressione.
+
+73. La "Market Basket Analysis", che identifica quali prodotti vengono acquistati insieme, è un esempio di:
+    A. Association Analysis / Pattern Mining.
+    B. Outlier Detection.
+    C. Classificazione Supervisionata.
+    D. Text Mining.
+
+74. Quali metriche valutano la qualità di una regola di associazione?
+    A. Mean e Variance (Media e Varianza).
+    B. Support (frequenza) e Confidence (affidabilità).
+    C. K (numero di cluster) e Epsilon (raggio).
+    D. Loss Function e Accuracy.
+
+75. Qual è la sintassi SQL corretta per ordinare i risultati dal più alto al più basso?
+    A. SORT DOWN
+    B. ORDER BY column_name DESC
+    C. GROUP BY column_name
+    D. ORDER BY column_name ASC
+
+76. Qual è la complessità temporale dell'algoritmo *K-means*?
+    A. Esponenziale rispetto al numero di dati.
+    B. Lineare ($O(n \cdot k \cdot d \cdot i)$) dove n è il numero di oggetti, rendendolo efficiente.
+    C. Cubica ($O(n^3)$), quindi molto lento.
+    D. Costante ($O(1)$), istantaneo.
+
+77. Qual è la complessità temporale tipica del *Clustering Gerarchico* standard?
+    A. $O(n^3)$ o $O(n^2 \log n)$, rendendolo computazionalmente oneroso per grandi dataset.
+    B. Lineare $O(n)$, molto veloce.
+    C. Costante $O(1)$.
+    D. $O(k)$, dipendente solo dal numero di cluster.
+
+78. Il comando SQL `INSERT INTO` viene utilizzato per:
+    A. Aggiungere nuovi record (righe) in una tabella esistente.
+    B. Modificare i valori di record già presenti.
+    C. Rimuovere record dalla tabella.
+    D. Definire la struttura di una nuova tabella.
+
+79. Cosa si intende per *Outlier* in un dataset?
+    A. Un punto dati che si discosta significativamente dagli altri, indicando un'anomalia o un errore.
+    B. Il valore medio esatto della distribuzione.
+    C. Un dato perfettamente rappresentativo della norma.
+    D. Un cluster con una densità di punti molto elevata.
+
+80. Cosa significa che una matrice Term-Document è *Sparsa*?
+    A. Che è composta quasi interamente da numeri 1.
+    B. Che contiene dati errati o corrotti.
+    C. Che la stragrande maggioranza dei valori è zero, poiché ogni documento contiene solo una piccola frazione del vocabolario totale.
+    D. Che la matrice ha dimensioni molto ridotte.
+
+81. Quale architettura di rete neurale utilizza filtri (kernel) per estrarre feature locali?
+    A. Convolutional Neural Network (CNN).
+    B. K-means Clustering.
+    C. Recurrent Neural Network (RNN).
+    D. Multilayer Perceptron (MLP) fully connected.
+
+82. Il parametro *Learning Rate* controlla:
+    A. La grandezza dell'aggiustamento dei pesi ad ogni passo dell'addestramento.
+    B. La dimensione totale del dataset di input.
+    C. La durata temporale totale del processo di training.
+    D. Il numero di neuroni presenti in ogni strato.
+
+83. A cosa serve la *Confusion Matrix* in un problema di classificazione?
+    A. A fornire una visione dettagliata delle performance del modello (Veri Positivi, Falsi Positivi, ecc.).
+    B. A confondere intenzionalmente l'utente per sicurezza.
+    C. A calcolare la distanza euclidea tra i cluster trovati.
+    D. A riorganizzare fisicamente i dati nel database.
+
+84. Quale dei seguenti è il miglior esempio di dati *non strutturati*?
+    A. Una tabella "Dipendenti" in un database SQL.
+    B. Un foglio Excel con colonne "Data", "Importo", "Venditore".
+    C. Il corpo del testo di un'email o un post sui social media.
+    D. Un file CSV (Comma Separated Values) ben formattato.
+
+85. Le operazioni di *Data Transformation* includono tipicamente:
+    A. L'acquisto di nuovo hardware per l'elaborazione.
+    B. La normalizzazione, l'aggregazione e la generalizzazione dei dati.
+    C. La cancellazione fisica dei file di database.
+    D. La stesura del report finale per gli stakeholder.
+
+86. Nel clustering partizionale standard (Hard Clustering), un oggetto appartiene a:
+    A. Nessun cluster (rimane non assegnato).
+    B. Esattamente ed esclusivamente un solo cluster.
+    C. Più cluster contemporaneamente con diversi gradi di appartenenza.
+    D. Tutti i cluster contemporaneamente.
+
+87. I *Dendriti* del neurone biologico hanno la funzione analoga a quale componente nel Perceptron?
+    A. Alla funzione di attivazione.
+    B. Al termine di Bias.
+    C. All'output finale.
+    D. Agli input e alle loro connessioni pesate.
+
+88. L'*Assone* del neurone biologico corrisponde a:
+    A. I pesi sinaptici.
+    B. Il corpo cellulare (Soma).
+    C. L'uscita (output) del segnale verso altri neuroni.
+    D. I segnali di ingresso.
+
+89. Qual è lo scopo di utilizzare un *Validation Set* separato?
+    A. Assegnare il voto finale agli studenti.
+    B. Eseguire l'addestramento principale dei pesi (backpropagation).
+    C. È un passaggio ridondante e inutile.
+    D. Monitorare le performance durante il training per calibrare gli iperparametri ed evitare l'overfitting.
+
+90. Il comando `CREATE TABLE` fa parte di quale sotto-linguaggio SQL?
+    A. DDL (Data Definition Language).
+    B. DML (Data Manipulation Language).
+    C. DCL (Data Control Language).
+    D. HTML (HyperText Markup Language).
+
+91. I *Word Clouds* sono utilizzati principalmente per:
+    A. La presentazione visiva (Knowledge Presentation) dei termini più frequenti in un testo.
+    B. La pulizia automatica dei dati (Data Cleaning).
+    C. La gestione delle transazioni nel database.
+    D. L'ottimizzazione degli algoritmi genetici.
+
+92. Dividere automaticamente notizie finanziarie in categorie ("Tech", "Pharma") usando esempi etichettati è un compito di:
+    A. Text Classification (Supervised Learning).
+    B. Clustering Non Supervisionato.
+    C. Data Integration.
+    D. Association Rules Mining.
+
+93. Rispetto a un semplice modello unigramma, i *N-grammi* (es. bigrammi) offrono il vantaggio di:
+    A. Eliminare automaticamente tutte le stop words.
+    B. Ridurre drasticamente la dimensione del vocabolario.
+    C. Catturare parzialmente il contesto locale e l'ordine delle parole (es. "New York").
+    D. Essere computazionalmente più leggeri da calcolare.
+
+94. Il fenomeno dell'*Overfitting* si verifica quando:
+    A. Il computer si surriscalda per il troppo lavoro.
+    B. Il modello impara eccessivamente i dettagli e il rumore del training set, perdendo la capacità di generalizzare su nuovi dati.
+    C. Il modello è perfetto e non commette errori neanche sul test set.
+    D. Il modello è troppo semplice per catturare la complessità dei dati (underfitting).
+
+95. La caratteristica *Non-volatile* di un Data Warehouse implica che:
+    A. I dati vengono cancellati e sovrascritti ogni notte.
+    B. I dati sono temporanei e volatili come nella RAM.
+    C. I dati storici, una volta caricati, non vengono modificati ma solo consultati per analisi.
+    D. I dati sono fisicamente instabili e a rischio perdita.
+
+96. Per trovare la linea di tendenza (trend) in un grafico a dispersione si usa:
+    A. La Regressione Lineare.
+    B. L'algoritmo K-means.
+    C. Un Istogramma delle frequenze.
+    D. Il Clustering Gerarchico.
+
+97. *Sinonimia* e *Polisemia* sono sfide tipiche in quale ambito?
+    A. Analisi numerica di dati finanziari.
+    B. NLP e Text Mining (dovute all'ambiguità intrinseca del linguaggio naturale).
+    C. Elaborazione di immagini satellitari.
+    D. Progettazione di database relazionali normalizzati.
+
+98. Nel Text Mining, cos'è un *Corpus*?
+    A. La struttura fisica del neurone artificiale.
+    B. Una parte anatomica umana.
+    C. Una vasta e strutturata collezione di documenti testuali usata per l'analisi.
+    D. Un errore di run-time nel codice Python.
+
+99. Qual è l'input tipico per una rete *RNN* applicata al testo?
+    A. Una sequenza ordinata di vettori di parole (Word Vectors).
+    B. Una singola immagine statica.
+    C. Una query SQL complessa.
+    D. Un singolo valore scalare.
+
+100. Il *Knowledge Discovery* (KDD) è descritto come un processo:
+     A. Impossibile da realizzare con le tecnologie attuali.
+     B. Banale, istantaneo e privo di complessità.
+     C. Completamente automatico, senza alcuna necessità di supervisione umana.
+     D. Iterativo, interattivo e composto da più fasi raffinate progressivamente.
+
+
+
+### PARTE INTEGRATIVA: NUOVE DOMANDE
+
+101. Cos'è CBOW?
+   A. CBOW sta per Continuous Bag of Words è una tecnica che permette di effettuare la tokenization
+   B. Nessuna delle opzioni rappresenta una corretta definizione di CBOW
+   C. CBOW sta per Continuous Bag of Words è una tecnica che permette di effettuare la Named Entity Recognition (NER)
+   D. CBOW sta per Continuous Bag of Words è una delle architetture su cui si basa la tecnica Word2Vec
+
+102. A cosa si fa riferimento quando si legge la seguente definizione: "… si riferisce ai valori veri e verificati o alle etichette utilizzate come benchmark per l'addestramento e la valutazione di modelli."?
+   A. clustering a partizionamento
+   B. ground-truth
+   C. clustering gerarchico
+   D. falsi positivi, falsi negativi
+
+103. Dati e Noise. Qual è l'obiettivo di una funzione di "image denoising"? Scegli la risposta che ritieni più opportuna.
+   A. Nessuna delle opzioni è corretta
+   B. Eliminare il cosiddetto "noise" e il "bias" a livello dei pixel.
+   C. Eliminare il cosiddetto "noise" a livello dei pixel
+   D. Eliminare il cosiddetto "bias" a livello dei pixel
+
+104. Quale tecnica di text mining fornisce un output del genere? "Tim Cook" - PERSON (People, including fictional) "Microsoft" - ORG (Companies, agencies, institutions) "Seattle" - GPE (Countries, cities, states) "Friday" - DATE (Absolute or relative dates or periods) "AI" - ORG (Companies, agencies, institutions) "$50 million" - MONEY
+   A. POS Tagging
+   B. Tokenization
+   C. Nessuna delle opzioni
+   D. NER
+
+105. Quale delle seguenti opzioni rappresenta una corretta definizione di Lexicon?
+   A. Archivia la sintassi e gli usi di ogni frase di un corpus testuale
+   B. Nessuna delle opzioni fornite è corretta
+   C. Archivia i significati e gli usi di ogni parola. Codifica le relazioni tra parole e significati.
+   D. Archivia i significati e gli usi di ogni parola, ma non codifica le relazioni tra le parole e i loro significati.
+
+106. A cosa si fa riferimento quando si legge la seguente definizione? "… contiene un sottoinsieme dei dati aziendali complessivi di valore per uno specifico gruppo di utenti, come quelli appartenenti a un reparto aziendale. L’ambito è limitato a soggetti specifici."
+   A. Data Mart
+   B. Nessuna delle opzioni fornite è corretta
+   C. Data Lake
+   D. Enterprise Data Warehouse
+
+107. Il dendrogramma è una rappresentazione grafica che consente di analizzare e leggere informazioni relative a ... (scegli l'opzione corretta).
+   A. K-means
+   B. DBSCAN
+   C. Clustering gerarchico
+   D. Nessuna delle opzioni fornite è corretta
+
+108. Quale degli step di Text Mining è caratterizzato dalla seguente proprietà? "… è un approccio statistico che assegna una probabilità di argomento a ogni parola."
+   A. Topic Modeling
+   B. NER (Named Entity Recognition)
+   C. Tokenization
+   D. Lemming
+
+109. Quale delle seguenti affermazioni relative al concetto di pattern è corretta?
+   A. I pattern possono essere trovati solo nei dati non strutturati
+   B. Nessuna delle opzioni fornite è corretta
+   C. I pattern possono essere trovati sia nei dati strutturati che nei dati non strutturati
+   D. I pattern possono essere trovati solo nei dati strutturati
+
+110. Quale delle seguenti affermazioni è corretta?
+   A. Il criterio di convergenza del perceptron non dipende dalla separabilità lineare dei dati.
+   B. Il criterio di convergenza del perceptron dipende dal numero di variabili di input
+   C. Il criterio di convergenza del perceptron dipende esclusivamente dal valore dei pesi assegnati
+   D. Il criterio di convergenza del perceptron dipende dalla separabilità lineare dei dati.
+
+111. Qual è il ruolo dei Pooling Layer nelle CNNs (Convolutional Neural Networks)?
+   A. I layer di pooling permettono di restituire una versione più grande del dato che viene elaborato in input (sovracampionamento)
+   B. I layer di pooling permettono di fornire una versione più piccola del dato che viene elaborato (sottocampionamento)
+   C. I layer di pooling permettono di estrarre caratteristiche a partire dai filtri di convoluzione.
+   D. I layer di pooling rappresentano l'output layer delle CNNs
+
+112. Quanti step sono inclusi nel cosiddetto KDP (Knowledge Discovery Process)?
+   A. 4
+   B. 5
+   C. 7
+   D. 3
+
+113. Quando si tratta di Multilayer Feedforward Neural Network, quale delle seguenti affermazioni NON è corretta?
+   A. Si tratta di reti neurali in cui l'elaborazione dell'informazione prevede l'uso di input layer, layer intermedi (hidden) e output layer.
+   B. Si tratta di reti neurali in cui l'elaborazione dell'informazione si propaga in avanti.
+   C. Sono reti neurali in cui si utilizzano le cosiddette funzioni di attivazione per fornire l'output di ogni singolo "nodo".
+   D. Si tratta di reti neurali in cui l'elaborazione dell'informazione si propaga all'indietro.
+
+114. Un file HTML è un esempio di ... (completa la frase utilizzando una delle opzioni a disposizione).
+   A. dato semistrutturato
+   B. dato non strutturato
+   C. dato strutturato
+   D. Nessuna delle opzioni è corretta
+
+115. Quando si tratta di algoritmi di clustering divisivo e agglomerativo, si fa riferimento a ... (scegli l'opzione corretta).
+   A. Clustering a partizionamento
+   B. DBSCAN
+   C. Clustering gerarchico
+   D. K-means
+
+116. Si considerino le seguenti tre parole: "gattone", "pescatore", "giocare". Qual è il risultato della lemmatizzazione?
+   A. gattone → gattone, pescatore → pescatore, giocare → giocare
+   B. gattone → gatto, pescatore → pescatore, giocare → giocare
+   C. gattone → gatto, pescatore → pescare, giocare → giocare
+   D. gattone → gattone, pescatore → pesca, giocare → gioco
+
+117. La Word Vector Representation è una tecnica ampiamente utilizzata nel text mining. Quale delle seguenti opzioni correttamente rappresenta una sfida per la tecnica menzionata?
+   A. La connessione della semantica lessicale delle parole con la sintassi di frasi, enunciati, paragrafi e documenti
+   B. La connessione della semantica lessicale delle parole con la semantica di frasi, enunciati, paragrafi e documenti
+   C. La connessione della sintassi con la semantica di frasi, enunciati, paragrafi e documenti
+   D. Nessuna delle opzioni rappresenta una sfida per la Word Vector Representation.
+
+118. Quale delle seguenti affermazioni relative ai sistemi di clustering a partizionamento NON è corretta?
+   A. I sistemi di clustering a partizionamento devono conoscere il numero di cluster di output in anticipo
+   B. Tutte le opzioni fornite sono corrette
+   C. I sistemi di clustering a partizionamento possono modificare il numero di cluster di output durante l'esecuzione.
+   D. I sistemi di clustering a partizionamento suddividono i data points in gruppi esclusivi (i dati appartenenti al cluster A non possono appartenere al cluster B).
+
+119. A cosa si fa riferimento quando si legge la seguente definizione? "... è l’estrazione automatizzata o facilitata di modelli che rappresentano conoscenza implicitamente memorizzata o acquisita in grandi basi di dati, data warehouse, il Web, altri grandi archivi di informazioni o flussi di dati."
+   A. Knowledge Discovery Process
+   B. Pattern Extraction
+   C. Nessuna delle opzioni fornite è corretta
+   D. Knowledge Discovery from Data
+
+120. Cosa indicano i termini w(i) nell'architettura del perceptron?
+   A. I valori di input
+   B. I pesi (o coefficienti) e il bias
+   C. I pesi (o coefficienti)
+   D. il bias
+
+122. Complete the following statement: "A data warehouse is ..." *(Completa la seguente affermazione: "Un Data Warehouse è ...")*
+   A. A group of database *(Un gruppo di database)*
+   B. None of the above *(Nessuna delle precedenti)*
+   C. A system that handles data coming from different sources. *(Un sistema che gestisce dati provenienti da diverse fonti)*
+   D. A DBMS *(Un DBMS)*
+
+123. Knowledge Discovery Process (KDP). Which of the following includes the first four steps of KDP? *(Knowledge Discovery Process (KDP). Quale delle seguenti opzioni include i primi quattro passaggi del KDP?)*
+   A. Data Cleaning, Data Integration, Data Selection, Data Transformation
+   B. None of the above *(Nessuna delle precedenti)*
+   C. Data Cleaning, Data Integration, Data Selection, Pattern Evaluation
+   D. Knowledge Representation, Data Mining, Pattern Evaluation, Data Cleaning
+
+124. Which of the following statements is correct? *(Quale delle seguenti affermazioni è corretta?)*
+   A. Data Mining comes into play to extract patterns that cannot be easily found with stats and trends *(Il Data Mining entra in gioco per estrarre pattern che non possono essere facilmente trovati con statistiche e trend)*
+   B. Data Mining is run before extracting stats and trends on data *(Il Data Mining viene eseguito prima di estrarre statistiche e trend sui dati)*
+   C. Stats and trends allow us to find all patterns in data *(Statistiche e trend ci permettono di trovare tutti i pattern nei dati)*
+
+125. What does KDD stand for? *(Cosa significa l'acronimo KDD?)*
+   A. Knowledge Database Discovery
+   B. Knowledge Discovery Data
+   C. None of the above *(Nessuna delle precedenti)*
+   D. Knowledge Detection in Databases
+
+126. Relational Scheme. Tick the answer that represents relational database properties the most. *(Schema Relazionale. Seleziona la risposta che rappresenta meglio le proprietà di un database relazionale.)*
+   A. Structured data; Tables; Primary Key
+   B. **Tables** (Tabelle/Entità)
+   C. Unstructured data; Tables; Primary Key
+   D. Structured data; Tables; Primary Key; External Key
+
+127. Which one of the following words would you use to complete the statement below: "A spreadsheet file contains _______ data." *(Quale delle seguenti parole useresti per completare la frase: "Un file foglio di calcolo contiene dati wns _______.")*
+   A. semi-structured *(semi-strutturati)*
+   B. none of the above *(nessuna delle precedenti)*
+   C. structured *(strutturati)*
+   D. unstructured *(non strutturati)*
+
+128. Which of the following stands on the highest position in the hierarchical data analysis management? *(Quale delle seguenti opzioni si trova nella posizione più in alto nella gerarchia della gestione dell'analisi dei dati?)*
+   A. Data Mining
+   B. Database
+   C. Data Warehose
+
+129. Data Warehouse scenario. You want to dissect data on specific attributes. Which of the following corresponds to a zoom-in on data? *(Scenario Data Warehouse. Vuoi analizzare i dati su attributi specifici. Quale delle seguenti opzioni corrisponde a uno "zoom-in" sui dati?)*
+   A. OLAP
+   B. None of the above *(Nessuna delle precedenti)*
+   C. Roll-up
+   D. Drill-down
+
+130. When can results be considered statistically significant? *(Quando i risultati possono essere considerati statisticamente significativi?)*
+   A. none of the above *(nessuna delle precedenti)*
+   B. when they do not pass a statistical hypothesis test *(quando non superano un test di ipotesi statistica)*
+   C. when they relate to big sized databases *(quando si riferiscono a database di grandi dimensioni)*
+   D. when they pass a statistical hypothesis test *(quando superano un test di ipotesi statistica)*
+
+131. A data analyst uses OLAP to analyse multidimensional data at several granularity levels. What does OLAP stand for? *(Un analista dati usa OLAP per analizzare dati multidimensionali a diversi livelli di granularità. Cosa significa l'acronimo OLAP?)*
+   A. On-line Analytical Preprocessing
+   B. On-line Analytical Processing
+   C. None of the above *(Nessuna delle precedenti)*
+   D. On-line Analytical Postprocessing
+
+132. You have some uncategorised data. How can you generate labels from uncategorised data? *(Hai dei dati non categorizzati. Come puoi generare delle etichette a partire da dati non categorizzati?)*
+   A. You can generate labels by performing classification *(Puoi generare etichette eseguendo una classificazione)*
+   B. You can generate labels by using regression *(Puoi generare etichette usando la regressione)*
+   C. You can generate labels by using cluster analysis *(Puoi generare etichette usando l'analisi dei cluster)*
+   D. None of the above *(Nessuna delle precedenti)*
+
+133. You have been asked to provide trends about customers' interest in purchasing a new item in summer. Which of the following suits the case scenario most? *(Ti è stato chiesto di fornire trend sull'interesse dei clienti nell'acquisto di un nuovo articolo in estate. Quale delle seguenti opzioni si adatta meglio allo scenario?)*
+   A. Cluster Analysis *(Analisi dei Cluster)*
+   B. Classification *(Classificazione)*
+   C. Regression *(Regressione)*
+   D. None of the above *(Nessuna delle precedenti)*
+
+134. If you have a training set available, which of the following approaches can be run? *(Se hai un training set disponibile, quale dei seguenti approcci può essere eseguito?)*
+   A. Classification *(Classificazione)*
+   B. None of the above *(Nessuna delle precedenti)*
+   C. Regression *(Regressione)*
+   D. Cluster Analysis *(Analisi dei Cluster)*
+
+---
+### RISPOSTE CORRETTE
+
+1:C, 2:B, 3:A, 4:B, 5:C, 6:D, 7:B, 8:B, 9:B, 10:D,
+11:C, 12:A, 13:C, 14:B, 15:A, 16:A, 17:C, 18:B, 19:D, 20:A,
+21:D, 22:C, 23:D, 24:C, 25:B, 26:D, 27:B, 28:A, 29:A, 30:D,
+31:D, 32:A, 33:B, 34:C, 35:D, 36:D, 37:D, 38:C, 39:A, 40:D,
+41:B, 42:D, 43:C, 44:C, 45:B, 46:D, 47:C, 48:A, 49:D, 50:C,
+51:A, 52:B, 53:A, 54:D, 55:C, 56:A, 57:A, 58:C, 59:A, 60:A,
+61:B, 62:D, 63:D, 64:C, 65:A, 66:C, 67:A, 68:D, 69:D, 70:D,
+71:C, 72:D, 73:A, 74:B, 75:B, 76:B, 77:A, 78:A, 79:A, 80:C,
+81:A, 82:A, 83:A, 84:C, 85:B, 86:B, 87:D, 88:C, 89:D, 90:A,
+91:A, 92:A, 93:C, 94:B, 95:C, 96:A, 97:B, 98:C, 99:A, 100:D,
+101:D, 102:B, 103:C, 104:D, 105:C, 106:A, 107:C, 108:A, 109:C, 110:D,
+111:B, 112:C, 113:D, 114:A, 115:C, 116:B, 117:B, 118:C, 119:D, 120:C,
+122:C, 123:A, 124:A, 125:C, 126:A, 127:D, 128:A, 129:D, 130:D, 131:B,
+132:C, 133:C, 134:A
