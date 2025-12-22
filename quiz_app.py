@@ -611,20 +611,25 @@ def run_materials_mode():
             file_path = os.path.join("static", filename)
             
             if os.path.exists(file_path):
-                # Using Static File Serving (Streamlit >= 1.18)
-                encoded_filename = urllib.parse.quote(filename)
-                # Ensure we point to the static route
-                pdf_url = f"static/{encoded_filename}"
-                
-                # Use standard iframe with a PROMINENT link above it
-                # This ensures usability even if the preview fails
-                st.markdown(f'<a href="{pdf_url}" target="_blank" style="display: block; text-align: center; margin-bottom: 10px; padding: 10px; background-color: #f0f2f6; border-radius: 5px; text-decoration: none; font-weight: bold; color: #31333F;">📄 Clicca qui se non vedi l\'anteprima per aprire il PDF</a>', unsafe_allow_html=True)
-                
-                pdf_display = f'''
-                    <iframe src="{pdf_url}" width="100%" height="800px" style="border: none;">
-                    </iframe>
-                '''
-                st.markdown(pdf_display, unsafe_allow_html=True)
+                # Fallback to Base64 Embedding 
+                # (Static serving seems unreliable in this env, likely due to path/server config)
+                try:
+                    with open(file_path, "rb") as f:
+                        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+                        
+                    # PDF Link (Open in Browser) 
+                    # We can't easily link to a data URI in a new tab in all browsers due to security,
+                    # so we will rely on the standard "Scarica" button above for the "external" view.
+                    # But we can try to show the iframe.
+                    
+                    pdf_display = f'''
+                        <iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800px" style="border: none;">
+                        </iframe>
+                    '''
+                    st.markdown(pdf_display, unsafe_allow_html=True)
+                    
+                except Exception as e:
+                    st.error(f"Errore caricamento PDF: {e}")
             else:
                 st.warning("File non disponibile per l'anteprima. Verifica la cartella static.")
 
