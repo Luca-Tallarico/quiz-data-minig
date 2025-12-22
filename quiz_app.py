@@ -51,10 +51,24 @@ st.markdown("""
         .stRadio > div { 
             background-color: #1e293b; 
             border-color: #334155; 
+            color: #e2e8f0 !important;
         }
+        /* User requested: On hover, box becomes white, text becomes black */
         .stRadio > div:hover {
-            background_color: #334155; /* Slightly lighter */
+            background-color: #ffffff !important;
+            border-color: #cbd5e1 !important;
         }
+        .stRadio > div:hover * {
+            color: #0f172a !important; /* Forces black text on hover */
+        }
+        .stRadio > div:hover label {
+            color: #0f172a !important;
+        }
+        .stRadio > div:hover p {
+            color: #0f172a !important;
+        }
+        
+        /* Default state (no hover) */
         .stRadio * { color: #e2e8f0 !important; }
         .stRadio label, .stRadio p { color: #e2e8f0 !important; }
     }
