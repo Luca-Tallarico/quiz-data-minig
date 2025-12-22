@@ -2,6 +2,8 @@ import streamlit as st
 import re
 import os
 import random
+import random
+import base64
 from datetime import datetime, timedelta
 
 # Set page config
@@ -119,6 +121,11 @@ st.markdown("""
         background: linear-gradient(to bottom right, #ecfdf5, #ffffff);
     }
 
+    .card-purple {
+        border-top: 6px solid #8b5cf6; /* Violet-500 */
+        background: linear-gradient(to bottom right, #f5f3ff, #ffffff);
+    }
+
     /* Typography */
     .card-title {
         font-size: 1.5rem;
@@ -128,7 +135,8 @@ st.markdown("""
     }
     .text-blue { color: #1e40af; }
     .text-green { color: #065f46; }
-
+    .text-purple { color: #5b21b6; }
+    
     .card-desc {
         font-size: 0.95rem;
         color: #64748b;
@@ -163,9 +171,9 @@ st.markdown("""
     }
     .bg-blue-light { background-color: #dbeafe; color: #2563eb; }
     .bg-green-light { background-color: #d1fae5; color: #059669; }
-
+    .bg-purple-light { background-color: #ede9fe; color: #7c3aed; }
+    
     /* Button Styling Override */
-    /* Targeting buttons based on column structure requires this hack or just relying on Primary style */
     div[data-testid="column"]:nth-of-type(1) button {
          border-radius: 12px;
          font-weight: 600;
@@ -189,6 +197,17 @@ st.markdown("""
          color: #047857;
     }
     
+    div[data-testid="column"]:nth-of-type(3) button {
+         border-radius: 12px;
+         font-weight: 600;
+         border: 2px solid #ddd6fe;
+    }
+     div[data-testid="column"]:nth-of-type(3) button:hover {
+         border-color: #8b5cf6;
+         background-color: #f5f3ff;
+         color: #5b21b6;
+    }
+    
     /* Dark Mode Overrides */
     @media (prefers-color-scheme: dark) {
         .card-container {
@@ -197,12 +216,18 @@ st.markdown("""
         }
         .card-blue { background: linear-gradient(to bottom right, #1e293b, #0f172a); border-top-color: #3b82f6; }
         .card-green { background: linear-gradient(to bottom right, #1e293b, #0f172a); border-top-color: #10b981; }
+        .card-purple { background: linear-gradient(to bottom right, #1e293b, #0f172a); border-top-color: #8b5cf6; }
+        
         .card-title { color: #f1f5f9; }
         .feature-item { color: #cbd5e1; }
         .bg-blue-light { background-color: #1e3a8a; color: #93c5fd; }
         .bg-green-light { background-color: #064e3b; color: #6ee7b7; }
+        .bg-purple-light { background-color: #4c1d95; color: #a78bfa; }
+        
         .text-blue { color: #60a5fa; }
         .text-green { color: #34d399; }
+        .text-purple { color: #a78bfa; }
+        
         .stRadio > div { background-color: #1e293b; border-color: #334155; }
         .stRadio * { color: #e2e8f0 !important; }
     }
@@ -420,8 +445,8 @@ def generate_exam_questions(all_questions, total_needed=20):
 def show_home_page(all_questions):
     st.markdown("<h1 style='text-align: center; margin-bottom: 50px; font-weight: 800; font-size: 3rem; background: -webkit-linear-gradient(45deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>🎓 Data Mining & Text Analytics</h1>", unsafe_allow_html=True)
     
-    # Grid System with Gap
-    col1, col2 = st.columns(2, gap="large")
+    # Grid System with Gap (3 items now) and adjusted logic
+    col1, col2, col3 = st.columns(3, gap="medium")
     
     with col1:
         # Card HTML Content
@@ -431,31 +456,16 @@ def show_home_page(all_questions):
                 <div class="card-title text-blue">🏋️ Quizzone</div>
                 <div class="card-desc">La modalità classica per esercitarsi senza pressione.</div>
                 <ul class="feature-list">
-                    <li class="feature-item">
-                        <span class="icon-box bg-blue-light">📚</span> 
-                        <span>Accesso a <b>134 domande</b> totali</span>
-                    </li>
-                    <li class="feature-item">
-                        <span class="icon-box bg-blue-light">♾️</span> 
-                        <span>Nessun limite di tempo</span>
-                    </li>
-                    <li class="feature-item">
-                        <span class="icon-box bg-blue-light">💡</span> 
-                        <span>Feedback immediato risposte</span>
-                    </li>
-                    <li class="feature-item">
-                        <span class="icon-box bg-blue-light">🔍</span> 
-                        <span>Verifica passo-passo</span>
-                    </li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">📚</span> Accesso a <b>134 domande</b></li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">♾️</span> Senza limiti di tempo</li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">💡</span> Feedback immediato</li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">🔍</span> Verifica passo-passo</li>
                 </ul>
             </div>
-            <!-- Spacer handled by flexbox space-between -->
         </div>
         """, unsafe_allow_html=True)
-        
-        # Button positioned visually "inside" thanks to CSS structure or just cleanly below
-        st.markdown('<div style="margin-top: -20px;"></div>', unsafe_allow_html=True) # Manual adjustment
-        if st.button("🚀 Avvia Esercitazione", key="btn_practice", use_container_width=True):
+        st.markdown('<div style="margin-top: -15px;"></div>', unsafe_allow_html=True)
+        if st.button("🚀 Avvia Quizzone", key="btn_practice", use_container_width=True):
             reset_state()
             st.session_state.mode = 'practice'
             st.rerun()
@@ -465,37 +475,105 @@ def show_home_page(all_questions):
         st.markdown("""
         <div class="card-container card-green">
             <div>
-                <div class="card-title text-green">⏱️ Simulazione Esame</div>
+                <div class="card-title text-green">⏱️ Simulazione</div>
                 <div class="card-desc">Mettiti alla prova con una simulazione realistica.</div>
                 <ul class="feature-list">
-                    <li class="feature-item">
-                        <span class="icon-box bg-green-light">🎯</span> 
-                        <span><b>20 Domande</b> bilanciate (Sampling)</span>
-                    </li>
-                    <li class="feature-item">
-                        <span class="icon-box bg-green-light">⏳</span> 
-                        <span>Timer rigido di <b>30 Minuti</b></span>
-                    </li>
-                    <li class="feature-item">
-                        <span class="icon-box bg-green-light">⚖️</span> 
-                        <span>Voto in <b>30esimi</b> (+1.5 / -0.5)</span>
-                    </li>
-                    <li class="feature-item">
-                        <span class="icon-box bg-green-light">📊</span> 
-                        <span>Report finale dettagliato</span>
-                    </li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">🎯</span> <b>20 Domande</b> bilanciate</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">⏳</span> Timer <b>30 Minuti</b></li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">⚖️</span> Voto in <b>30esimi</b></li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">📊</span> Report dettagliato</li>
                 </ul>
             </div>
         </div>
         """, unsafe_allow_html=True)
-        
-        st.markdown('<div style="margin-top: -20px;"></div>', unsafe_allow_html=True) 
+        st.markdown('<div style="margin-top: -15px;"></div>', unsafe_allow_html=True) 
         if st.button("📝 Avvia Simulazione", key="btn_exam", use_container_width=True):
             reset_state()
             st.session_state.mode = 'exam'
             st.session_state.exam_start_time = datetime.now()
             st.session_state.exam_questions = generate_exam_questions(all_questions, 20)
             st.rerun()
+
+    with col3:
+        # Card HTML Content
+        st.markdown("""
+        <div class="card-container card-purple">
+            <div>
+                <div class="card-title text-purple">📂 Materiale</div>
+                <div class="card-desc">Accedi a tutte le lecture e agli appunti del corso.</div>
+                <ul class="feature-list">
+                    <li class="feature-item"><span class="icon-box bg-purple-light">📄</span> <b>Slide</b> e Dispense</li>
+                    <li class="feature-item"><span class="icon-box bg-purple-light">📥</span> <b>Download</b> PDF</li>
+                    <li class="feature-item"><span class="icon-box bg-purple-light">👁️</span> Visione in-app</li>
+                    <li class="feature-item"><span class="icon-box bg-purple-light">🗂️</span> Archivio Completo</li>
+                </ul>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown('<div style="margin-top: -15px;"></div>', unsafe_allow_html=True) 
+        if st.button("📚 Apri Materiale", key="btn_materials", use_container_width=True):
+            st.session_state.mode = 'materials'
+            st.rerun()
+
+def run_materials_mode():
+    st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
+    st.title("📂 Materiale Didattico")
+    st.markdown("Qui puoi visionare e scaricare tutto il materiale del corso.")
+    st.divider()
+
+    files_map = {
+        "📘 Lecture 01 - Intro": "Lecture_01_Data_Mining_Introduction_2025_2026.pdf",
+        "📙 Lecture 01.5 - SQL Handouts": "Lecture_01.5_Handouts_SQL_queries.pdf",
+        "📗 Lecture 02 - Clustering Techniques": "Lecture_02_Clustering_Techniques.pdf",
+        "📕 Lecture 03 - Perceptron & Learning": "Lecture_03_Perceptron_and_Learning_Process.pdf",
+        "📔 Lecture 04 - Text Mining 1": "Lecture_04. Text Mining_1.pdf",
+        "📓 Lecture 05 - Text Mining 2": "Lecture_05 Text_Mining_2.pdf",
+        "📒 Lecture 06 - Text Classification": "Lecture_06 Text Classification.pdf",
+        "📝 APPUNTI COMPLETI": "APPUNTI LEZIONE_mining copia.pdf"
+    }
+
+    # Layout for viewer
+    # Sidebar selection for viewing? Or just list?
+    # Better: List on left (col1), Viewer on right (col2)
+    
+    col_list, col_view = st.columns([1, 2])
+    
+    with col_list:
+        st.subheader("Elenco Files")
+        selected_file_key = st.radio("Seleziona un file da visionare:", list(files_map.keys()))
+        
+        filename = files_map[selected_file_key]
+        
+        # Download Button
+        if os.path.exists(filename):
+            with open(filename, "rb") as f:
+                btn = st.download_button(
+                    label=f"⬇️ Scarica {filename}",
+                    data=f,
+                    file_name=filename,
+                    mime="application/pdf",
+                    use_container_width=True
+                )
+        else:
+            st.error(f"File {filename} non trovato sul server.")
+
+    with col_view:
+        st.subheader("Anteprima")
+        filename = files_map[selected_file_key]
+        
+        if os.path.exists(filename):
+            # Display PDF
+            try:
+                with open(filename, "rb") as f:
+                    base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+                
+                # Embedding PDF
+                pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}#toolbar=0" width="100%" height="800" type="application/pdf"></iframe>'
+                st.markdown(pdf_display, unsafe_allow_html=True)
+            except Exception as e:
+                st.error(f"Errore nella visualizzazione: {e}")
+        else:
+            st.warning("File non disponibile per l'anteprima.")
 
 def run_practice_mode(questions, correct_answers):
     st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
@@ -892,6 +970,9 @@ def main():
              st.session_state.exam_questions = random.sample(all_questions, 20)
         
         run_exam_mode(st.session_state.exam_questions, correct_answers)
+        
+    elif st.session_state.mode == 'materials':
+        run_materials_mode()
 
 if __name__ == "__main__":
     main()
