@@ -614,13 +614,16 @@ def run_materials_mode():
             if os.path.exists(file_path):
                 # Using Static File Serving (Streamlit >= 1.18)
                 encoded_filename = urllib.parse.quote(filename)
+                # Ensure we point to the static route
                 pdf_url = f"static/{encoded_filename}"
                 
-                # Use simple iframe with the static URL
+                # Use EMBED tag which is better for PDFs than iframe
+                # and add a fallback link
                 pdf_display = f'''
-                    <iframe src="{pdf_url}" width="100%" height="800px" style="border: none;">
-                    <p>Il tuo browser non supporta l'anteprima PDF. <a href="{pdf_url}" target="_blank">Clicca qui per aprire</a>.</p>
-                    </iframe>
+                    <embed src="{pdf_url}" type="application/pdf" width="100%" height="800px">
+                        <p>Il tuo browser non sta visualizzando il PDF. 
+                        <a href="{pdf_url}" target="_blank">Clicca qui per scaricarlo/aprirlo</a>.</p>
+                    </embed>
                 '''
                 st.markdown(pdf_display, unsafe_allow_html=True)
             else:
