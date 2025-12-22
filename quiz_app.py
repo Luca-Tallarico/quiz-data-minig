@@ -456,7 +456,7 @@ def show_home_page(all_questions):
                 <div class="card-title text-blue">🏋️ Quizzone</div>
                 <div class="card-desc">La modalità classica per esercitarsi senza pressione.</div>
                 <ul class="feature-list">
-                    <li class="feature-item"><span class="icon-box bg-blue-light">📚</span> Accesso a <b>134 domande</b></li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">📚</span> Accesso a <b>137 domande</b></li>
                     <li class="feature-item"><span class="icon-box bg-blue-light">♾️</span> Senza limiti di tempo</li>
                     <li class="feature-item"><span class="icon-box bg-blue-light">💡</span> Feedback immediato</li>
                     <li class="feature-item"><span class="icon-box bg-blue-light">🔍</span> Verifica passo-passo</li>
@@ -475,13 +475,13 @@ def show_home_page(all_questions):
         st.markdown("""
         <div class="card-container card-green">
             <div>
-                <div class="card-title text-green">⏱️ Simulazione</div>
+                <div class="card-title text-green">⏱️ Simulazione d'esame</div>
                 <div class="card-desc">Mettiti alla prova con una simulazione realistica.</div>
                 <ul class="feature-list">
-                    <li class="feature-item"><span class="icon-box bg-green-light">🎯</span> <b>20 Domande</b> bilanciate</li>
-                    <li class="feature-item"><span class="icon-box bg-green-light">⏳</span> Timer <b>30 Minuti</b></li>
-                    <li class="feature-item"><span class="icon-box bg-green-light">⚖️</span> Voto in <b>30esimi</b></li>
-                    <li class="feature-item"><span class="icon-box bg-green-light">📊</span> Report dettagliato</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">🎯</span> <b>20 Domande</b></li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">✅</span> <b>+1.5</b> Risposta Corretta</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">❌</span> <b>-0.5</b> Risposta Errata</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">⚪</span> <b>0</b> Risposta Omessa</li>
                 </ul>
             </div>
         </div>
@@ -514,6 +514,16 @@ def show_home_page(all_questions):
         if st.button("📚 Apri Materiale", key="btn_materials", use_container_width=True):
             st.session_state.mode = 'materials'
             st.rerun()
+
+    # Introduction / Footer Text
+    st.markdown("""
+    <div style="text-align: center; margin-top: 50px; color: gray; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        <b>Obiettivo dell'app</b><br>
+        Questa piattaforma è stata creata per supportare gli studenti nella preparazione all'esame di <i>Data Mining & Text Analytics</i>. 
+        Attraverso quiz interattivi, simulazioni d'esame temporizzate e accesso diretto alle risorse didattiche, 
+        potrai consolidare le tue conoscenze teoriche e pratiche in modo efficace e mirato.
+    </div>
+    """, unsafe_allow_html=True)
 
 def run_materials_mode():
     st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
