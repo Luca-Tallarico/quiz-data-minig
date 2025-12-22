@@ -21,7 +21,7 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
     
-    /* Radio Button Styling */
+    /* Radio Button Styling - FIXED HOVER */
     .stRadio > div {
         background-color: #f8fafc;
         padding: 15px;
@@ -34,8 +34,29 @@ st.markdown("""
         border-color: #cbd5e1;
         background-color: #f1f5f9;
     }
-    .stRadio * {
-        color: #334155 !important;
+    .stRadio label {
+        color: #334155 !important; /* Force text color strictly */
+    }
+    /* Force inner p tag to respect color too */
+    .stRadio p {
+         color: #334155 !important;
+    }
+    
+    /* Dark Mode Overrides */
+    @media (prefers-color-scheme: dark) {
+        .card-container {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        .stRadio > div { 
+            background-color: #1e293b; 
+            border-color: #334155; 
+        }
+        .stRadio > div:hover {
+            background_color: #334155; /* Slightly lighter */
+        }
+        .stRadio * { color: #e2e8f0 !important; }
+        .stRadio label, .stRadio p { color: #e2e8f0 !important; }
     }
     
     /* Feedback Colors */
@@ -551,48 +572,52 @@ def run_exam_mode(questions, correct_answers):
     mins, secs = divmod(int(remaining.total_seconds()), 60)
     timer_color = "red" if mins < 5 else "blue"
     
-    # Dynamic JS Timer (Visual Only)
-    # We inject a small script that calculates remaining time client-side
+    # Dynamic JS Timer (Components approach for stability)
+    import streamlit.components.v1 as components
     
+    # Simple visual countdown
     timer_html = f"""
     <div style="
-        font-size: 24px; 
-        font-weight: bold; 
+        font-family: 'Inter', sans-serif;
+        font-size: 20px; 
+        font-weight: 700; 
         color: {timer_color}; 
-        padding: 10px; 
+        background-color: rgba(255,255,255,0.05); /* Slight tint */
+        padding: 15px; 
         border: 2px solid {timer_color}; 
-        border-radius: 10px; 
+        border-radius: 12px; 
         text-align: center;
         margin-bottom: 20px;">
         ⏱️ Tempo Rimanente: <span id="timer-display">{mins:02d}:{secs:02d}</span>
     </div>
     <script>
-    function startTimer(duration, display) {{
-        var timer = duration, minutes, seconds;
-        var interval = setInterval(function () {{
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {{
-                clearInterval(interval);
+    // Self-contained timer logic
+    (function() {{
+        var timeLeft = {int(remaining.total_seconds())};
+        var display = document.getElementById('timer-display');
+        
+        var timerInterval = setInterval(function() {{
+            if (timeLeft <= 0) {{
+                clearInterval(timerInterval);
                 display.textContent = "00:00";
+                return;
             }}
+            
+            timeLeft--;
+            var m = Math.floor(timeLeft / 60);
+            var s = timeLeft % 60;
+            
+            m = m < 10 ? "0" + m : m;
+            s = s < 10 ? "0" + s : s;
+            
+            display.textContent = m + ":" + s;
         }}, 1000);
-    }}
-    
-    // Calculate remaining seconds from server side
-    var remainingSeconds = {int(remaining.total_seconds())};
-    var display = document.querySelector('#timer-display');
-    startTimer(remainingSeconds, display);
+    }})();
     </script>
     """
     
-    st.markdown(timer_html, unsafe_allow_html=True)
+    # Use Components to render isolated HTML/JS
+    components.html(timer_html, height=80) # Fixed height to avoid scrollbar
 
     st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
     
