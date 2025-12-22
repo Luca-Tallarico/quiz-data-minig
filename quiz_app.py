@@ -568,12 +568,21 @@ def run_materials_mode():
                     base64_pdf = base64.b64encode(f.read()).decode('utf-8')
                 
                 # Embedding PDF
-                pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}#toolbar=0" width="100%" height="800" type="application/pdf"></iframe>'
+                # IFRAME approach often blocked. Switching to OBJECT/EMBED.
+                pdf_display = f'''
+                    <div style="display:flex; justify-content:center; width:100%;">
+                        <object data="data:application/pdf;base64,{base64_pdf}" type="application/pdf" width="100%" height="800px">
+                            <iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800px">
+                            <p>Il tuo browser non supporta l'anteprima PDF integrata. Usa il tasto <b>Download</b> sopra per leggerlo.</p>
+                            </iframe>
+                        </object>
+                    </div>
+                '''
                 st.markdown(pdf_display, unsafe_allow_html=True)
             except Exception as e:
                 st.error(f"Errore nella visualizzazione: {e}")
         else:
-            st.warning("File non disponibile per l'anteprima.")
+            st.warning("File non disponibile per l'anteprima. Verifica che sia stato caricato su GitHub.")
 
 def run_practice_mode(questions, correct_answers):
     st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
