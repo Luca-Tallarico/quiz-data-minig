@@ -1098,6 +1098,51 @@ Questo concetto si riferisce alla difficoltà di passare dalla semantica delle p
 ---
 
    **Spiegazione:** Per estrarre dati specifici di transazioni singole, si lavora con un DBMS Transazionale (OLTP), non con un Data Warehouse (OLAP).
+
+
+   **Spiegazione:** Domanda generata per coprire l'argomento "Text Mining vs NLP".
+
+
+138. Quale delle seguenti affermazioni NON si applica al LLM Foundation Model?
+   A. È un modello linguistico ampio e pre-addestrato utilizzabile per vari compiti di NLP.
+   B. È addestrato su enormi quantità di dati testuali e può essere usato per generare testo.
+   C. È sottoposto a fine-tuning per il dialogo conversazionale.
+   D. Nessuna delle precedenti.
+
+   **Spiegazione:** I Foundation Models (es. GPT-4 base) sono modelli generici pre-addestrati. Il fine-tuning specifico per il dialogo (Chat) è ciò che caratterizza prodotti come ChatGPT, distinguendoli dal modello base.
+
+139. Text Mining e NLP differiscono? In quali termini? Scegli l'affermazione corretta.
+   A. L'NLP mira a comprendere il linguaggio umano mentre il Text Mining si occupa di Information Extraction (estrazione di informazioni).
+   B. Il Text Mining mira a comprendere il linguaggio umano mentre l'NLP si occupa di Information Extraction.
+   C. Il Text Mining si concentra sulla sintassi.
+   D. Nessuna delle precedenti.
+
+   **Spiegazione:** L'NLP è la disciplina focalizzata sulla comprensione profonda e generazione del linguaggio (morfologia, sintassi, semantica). Il Text Mining utilizza tecniche di NLP con l'obiettivo primario di estrarre pattern, trend e informazioni strutturate da testi non strutturati.
+
+140. Una delle seguenti affermazioni sul Text Mining è errata. Quale?
+   A. Il Text Mining è una tecnologia integrata di NLP, Pattern Classification e Machine Learning.
+   B. Il Text Mining è una tecnica di NLP.
+   C. I compiti di Text Mining non sono solitamente lineari poiché l'informazione è concepita nel testo.
+   D. Discovery, Induction e Refinement sono compiti tipici del Text Mining.
+
+   **Spiegazione:** Definire il Text Mining semplicemente come "una tecnica di NLP" è riduttivo ed errato. È un campo multidisciplinare (KDD applicato al testo) che *integra* NLP, statistica e Machine Learning.
+
+141. Un file HTML appartiene a quale delle seguenti categorie?
+   A. Nessuna delle precedenti.
+   B. File Semi-strutturato.
+   C. File Strutturato.
+   D. File Non strutturato.
+
+   **Spiegazione:** I file HTML (così come XML e JSON) sono considerati **Dati Semi-strutturati** perché possiedono una struttura organizzativa tramite tag che separano gli elementi semantici, pur contenendo testo libero e non seguendo uno schema rigido come i database relazionali.
+
+142. Quale dei seguenti è menzionato come punto debole (weakness) del Foundation LLM?
+   A. Limited Scope (Ambito Limitato).
+   B. Bias.
+   C. Computational Cost (Costo Computazionale).
+   D. Nessuna delle precedenti.
+
+   **Spiegazione:** Il **Bias** (pregiudizi nei dati di training che si riflettono nel modello) è una delle debolezze critiche e più discusse dei Foundation Models. Anche il costo computazionale è elevato, ma "Limited Scope" è falso (sono general-purpose).
+
 ### RISPOSTE CORRETTE
 
 1:C, 2:B, 3:A, 4:B, 5:C, 6:D, 7:B, 8:B, 9:B, 10:D,
@@ -1113,4 +1158,5 @@ Questo concetto si riferisce alla difficoltà di passare dalla semantica delle p
 101:D, 102:B, 103:C, 104:D, 105:C, 106:A, 107:C, 108:A, 109:C, 110:D,
 111:B, 112:C, 113:D, 114:A, 115:C, 116:B, 117:B, 118:C, 119:D, 120:C,
 121:C, 122:A, 123:A, 124:B, 125:A, 126:C, 127:A, 128:D, 129:D, 130:B,
-131:C, 132:C, 133:A, 134:B, 135:A, 136:B, 137:B
+131:C, 132:C, 133:A, 134:B, 135:A, 136:B, 137:B, 138:C, 139:A, 140:B,
+141:B, 142:B
