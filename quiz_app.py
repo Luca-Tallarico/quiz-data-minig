@@ -334,6 +334,8 @@ def init_session_state():
         st.session_state.exam_questions = []
     if 'exam_start_time' not in st.session_state:
         st.session_state.exam_start_time = None
+    if 'last_exam_question_ids' not in st.session_state:
+        st.session_state.last_exam_question_ids = set()
 
 def reset_state():
     st.session_state.answers = {}
@@ -345,13 +347,16 @@ def reset_state():
 # -----------------------------------------------------------------------------
 # LOGIC: STRATIFIED SAMPLING
 # -----------------------------------------------------------------------------
-def generate_exam_questions(all_questions, total_needed=20):
+def generate_exam_questions(all_questions, total_needed=20, exclude_ids=None):
     """
     Selects 20 questions ensuring they are distributed across sections 
-    proportionally to the section size.
+    proportionally. It prioritizes questions NOT in `exclude_ids`.
     """
     if not all_questions:
         return []
+        
+    if exclude_ids is None:
+        exclude_ids = set()
     
     # 1. Group by section
     sections = {}
@@ -365,10 +370,8 @@ def generate_exam_questions(all_questions, total_needed=20):
     total_q = len(all_questions)
     selected_questions = []
     
-    # Prepare to track remainder
     quotas = {}
     for sec, q_list in sections.items():
-        # Raw proportion
         proportion = len(q_list) / total_q
         count = proportion * total_needed
         quotas[sec] = {
@@ -377,73 +380,74 @@ def generate_exam_questions(all_questions, total_needed=20):
             'remainder': count - int(count)
         }
     
-    # 3. Initial Fill
+    # 3. Initial Quota Sampling (With exclude_ids logic)
     current_count = 0
+    
+    # Helper for sampling with exclusion preference
+    def smart_sample(pool, k, avoid_ids):
+        # Split pool into 'fresh' and 'seen'
+        fresh = [q for q in pool if q['id'] not in avoid_ids]
+        seen = [q for q in pool if q['id'] in avoid_ids]
+        
+        picked = []
+        
+        # Pick from fresh first
+        if k <= len(fresh):
+            picked = random.sample(fresh, k)
+        else:
+            # Take all fresh, then fill from seen
+            picked.extend(fresh)
+            needed = k - len(fresh)
+            picked.extend(random.sample(seen, needed))
+        return picked
+    
     for sec, data in quotas.items():
-        # Sample the integer part
         k = min(data['target'], len(data['list']))
         if k > 0:
-            picked = random.sample(data['list'], k)
+            picked = smart_sample(data['list'], k, exclude_ids)
             selected_questions.extend(picked)
             current_count += len(picked)
-            # Remove picked from list to avoid dups if we needed to pull more? 
-            # (Not needed as random.sample is unique, but we won't sample again from same pool unless logic specifically asks)
     
-    # 4. Fill Gap (Round-robin based on largest remainder)
+    # 4. Fill Gap (Round-robin logic)
     needed = total_needed - current_count
     if needed > 0:
-        # Sort sections by remainder descending
         sorted_secs = sorted(quotas.keys(), key=lambda s: quotas[s]['remainder'], reverse=True)
-        
         for sec in sorted_secs:
-            if needed == 0:
-                break
+            if needed == 0: break
             
-            # Check if we have questions left to pick in this section?
-            # We already picked 'target'. Let's pick one more if possible.
-            # But wait, random.sample returned a new list. We need to respect unique IDs.
-            # Simplified approach:
-            # Re-sample from the full list excluding already selected IDs is safer.
+            # Check availability logic
+            already_picked_in_sec_count = 0
+            # (We cannot easily count 'already_picked' here without iterating selected_questions, 
+            #  but we know we picked exactly data['target'] or len(list) before)
+            # Simpler: just check if we have unpicked questions in this section
             
-            # Let's verify:
-            # quotas[sec]['list'] is the full list of that section.
-            # We picked `quotas[sec]['target']` amount.
-            # If len > target, we can pick 1 more.
-             
-            already_picked_count = quotas[sec]['target']
-            total_available = len(quotas[sec]['list'])
-            
-            if total_available > already_picked_count:
-                # We need to pick one that wasn't already picked.
-                # Since we didn't store exactly WHICH were picked in step 3 (we just extended selected_questions),
-                # we need effectively "sample k+1" instead of "sample k".
+            # Get IDs already picked for this section
+            # Ideally we should have updated 'quotas' structure or 'selected_questions'
+            # Let's count quickly
+            sec_picked = [q for q in selected_questions if q.get('section') == sec]
+            if len(sec_picked) < len(quotas[sec]['list']):
+                # We can pick one more
+                # Which one? Random from available
+                picked_ids = {q['id'] for q in sec_picked}
+                available = [q for q in quotas[sec]['list'] if q['id'] not in picked_ids]
                 
-                # To make this clean, let's just update the target in quotas and re-run sampling at the end? 
-                # No, simpler: just increment target for these top remainder sections.
-                quotas[sec]['target'] += 1
+                # Use smart sample for this single item too?
+                # Yes, try to pick fresh if possible
+                one_pick = smart_sample(available, 1, exclude_ids)
+                selected_questions.extend(one_pick)
                 needed -= 1
-
-    # 5. Final Execution
-    # Now valid targets are set. Let's do the actual sampling here.
-    final_selection = []
-    for sec, data in quotas.items():
-        k = data['target']
-        # Safety clamp
-        k = min(k, len(data['list']))
-        if k > 0:
-            final_selection.extend(random.sample(data['list'], k))
-            
-    # If still short (e.g. small sections), fill with random remaining
-    if len(final_selection) < total_needed:
-        selected_ids = {q['id'] for q in final_selection}
-        pool = [q for q in all_questions if q['id'] not in selected_ids]
-        needed = total_needed - len(final_selection)
-        final_selection.extend(random.sample(pool, min(needed, len(pool))))
+                
+    # 5. Final safety check (if round robin wasn't enough or math errors)
+    if len(selected_questions) < total_needed:
+        curr_ids = {q['id'] for q in selected_questions}
+        pool = [q for q in all_questions if q['id'] not in curr_ids]
+        rem_needed = total_needed - len(selected_questions)
+        # Smart sample remaining
+        final_picks = smart_sample(pool, min(rem_needed, len(pool)), exclude_ids)
+        selected_questions.extend(final_picks)
         
-    # Shuffle final list so topics are mixed (simulating real exam)
-    random.shuffle(final_selection)
-    
-    return final_selection
+    random.shuffle(selected_questions)
+    return selected_questions
 
 # -----------------------------------------------------------------------------
 # MODES
@@ -498,7 +502,15 @@ def show_home_page(all_questions):
             reset_state()
             st.session_state.mode = 'exam'
             st.session_state.exam_start_time = datetime.now()
-            st.session_state.exam_questions = generate_exam_questions(all_questions, 20)
+            
+            # Use history to avoid repeats
+            previous_ids = st.session_state.last_exam_question_ids
+            new_questions = generate_exam_questions(all_questions, 20, exclude_ids=previous_ids)
+            st.session_state.exam_questions = new_questions
+            
+            # Update history
+            st.session_state.last_exam_question_ids = {q['id'] for q in new_questions}
+            
             st.rerun()
 
     with col3:
