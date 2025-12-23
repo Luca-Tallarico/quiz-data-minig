@@ -299,6 +299,13 @@ def load_quiz_data(file_path):
              current_q['lines'].append(stripped)
              current_q['text'] = " ".join(current_q['lines'])
 
+        # Capture Explanation (after options)
+        if current_q and current_q['options'] and "Spiegazione:" in line:
+             current_q['explanation'] = line.split("Spiegazione:", 1)[1].strip()
+        elif current_q and current_q['options'] and stripped and 'explanation' in current_q:
+             # Append multi-line explanation
+             current_q['explanation'] += " " + stripped
+
     if current_q:
         parsed_questions.append(current_q)
 
@@ -1007,9 +1014,18 @@ def render_single_question(q, correct_answers, display_num=None):
                  st.rerun()
                  
         if show_feedback:
-            if "✅" in status_md: st.success(status_md)
-            elif "❌" in status_md: st.error(status_md)
-            else: st.warning(status_md)
+            # Feedback Logic
+            if "✅" in status_md: 
+                st.success(status_md)
+            elif "❌" in status_md: 
+                st.error(status_md)
+            else: 
+                st.warning(f"⚠️ Non risposta. La risposta corretta era: **{c_ans}**")
+
+            # Show Explanation if available
+            explanation = q.get('explanation')
+            if explanation:
+                st.info(f"**Spiegazione:** {explanation}")
 
 
 # -----------------------------------------------------------------------------
