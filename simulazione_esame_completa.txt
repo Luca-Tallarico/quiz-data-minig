@@ -1099,10 +1099,6 @@ Questo concetto si riferisce alla difficoltà di passare dalla semantica delle p
 
    **Spiegazione:** Per estrarre dati specifici di transazioni singole, si lavora con un DBMS Transazionale (OLTP), non con un Data Warehouse (OLAP).
 
-
-   **Spiegazione:** Domanda generata per coprire l'argomento "Text Mining vs NLP".
-
-
 138. Quale delle seguenti affermazioni NON si applica al LLM Foundation Model?
    A. È un modello linguistico ampio e pre-addestrato utilizzabile per vari compiti di NLP.
    B. È addestrato su enormi quantità di dati testuali e può essere usato per generare testo.
