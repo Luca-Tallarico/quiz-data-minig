@@ -756,6 +756,9 @@ def run_exam_mode(questions, correct_answers):
         text-align: center;
         margin-bottom: 20px;">
         ⏱️ Tempo Rimanente: <span id="timer-display">{mins:02d}:{secs:02d}</span>
+        <div style="font-size: 11px; font-weight: 400; margin-top: 5px; opacity: 0.8;">
+            (Al termine del tempo il quiz verrà inviato e corretto in automatico)
+        </div>
     </div>
     <script>
     // Self-contained timer logic
@@ -784,7 +787,7 @@ def run_exam_mode(questions, correct_answers):
     """
     
     # Use Components to render isolated HTML/JS
-    components.html(timer_html, height=80) # Fixed height to avoid scrollbar
+    components.html(timer_html, height=100) # Fixed height to avoid scrollbar
 
     st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
     
