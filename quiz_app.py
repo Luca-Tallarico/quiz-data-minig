@@ -483,10 +483,12 @@ def show_home_page(all_questions):
         <div class="card-container card-blue">
             <div>
                 <div class="card-title text-blue">🏋️ Quizzone</div>
-                <div class="card-desc">Modalità classica. Esercitati liberamente.</div>
+                <div class="card-desc">La modalità classica per esercitarsi senza pressione.</div>
                 <ul class="feature-list">
-                    <li class="feature-item">Per prendere confidenza con le domande</li>
-                    <li class="feature-item">Senza limiti di tempo</li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">📚</span> Accesso a&nbsp;<b>142&nbsp;domande</b></li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">♾️</span> Senza limiti di tempo</li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">💡</span> Feedback immediato</li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">🔍</span> Verifica passo-passo</li>
                 </ul>
             </div>
         </div>
@@ -502,10 +504,12 @@ def show_home_page(all_questions):
         <div class="card-container card-green">
             <div>
                 <div class="card-title text-green">⏱️ Simulazione d'esame</div>
-                <div class="card-desc">Simulazione realistica (20 domande, 30 min).</div>
+                <div class="card-desc">Mettiti alla prova con una simulazione realistica.</div>
                 <ul class="feature-list">
-                    <li class="feature-item">Algoritmo anti-ripetizione intelligente</li>
-                    <li class="feature-item">Report finale dettagliato</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">🎯</span> <b>20 Domande</b> - 30 min</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">✅</span> <b>+1.5</b>&nbsp;Corretta</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">❌</span> <b>-0.5</b>&nbsp;Errata</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">⚪</span> <b>0</b>&nbsp;Omessa</li>
                 </ul>
             </div>
         </div>
@@ -535,6 +539,8 @@ def show_home_page(all_questions):
                 <ul class="feature-list">
                     <li class="feature-item"><span class="icon-box bg-purple-light">📄</span> <b>Slide</b>&nbsp;e&nbsp;Dispense</li>
                     <li class="feature-item"><span class="icon-box bg-purple-light">📥</span> <b>Download</b> PDF</li>
+                    <li class="feature-item"><span class="icon-box bg-purple-light">👁️</span> Visione in-app</li>
+                    <li class="feature-item"><span class="icon-box bg-purple-light">🗂️</span> Archivio Completo</li>
                 </ul>
             </div>
         </div>
@@ -564,6 +570,7 @@ def show_home_page(all_questions):
             </div>
         </div>
         """, unsafe_allow_html=True)
+        st.markdown('<div style="margin-top: 10px;"></div>', unsafe_allow_html=True)
         if st.button("🔥 Gioca a Survival", key="btn_survival", use_container_width=True):
             reset_state()
             st.session_state.mode = 'survival'
@@ -583,6 +590,7 @@ def show_home_page(all_questions):
             </div>
         </div>
         """, unsafe_allow_html=True)
+        st.markdown('<div style="margin-top: 10px;"></div>', unsafe_allow_html=True)
         if st.button("⏳ Gioca Time Attack", key="btn_time_attack", use_container_width=True):
             reset_state()
             st.session_state.mode = 'time_attack'
@@ -602,11 +610,10 @@ def show_home_page(all_questions):
             </div>
         </div>
         """, unsafe_allow_html=True)
+        st.markdown('<div style="margin-top: 10px;"></div>', unsafe_allow_html=True)
         if st.button("🤔 Gioca Reverse", key="btn_reverse", use_container_width=True):
             reset_state()
             st.session_state.mode = 'reverse'
-            st.rerun()
-            st.session_state.mode = 'materials'
             st.rerun()
 
     # Introduction / Footer Text
