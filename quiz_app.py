@@ -524,8 +524,6 @@ def show_home_page(all_questions):
 
     # Introduction / Footer Text
     st.markdown("""
-    <div style="text-align: center; margin-top: 50px; color: gray; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-        <b>Obiettivo dell'app</b><br>
         Questa piattaforma è stata creata per supportare gli studenti nella preparazione all'esame di <i>Data Mining & Text Analytics</i>. 
         Attraverso quiz interattivi, simulazioni d'esame temporizzate e accesso diretto alle risorse didattiche, 
         potrai consolidare le tue conoscenze teoriche e pratiche in modo efficace e mirato.
@@ -737,7 +735,7 @@ def run_exam_mode(questions, correct_answers):
             
     # Display Timer
     mins, secs = divmod(int(remaining.total_seconds()), 60)
-    timer_color = "red" if mins < 5 else "blue"
+    timer_color = "red" if mins < 5 else "#60a5fa" # Lighter blue for dark mode contrast
     
     # Dynamic JS Timer (Components approach for stability)
     import streamlit.components.v1 as components
