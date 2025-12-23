@@ -342,8 +342,10 @@ def init_session_state():
         st.session_state.game_score = 0
     if 'game_lives' not in st.session_state:
         st.session_state.game_lives = 3
-    if 'game_end_time' not in st.session_state:
-        st.session_state.game_end_time = None
+    if 'time_attack_status' not in st.session_state:
+        st.session_state.time_attack_status = 'ready' # ready, countdown, playing
+    if 'question_start_time' not in st.session_state:
+        st.session_state.question_start_time = None
     if 'current_question' not in st.session_state:
         st.session_state.current_question = None
     if 'reverse_options' not in st.session_state:
@@ -359,7 +361,8 @@ def reset_state():
     # Reset New Modes
     st.session_state.game_score = 0
     st.session_state.game_lives = 3
-    st.session_state.game_end_time = None
+    st.session_state.time_attack_status = 'ready'
+    st.session_state.question_start_time = None
     st.session_state.current_question = None
     st.session_state.reverse_options = []
 
@@ -1135,6 +1138,10 @@ def main():
         st.error("File dati non trovato.")
         return
 
+    # INJECT CORRECT ANSWER INTO QUESTION OBJECTS (Crucial for Game Modes)
+    for q in all_questions:
+        q['correct'] = correct_answers.get(q['id'])
+
     init_session_state()
 
     # --- ROUTING ---
@@ -1228,45 +1235,77 @@ def show_survival_mode(all_questions):
 # -----------------------------------------------------------------------------
 # TIME ATTACK MODE
 # -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# TIME ATTACK MODE (REFACTORED)
+# -----------------------------------------------------------------------------
 def show_time_attack_mode(all_questions):
     st.markdown("## ⚡ Time Attack")
     
+    # COUNTDOWN PHASE
+    if st.session_state.time_attack_status == 'ready':
+        st.session_state.time_attack_status = 'countdown'
+        st.rerun()
+
+    if st.session_state.time_attack_status == 'countdown':
+        placeholder = st.empty()
+        for i in range(3, 0, -1):
+            placeholder.markdown(f"<h1 style='text-align: center; font-size: 100px;'>{i}</h1>", unsafe_allow_html=True)
+            time.sleep(1)
+        placeholder.markdown(f"<h1 style='text-align: center; font-size: 100px; color: green;'>VIA!</h1>", unsafe_allow_html=True)
+        time.sleep(0.5)
+        placeholder.empty()
+        st.session_state.time_attack_status = 'playing'
+        st.rerun()
+
+    # PLAYING PHASE
+    # Manage Question Start Time
+    if st.session_state.question_start_time is None:
+        st.session_state.question_start_time = datetime.now()
+
     # Timer Logic
-    now = datetime.now()
-    remaining = (st.session_state.game_end_time - now).total_seconds()
+    elapsed = (datetime.now() - st.session_state.question_start_time).total_seconds()
+    limit = 15.0
+    remaining = limit - elapsed
     
+    # Check Timeout
     if remaining <= 0:
-        st.error(f"TEMPO SCADUTO! Punteggio Finale: {st.session_state.game_score}")
+        st.error(f"⏱️ TEMPO SCADUTO! Punteggio Finale: {st.session_state.game_score}")
         if st.button("Riprova"):
-            st.session_state.game_score = 0
-            st.session_state.game_end_time = datetime.now() + timedelta(seconds=60)
-            st.session_state.current_question = None
-            st.session_state.verified_ids = set()
+            reset_state()
+            st.session_state.mode = 'time_attack'
             st.rerun()
         return
 
     # Dashboard
     c1, c2 = st.columns(2)
     c1.metric("Punteggio", st.session_state.game_score)
-    c2.metric("Tempo Rimasto", f"{int(remaining)}s", delta_color="normal")
     
-    st.progress(max(0.0, min(1.0, remaining / 60.0))) # Visual approximate usage (assuming 60s base)
+    # Dynamic styling for timer
+    timer_color = "green"
+    if remaining < 5: timer_color = "red"
+    elif remaining < 10: timer_color = "orange"
+    
+    c2.markdown(f"<h3 style='color: {timer_color}; margin: 0;'>{remaining:.1f}s</h3>", unsafe_allow_html=True)
+    
+    st.progress(max(0.0, min(1.0, remaining / limit))) 
     
     # Get Question
     if st.session_state.current_question is None:
-        q = random.choice(all_questions)
+        pool = [q for q in all_questions if q['id'] not in st.session_state.verified_ids]
+        if not pool: pool = all_questions # reset if exhausted
+        
+        q = random.choice(pool)
         st.session_state.current_question = q
+        st.session_state.verified_ids.add(q['id'])
     
     q = st.session_state.current_question
-    st.markdown(f"**{q['text']}**")
+    st.markdown(f"### {q['text']}")
     
     options = [f"{k}. {v}" for k, v in sorted(q['options'].items())]
     
-    # We need buttons for speed! Radio is slow.
+    # We use buttons for speed!
     cols = st.columns(2)
     for i, opt in enumerate(options):
-        # opt string "A. text"
-        # We want clicking the button to trigger check
         with cols[i % 2]:
             if st.button(opt, key=f"ta_{st.session_state.game_score}_{i}", use_container_width=True):
                 # Check Answer
@@ -1274,20 +1313,24 @@ def show_time_attack_mode(all_questions):
                 selected_char = opt.split(".")[0]
                 
                 if selected_char == correct_char:
-                    st.toast("Corretto! +5s", icon="✅")
-                    st.session_state.game_score += 100
-                    st.session_state.game_end_time += timedelta(seconds=5)
+                    # Correct
+                    st.toast("Corretto! 🚀", icon="✅")
+                    st.session_state.game_score += 1
+                    st.session_state.current_question = None
+                    st.session_state.question_start_time = None # Reset timer
+                    st.rerun()
                 else:
-                    st.toast("Errato! -10s", icon="❌")
-                    st.session_state.game_end_time -= timedelta(seconds=10)
-                
-                st.session_state.current_question = None
-                st.rerun()
-
-    # Manual refresh hack to keep timer ticking visually? 
-    # Streamlit doesn't auto-refresh. User must interact. 
-    # We can add st.empty() loop for pure visuals but it blocks interaction.
-    # Better: just rely on interaction updates.
+                    # Wrong -> Game Over
+                    st.error(f"❌ SBAGLIATO! La risposta era {correct_char}.")
+                    st.markdown(f"### Punteggio Finale: {st.session_state.game_score}")
+                    if st.button("Riprova Subito"):
+                        reset_state()
+                        st.session_state.mode = 'time_attack'
+                        st.session_state.time_attack_status = 'ready'
+                        st.rerun()
+                    
+                    # Stop execution to show Game Over state
+                    st.stop()
 
 # -----------------------------------------------------------------------------
 # REVERSE MODE
