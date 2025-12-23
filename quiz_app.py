@@ -1158,8 +1158,6 @@ def main():
     else:
         show_home_page(all_questions)
 
-if __name__ == "__main__":
-    main()
 
 # -----------------------------------------------------------------------------
 # SURVIVAL MODE
@@ -1338,3 +1336,6 @@ def show_reverse_mode(all_questions):
             if st.button("Prossima"):
                 st.session_state.current_question = None
                 st.rerun()
+
+if __name__ == "__main__":
+    main()
