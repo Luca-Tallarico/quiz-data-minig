@@ -624,6 +624,8 @@
    C. CBOW sta per Continuous Bag of Words è una tecnica che permette di effettuare la Named Entity Recognition (NER)
    D. CBOW sta per Continuous Bag of Words è una delle architetture su cui si basa la tecnica Word2Vec
 
+   **Spiegazione:** Il testo conferma che CBOW (Continuous Bag of Words) è una delle due architetture principali utilizzate dalla tecnica **word2vec** (l'altra è skip-gram).
+
 102. A cosa si fa riferimento quando si legge la seguente definizione: "… si riferisce ai valori veri e verificati o alle etichette utilizzate come benchmark per l'addestramento e la valutazione di modelli."?
    A. clustering a partizionamento
    B. ground-truth
@@ -635,6 +637,11 @@
    B. Eliminare il cosiddetto "noise" e il "bias" a livello dei pixel.
    C. Eliminare il cosiddetto "noise" a livello dei pixel
    D. Eliminare il cosiddetto "bias" a livello dei pixel
+
+   **Spiegazione:** Nel documento "APPUNTI LEZIONE", si distingue nettamente tra **Rumore (noise)** e **Bias**.
+Il **Rumore** viene descritto, ad esempio, come "Rumore sale e pepe (pixel bianchi e neri sull'immagine)" che può essere cancellato con filtri (denoising).
+Il **Bias** è invece definito come "pregiudizi" (es. di genere) riflessi nei dati, non un disturbo a livello di pixel.
+Pertanto, l'image denoising agisce sul noise (pixel), non sul bias.
 
 104. Quale tecnica di text mining fornisce un output del genere? "Tim Cook" - PERSON (People, including fictional) "Microsoft" - ORG (Companies, agencies, institutions) "Seattle" - GPE (Countries, cities, states) "Friday" - DATE (Absolute or relative dates or periods) "AI" - ORG (Companies, agencies, institutions) "$50 million" - MONEY
    A. POS Tagging
@@ -648,6 +655,10 @@
    C. Archivia i significati e gli usi di ogni parola. Codifica le relazioni tra parole e significati.
    D. Archivia i significati e gli usi di ogni parola, ma non codifica le relazioni tra le parole e i loro significati.
 
+   **Spiegazione:** Hai ragione! Controllando testualmente il documento "APPUNTI LEZIONE_mining copia.pdf" a pagina 32 (circa riga 2332-2336 nel file di testo consolidato), la definizione data è esattamente:
+*"Lessico (Lexicon): Generalmente ha una forma altamente strutturata, immagazzinando i significati e gli usi di ciascuna parola e codificando le relazioni tra parole e significati."*
+Differisce dalla definizione linguistica standard (che spesso distingue il lessico dalle ontologie relazionali), ma ai fini dell'esame vale quanto scritto negli appunti.
+
 106. A cosa si fa riferimento quando si legge la seguente definizione? "… contiene un sottoinsieme dei dati aziendali complessivi di valore per uno specifico gruppo di utenti, come quelli appartenenti a un reparto aziendale. L’ambito è limitato a soggetti specifici."
    A. Data Mart
    B. Nessuna delle opzioni fornite è corretta
@@ -659,6 +670,9 @@
    B. DBSCAN
    C. Clustering gerarchico
    D. Nessuna delle opzioni fornite è corretta
+
+   **Spiegazione:** Il **Dendrogramma** è il diagramma ad albero fondamentale e distintivo utilizzato per visualizzare i risultati del **Clustering Gerarchico** (Hierarchical Clustering). Mostra come i cluster vengono uniti (approccio agglomerativo) o divisi (approccio divisivo) passa dopo passo.
+K-means e DBSCAN non producono dendrogrammi nativamente.
 
 108. Quale degli step di Text Mining è caratterizzato dalla seguente proprietà? "… è un approccio statistico che assegna una probabilità di argomento a ogni parola."
    A. Topic Modeling
@@ -672,6 +686,8 @@
    C. I pattern possono essere trovati sia nei dati strutturati che nei dati non strutturati
    D. I pattern possono essere trovati solo nei dati strutturati
 
+   **Spiegazione:** Gli appunti affermano esplicitamente che i pattern possono emergere e essere trovati in entrambe le tipologie di dati: sia **dati strutturati** (database relazionali, tabelle) sia **dati non strutturati** (testi, immagini, flussi log).
+
 110. Quale delle seguenti affermazioni è corretta?
    A. Il criterio di convergenza del perceptron non dipende dalla separabilità lineare dei dati.
    B. Il criterio di convergenza del perceptron dipende dal numero di variabili di input
@@ -683,6 +699,9 @@
    B. I layer di pooling permettono di fornire una versione più piccola del dato che viene elaborato (sottocampionamento)
    C. I layer di pooling permettono di estrarre caratteristiche a partire dai filtri di convoluzione.
    D. I layer di pooling rappresentano l'output layer delle CNNs
+
+   **Spiegazione:** Nelle dispense (Lecture 06) si afferma esplicitamente che i "Pooling layers" servono a fare **downsample** (sottocampionamento) dei feature vectors, ottenendo una "smaller representation" (versione più piccola) dei dati.
+L'opzione A si riferisce ai *Convolutional Layers* (che estraggono le feature), mentre l'opzione D descrive l'opposto del pooling (upsampling).
 
 112. Quanti step sono inclusi nel cosiddetto KDP (Knowledge Discovery Process)?
    A. 4
@@ -696,6 +715,9 @@
    C. Sono reti neurali in cui si utilizzano le cosiddette funzioni di attivazione per fornire l'output di ogni singolo "nodo".
    D. Si tratta di reti neurali in cui l'elaborazione dell'informazione si propaga all'indietro.
 
+   **Spiegazione:** Il termine "Feedforward" significa letteralmente "che alimenta in avanti". In queste reti, l'informazione viaggia solo in una direzione: dall'input, attraverso i layer nascosti (hidden), fino all'output. Non ci sono cicli o loop.
+L'opzione B afferma che l'informazione si propaga *all'indietro*, il che è falso per la fase di elaborazione (inference). La propagazione all'indietro (backpropagation) avviene solo durante l'addestramento per aggiornare i pesi, ma non definisce il flusso dell'informazione nella rete feedforward stessa. Essendo una domanda che chiede cosa NON è corretto, la B è la risposta giusta.
+
 114. Un file HTML è un esempio di ... (completa la frase utilizzando una delle opzioni a disposizione).
    A. dato semistrutturato
    B. dato non strutturato
@@ -707,6 +729,11 @@
    B. DBSCAN
    C. Clustering gerarchico
    D. K-means
+
+   **Spiegazione:** Tra i principali metodi di clustering, il **Clustering Gerarchico** (Hierarchical Clustering) è quello che si divide in due famiglie, descritte negli appunti come:
+1.  **Agglomerativo (Agglomerative)**: Approccio *bottom-up*, dove si parte da tanti cluster quanti sono i punti e si uniscono.
+2.  **Divisivo (Divisive)**: Approccio *top-down*, dove si parte da un unico cluster e lo si divide ricorsivamente.
+Il K-means è un clustering a partizionamento, mentre DBSCAN è basato sulla densità.
 
 116. Si considerino le seguenti tre parole: "gattone", "pescatore", "giocare". Qual è il risultato della lemmatizzazione?
    A. gattone → gattone, pescatore → pescatore, giocare → giocare
@@ -720,6 +747,10 @@
    C. La connessione della sintassi con la semantica di frasi, enunciati, paragrafi e documenti
    D. Nessuna delle opzioni rappresenta una sfida per la Word Vector Representation.
 
+   **Spiegazione:** Il documento "APPUNTI LEZIONE_mining copia.pdf" contiene un paragrafo intitolato "La Sfida della Rappresentazione Vettoriale".
+In esso si legge testualmente: *"Nonostante l'efficacia a livello lessicale, il limite risiede nel collegamento della semantica delle singole parole alla semantica di insiemi più grandi di parole, come frasi, proposizioni, paragrafi e la semantica del discorso."*
+Questo concetto si riferisce alla difficoltà di passare dalla semantica delle parole singole (dove word2vec eccelle) alla semantica composizionale di frasi intere.
+
 118. Quale delle seguenti affermazioni relative ai sistemi di clustering a partizionamento NON è corretta?
    A. I sistemi di clustering a partizionamento devono conoscere il numero di cluster di output in anticipo
    B. Tutte le opzioni fornite sono corrette
@@ -731,6 +762,8 @@
    B. Pattern Extraction
    C. Nessuna delle opzioni fornite è corretta
    D. Knowledge Discovery from Data
+
+   **Spiegazione:** La definizione nella domanda corrisponde esattamente alla descrizione di **Ground Truth** (verità di base) fornita nelle slide. Si riferisce ai valori o alle etichette verificate (etichette "label") usate come riferimento standard per addestrare e valutare i modelli.
 
 120. Cosa indicano i termini w(i) nell'architettura del perceptron?
    A. I valori di input
@@ -755,6 +788,8 @@
    B. Il Data Mining viene eseguito prima di estrarre statistiche e trend sui dati
    C. Statistiche e trend ci permettono di trovare tutti i pattern nei dati
    D. Nessuna delle precedenti
+
+   **Spiegazione:** Il Teorema di convergenza del Perceptron (e quanto riportato specificamente in *Lecture 03*) stabilisce che l'algoritmo **garantisce la convergenza** (ossia di trovare un iperpiano di separazione e smettere di aggiornare i pesi) **solo se e quando** i dati di input sono **linearmente separabili**. Se i dati non lo sono, (senza accorgimenti come il limite di epoche) l'algoritmo continuerebbe a ciclare all'infinito cercando una soluzione che non esiste.
 
 124. Cosa significa l'acronimo KDD?
    A. Knowledge Database Discovery
