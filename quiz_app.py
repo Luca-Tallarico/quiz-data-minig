@@ -1199,7 +1199,8 @@ def show_survival_mode(all_questions):
     st.markdown(f"### {q['text']}")
     
     # Options
-    options = q['options'][:] # copy
+    # Options
+    options = [f"{k}. {v}" for k, v in sorted(q['options'].items())]
     # random.shuffle(options) # Optional shuffle
     
     # Interaction
@@ -1259,7 +1260,7 @@ def show_time_attack_mode(all_questions):
     q = st.session_state.current_question
     st.markdown(f"**{q['text']}**")
     
-    options = q['options']
+    options = [f"{k}. {v}" for k, v in sorted(q['options'].items())]
     
     # We need buttons for speed! Radio is slow.
     cols = st.columns(2)

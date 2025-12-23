@@ -626,7 +626,7 @@
     C. Un dato perfettamente rappresentativo della norma.
     D. Un cluster con una densità di punti molto elevata.
 
-   **Spiegazione:** I dati Ordinali hanno un ordine ma non una distanza misurabile costante (es. Gradi: Basso, Medio, Alto).
+   **Spiegazione:** Un Outlier è un oggetto dato che si discosta significativamente dal resto dei dati, come se fosse stato generato da un meccanismo diverso.
 
 80. Cosa significa che una matrice Term-Document è *Sparsa*?
     A. Che è composta quasi interamente da numeri 1.
@@ -634,7 +634,7 @@
     C. Che la stragrande maggioranza dei valori è zero, poiché ogni documento contiene solo una piccola frazione del vocabolario totale.
     D. Che la matrice ha dimensioni molto ridotte.
 
-   **Spiegazione:** I dati Non Strutturati (testo, video, audio) costituiscono la stragrande maggioranza (spesso citato >80%) dei dati sul Web.
+   **Spiegazione:** Una matrice è sparsa ('Sparse') quando la maggior parte dei suoi elementi è zero. In una matrice Term-Document, la maggior parte delle parole del dizionario non appare in ogni singolo documento.
 
 81. Quale architettura di rete neurale utilizza filtri (kernel) per estrarre feature locali?
     A. Convolutional Neural Network (CNN).
@@ -642,7 +642,7 @@
     C. Recurrent Neural Network (RNN).
     D. Multilayer Perceptron (MLP) fully connected.
 
-   **Spiegazione:** Il Perceptron è l'unità base di una rete neurale, un classificatore lineare semplice.
+   **Spiegazione:** Le CNN (Convolutional Neural Networks) utilizzano livelli di convoluzione con filtri (kernel) per catturare pattern locali e spaziali nei dati (es. immagini).
 
 82. Il parametro *Learning Rate* controlla:
     A. La grandezza dell'aggiustamento dei pesi ad ogni passo dell'addestramento.
@@ -666,7 +666,7 @@
     C. Il corpo del testo di un'email o un post sui social media.
     D. Un file CSV (Comma Separated Values) ben formattato.
 
-   **Spiegazione:** I Metadati sono 'dati sui dati': descrivono la struttura, l'origine, il formato e il significato dei dati stessi.
+   **Spiegazione:** I dati non strutturati non seguono uno schema predefinito. Esempi includono testo libero (email, social post), immagini, audio e video.
 
 85. Le operazioni di *Data Transformation* includono tipicamente:
     A. L'acquisto di nuovo hardware per l'elaborazione.
@@ -674,7 +674,7 @@
     C. La cancellazione fisica dei file di database.
     D. La stesura del report finale per gli stakeholder.
 
-   **Spiegazione:** NoSQL Database (es. MongoDB) sono database non relazionali progettati per scalabilità e flessibilità con dati non strutturati.
+   **Spiegazione:** La Data Transformation include la normalizzazione, l'aggregazione, e la creazione di nuovi attributi per rendere i dati adatti al Data Mining.
 
 86. Nel clustering partizionale standard (Hard Clustering), un oggetto appartiene a:
     A. Nessun cluster (rimane non assegnato).
@@ -712,7 +712,7 @@
     C. La gestione delle transazioni nel database.
     D. L'ottimizzazione degli algoritmi genetici.
 
-   **Spiegazione:** Per estrarre dati specifici di transazioni singole, si lavora con un DBMS Transazionale (OLTP), non con un Data Warehouse (OLAP). 
+   **Spiegazione:** I Word Clouds offrono una rappresentazione visiva immediata dove la dimensione delle parole è proporzionale alla loro frequenza nel corpus. 
 
 92. Dividere automaticamente notizie finanziarie in categorie ("Tech", "Pharma") usando esempi etichettati è un compito di:
     A. Text Classification (Supervised Learning).
@@ -728,7 +728,7 @@
     C. Catturare parzialmente il contesto locale e l'ordine delle parole (es. "New York").
     D. Essere computazionalmente più leggeri da calcolare.
 
-   **Spiegazione:** Underfitting avviene quando il modello è troppo semplice per catturare la struttura dei dati (alto bias).
+   **Spiegazione:** I N-grammi (come i bigrammi) catturano l'ordine locale delle parole e il contesto (es. distinzione tra "cane morde uomo" e "uomo morde cane").
 
 94. Il fenomeno dell'*Overfitting* si verifica quando:
     A. Il computer si surriscalda per il troppo lavoro.
@@ -736,7 +736,7 @@
     C. Il modello è perfetto e non commette errori neanche sul test set.
     D. Il modello è troppo semplice per catturare la complessità dei dati (underfitting).
 
-   **Spiegazione:** Il **Bias** (pregiudizi nei dati di training che si riflettono nel modello) è una delle debolezze critiche e più discusse dei Foundation Models. Anche il costo computazionale è elevato, ma "Limited Scope" è falso (sono general-purpose).  
+   **Spiegazione:** L'Overfitting (sovradattamento) accade quando il modello impara 'a memoria' i dati di training, incluso il rumore, fallendo nella generalizzazione su nuovi dati.  
 
 95. La caratteristica *Non-volatile* di un Data Warehouse implica che:
     A. I dati vengono cancellati e sovrascritti ogni notte.
@@ -744,7 +744,7 @@
     C. I dati storici, una volta caricati, non vengono modificati ma solo consultati per analisi.
     D. I dati sono fisicamente instabili e a rischio perdita.
 
-   **Spiegazione:** Intelligence Density (ID) nel Data Mining si riferisce al valore della conoscenza estratta rispetto alla mole di dati (Yield).
+   **Spiegazione:** 'Non-volatile' significa che i dati nel Data Warehouse sono storici e stabili: una volta caricati, non vengono modificati o cancellati come nei database transazionali.
 
 96. Per trovare la linea di tendenza (trend) in un grafico a dispersione si usa:
     A. La Regressione Lineare.
@@ -760,7 +760,7 @@
     C. Elaborazione di immagini satellitari.
     D. Progettazione di database relazionali normalizzati.
 
-   **Spiegazione:** Scalabilità ed Efficienza sono sfide cruciali nel Data Mining dovute alla crescita esponenziale dei dati.
+   **Spiegazione:** Sinonimia e Polisemia sono ambiguità intrinseche del linguaggio naturale che rendono complesse le task di Text Mining e NLP.
 
 98. Nel Text Mining, cos'è un *Corpus*?
     A. La struttura fisica del neurone artificiale.
