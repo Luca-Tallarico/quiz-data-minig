@@ -610,28 +610,37 @@ def run_materials_mode():
             filename = files_map[selected_file_key]
             file_path = os.path.join("static", filename)
             
-            if os.path.exists(file_path):
-                # Fallback to Base64 Embedding 
-                # (Static serving seems unreliable in this env, likely due to path/server config)
-                try:
-                    with open(file_path, "rb") as f:
-                        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-                        
-                    # PDF Link (Open in Browser) 
-                    # We can't easily link to a data URI in a new tab in all browsers due to security,
-                    # so we will rely on the standard "Scarica" button above for the "external" view.
-                    # But we can try to show the iframe.
-                    
-                    pdf_display = f'''
-                        <iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800px" style="border: none;">
-                        </iframe>
-                    '''
-                    st.markdown(pdf_display, unsafe_allow_html=True)
-                    
-                except Exception as e:
-                    st.error(f"Errore caricamento PDF: {e}")
+                # STATIC SERVING (Requires .streamlit/config.toml with enableStaticServing = true)
+                encoded_filename = urllib.parse.quote(filename) 
+                pdf_url = f"static/{encoded_filename}"
+                
+                # 1. External Link (Always works as fallback)
+                st.markdown(f'''
+                    <a href="{pdf_url}" target="_blank" style="
+                        display: block; 
+                        text-align: center; 
+                        margin-bottom: 20px; 
+                        padding: 15px; 
+                        background-color: #f8f9fa; 
+                        border: 2px solid #e9ecef;
+                        border-radius: 8px; 
+                        text-decoration: none; 
+                        font-weight: 700; 
+                        color: #0f172a;
+                    ">
+                        📄 Apri PDF in una nuova scheda (Consigliato)
+                    </a>
+                ''', unsafe_allow_html=True)
+                
+                # 2. Embedded Viewer (Using EMBED for better PDF support than IFRAME)
+                pdf_display = f'''
+                    <embed src="{pdf_url}" width="100%" height="900px" type="application/pdf">
+                        <p>Il browser non supporta la visualizzazione diretta. Usa il pulsante sopra.</p>
+                    </embed>
+                '''
+                st.markdown(pdf_display, unsafe_allow_html=True)
             else:
-                st.warning("File non disponibile per l'anteprima. Verifica la cartella static.")
+                st.warning(f"File non trovato nella cartella static: {file_path}")
 
 def run_practice_mode(questions, correct_answers):
     st.sidebar.button("🏠 Torna alla Home", on_click=lambda: st.session_state.update(mode=None))
