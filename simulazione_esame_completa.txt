@@ -655,7 +655,7 @@ Pertanto, l'image denoising agisce sul noise (pixel), non sul bias.
    C. Archivia i significati e gli usi di ogni parola. Codifica le relazioni tra parole e significati.
    D. Archivia i significati e gli usi di ogni parola, ma non codifica le relazioni tra le parole e i loro significati.
 
-   **Spiegazione:** Hai ragione! Controllando testualmente il documento "APPUNTI LEZIONE_mining copia.pdf" a pagina 32 (circa riga 2332-2336 nel file di testo consolidato), la definizione data è esattamente:
+   **Spiegazione:** Controllando testualmente il documento "APPUNTI LEZIONE_mining copia.pdf" a pagina 32 (circa riga 2332-2336 nel file di testo consolidato), la definizione data è esattamente:
 *"Lessico (Lexicon): Generalmente ha una forma altamente strutturata, immagazzinando i significati e gli usi di ciascuna parola e codificando le relazioni tra parole e significati."*
 Differisce dalla definizione linguistica standard (che spesso distingue il lessico dalle ontologie relazionali), ma ai fini dell'esame vale quanto scritto negli appunti.
 
