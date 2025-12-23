@@ -610,6 +610,7 @@ def run_materials_mode():
             filename = files_map[selected_file_key]
             file_path = os.path.join("static", filename)
             
+            if os.path.exists(file_path):
                 # STATIC SERVING (Requires .streamlit/config.toml with enableStaticServing = true)
                 encoded_filename = urllib.parse.quote(filename) 
                 pdf_url = f"static/{encoded_filename}"
