@@ -1095,7 +1095,7 @@ Questo concetto si riferisce alla difficoltà di passare dalla semantica delle p
    C. Data Lake
    D. Data Mart
 
----
+
 
    **Spiegazione:** Per estrarre dati specifici di transazioni singole, si lavora con un DBMS Transazionale (OLTP), non con un Data Warehouse (OLAP).
 
@@ -1138,6 +1138,8 @@ Questo concetto si riferisce alla difficoltà di passare dalla semantica delle p
    D. Nessuna delle precedenti.
 
    **Spiegazione:** Il **Bias** (pregiudizi nei dati di training che si riflettono nel modello) è una delle debolezze critiche e più discusse dei Foundation Models. Anche il costo computazionale è elevato, ma "Limited Scope" è falso (sono general-purpose).
+
+---
 
 ### RISPOSTE CORRETTE
 
