@@ -611,11 +611,15 @@ def run_materials_mode():
             file_path = os.path.join("static", filename)
             
             if os.path.exists(file_path):
-                # STATIC SERVING (Requires .streamlit/config.toml with enableStaticServing = true)
+                # STATIC SERVING (For the 'New Tab' link)
                 encoded_filename = urllib.parse.quote(filename) 
                 pdf_url = f"static/{encoded_filename}"
                 
-                # 1. External Link (Always works as fallback)
+                # BASE64 ENCODING (For the internal preview - Most Reliable)
+                with open(file_path, "rb") as f:
+                    base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+
+                # 1. External Link (Still uses static URL as fallback because data: links are blocked in top-frame)
                 st.markdown(f'''
                     <a href="{pdf_url}" target="_blank" style="
                         display: block; 
@@ -633,12 +637,8 @@ def run_materials_mode():
                     </a>
                 ''', unsafe_allow_html=True)
                 
-                # 2. Embedded Viewer (Using EMBED for better PDF support than IFRAME)
-                pdf_display = f'''
-                    <embed src="{pdf_url}" width="100%" height="900px" type="application/pdf">
-                        <p>Il browser non supporta la visualizzazione diretta. Usa il pulsante sopra.</p>
-                    </embed>
-                '''
+                # 2. Embedded Viewer (Using Base64 Data URI)
+                pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="900px" type="application/pdf"></iframe>'
                 st.markdown(pdf_display, unsafe_allow_html=True)
             else:
                 st.warning(f"File non trovato nella cartella static: {file_path}")
