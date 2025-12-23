@@ -485,7 +485,7 @@ def show_home_page(all_questions):
                 <div class="card-title text-green">⏱️ Simulazione d'esame</div>
                 <div class="card-desc">Mettiti alla prova con una simulazione realistica.</div>
                 <ul class="feature-list">
-                    <li class="feature-item"><span class="icon-box bg-green-light">🎯</span> <b>20 Domande</b> - 30 Min</li>
+                    <li class="feature-item"><span class="icon-box bg-green-light">🎯</span> <b>20 Domande</b> - 30 min</li>
                     <li class="feature-item"><span class="icon-box bg-green-light">✅</span> <b>+1.5</b>&nbsp;Corretta</li>
                     <li class="feature-item"><span class="icon-box bg-green-light">❌</span> <b>-0.5</b>&nbsp;Errata</li>
                     <li class="feature-item"><span class="icon-box bg-green-light">⚪</span> <b>0</b>&nbsp;Omessa</li>
