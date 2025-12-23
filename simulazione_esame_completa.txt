@@ -983,6 +983,8 @@ Questo concetto si riferisce alla difficoltà di passare dalla semantica delle p
    C. Data Cleaning, Data Integration, Data Selection, Pattern Evaluation
    D. Knowledge Representation, Data Mining, Pattern Evaluation, Data Cleaning
 
+
+   **Spiegazione:** I primi step del KDP sono, in ordine: Data Cleaning, Integration, Selection, Transformation (prima del Data Mining vero e proprio).
 123. Quale delle seguenti affermazioni è corretta?
    A. Il Data Mining entra in gioco per estrarre pattern che non possono essere facilmente trovati con statistiche e trend
    B. Il Data Mining viene eseguito prima di estrarre statistiche e trend sui dati
@@ -1029,48 +1031,64 @@ Questo concetto si riferisce alla difficoltà di passare dalla semantica delle p
    C. Quando si riferiscono a database di grandi dimensioni
    D. Quando superano un test di ipotesi statistica (statistically significant hypothesis test)
 
+
+   **Spiegazione:** I risultati sono statisticamente significativi se superano un test di ipotesi (p-value < soglia), indicando che non sono dovuti al caso.
 130. Un analista dati usa OLAP per analizzare dati multidimensionali a diversi livelli di granularità. Cosa significa l'acronimo OLAP?
    A. On-line Analytical Preprocessing
    B. On-line Analytical Processing
    C. Nessuna delle precedenti
    D. On-line Analytical Postprocessing
 
+
+   **Spiegazione:** OLAP (On-line Analytical Processing) supporta analisi multidimensionali complesse e veloci su grandi moli di dati storici.
 131. Hai dei dati non categorizzati (uncategorised data). Come puoi generare delle etichette (labels) a partire da essi?
    A. Puoi generare etichette eseguendo una classificazione
    B. Puoi generare etichette usando la regressione
    C. Puoi generare etichette usando l'analisi dei cluster (Cluster Analysis)
    D. Nessuna delle precedenti
 
+
+   **Spiegazione:** Per generare etichette da dati non classificati ('uncategorised'), si usa il Clustering Analysis per trovare raggruppamenti naturali.
 132. Ti è stato chiesto di fornire trend sull'interesse dei clienti nell'acquisto di un nuovo articolo in estate. Quale dei seguenti approcci si adatta meglio allo scenario?
    A. Cluster Analysis
    B. Classification
    C. Regression (Regressione)
    D. Nessuna delle precedenti
 
+
+   **Spiegazione:** Per analizzare trend continui nel tempo (es. interesse d'acquisto), la Regressione è la tecnica statistica più indicata.
 133. Se hai un training set disponibile, quale dei seguenti approcci può essere eseguito?
    A. Classification (Classificazione)
    B. Nessuna delle precedenti
    C. Regression (Regressione)
    D. Cluster Analysis
 
+
+   **Spiegazione:** Se si dispone di un Training Set (dati etichettati), l'approccio corretto è la Classificazione (Supervised Learning).
 134. Quale delle seguenti rappresenta la maggior quantità di tipi di dati sul Web?
    A. Semi-structured Data
    B. Unstructured Data (Dati non strutturati)
    C. Structured Data
    D. None of the above
 
+
+   **Spiegazione:** I dati Non Strutturati (testo, video, audio) costituiscono la stragrande maggioranza (spesso citato >80%) dei dati sul Web.
 135. Quale dei seguenti è un acronimo che rappresenta il Data Mining da una prospettiva formale?
    A. KDD (Knowledge Discovery in Databases)
    B. KDP
    C. DM
    D. All of the above (Tutte le precedenti)
 
+
+   **Spiegazione:** KDD (Knowledge Discovery from Data) è l'acronimo/termine formale che racchiude il Data Mining come uno dei suoi step.
 136. Dato: Buys(X,Laptop) => [Buys(X,'wireless keyboard'), support=3%, confidence=45%]. Quale delle seguenti affermazioni è corretta?
    A. Il 97% di tutte le transazioni include sia tastiera wireless che laptop
    B. Il 3% di tutte le transazioni include sia tastiera wireless che laptop
    C. C'è una probabilità del 45% che i clienti che acquistano una tastiera comprino un laptop
    D. Nessuna delle precedenti
 
+
+   **Spiegazione:** Una confidenza del 45% significa che, dato l'acquisto di X (tastiera), c'è una probabilità condizionata del 45% di acquistare Y (laptop).
 137. Stai lavorando con un DB transazionale che raccoglie informazioni sugli acquisti: (Id_transaction, amount, date, article_category, id_user) e (Id_category, promotional_offer, discount). Se sei interessato a eseguire una query per estrarre gli sconti per un singolo utente, con quale sezione IT stai lavorando?
    A. Data Warehouse
    B. DBMS (Data Base Management System)
@@ -1078,6 +1096,8 @@ Questo concetto si riferisce alla difficoltà di passare dalla semantica delle p
    D. Data Mart
 
 ---
+
+   **Spiegazione:** Per estrarre dati specifici di transazioni singole, si lavora con un DBMS Transazionale (OLTP), non con un Data Warehouse (OLAP).
 ### RISPOSTE CORRETTE
 
 1:C, 2:B, 3:A, 4:B, 5:C, 6:D, 7:B, 8:B, 9:B, 10:D,
