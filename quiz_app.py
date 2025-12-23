@@ -476,7 +476,7 @@ def show_home_page(all_questions):
     st.markdown("<h1 style='text-align: center; margin-bottom: 50px; font-weight: 800; font-size: 3rem; background: -webkit-linear-gradient(45deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>🎓 Data Mining & Text Analytics</h1>", unsafe_allow_html=True)
     
     # --- ROW 1: CORE MODES ---
-    col1, col2 = st.columns(2, gap="medium")
+    col1, col2, col3 = st.columns(3, gap="medium")
     
     with col1:
         st.markdown("""
@@ -524,6 +524,24 @@ def show_home_page(all_questions):
             # Update history
             st.session_state.last_exam_question_ids = {q['id'] for q in new_questions}
             
+            st.rerun()
+            
+    with col3:
+        st.markdown("""
+        <div class="card-container card-purple">
+            <div>
+                <div class="card-title text-purple">📂 Materiale</div>
+                <div class="card-desc">Accedi a tutte le lecture e agli appunti del corso.</div>
+                <ul class="feature-list">
+                    <li class="feature-item"><span class="icon-box bg-purple-light">📄</span> <b>Slide</b>&nbsp;e&nbsp;Dispense</li>
+                    <li class="feature-item"><span class="icon-box bg-purple-light">📥</span> <b>Download</b> PDF</li>
+                </ul>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown('<div style="margin-top: -15px;"></div>', unsafe_allow_html=True) 
+        if st.button("📚 Apri Materiale", key="btn_materials", use_container_width=True):
+            st.session_state.mode = 'materials'
             st.rerun()
             
     st.markdown("---")
