@@ -931,8 +931,8 @@ L'opzione B afferma che l'informazione si propaga *all'indietro*, il che è fals
    D. K-means
 
    **Spiegazione:** Tra i principali metodi di clustering, il **Clustering Gerarchico** (Hierarchical Clustering) è quello che si divide in due famiglie, descritte negli appunti come:
-1.  **Agglomerativo (Agglomerative)**: Approccio *bottom-up*, dove si parte da tanti cluster quanti sono i punti e si uniscono.
-2.  **Divisivo (Divisive)**: Approccio *top-down*, dove si parte da un unico cluster e lo si divide ricorsivamente.
+   - 1. **Agglomerativo (Agglomerative)**: Approccio *bottom-up*, dove si parte da tanti cluster quanti sono i punti e si uniscono.
+   - 2. **Divisivo (Divisive)**: Approccio *top-down*, dove si parte da un unico cluster e lo si divide ricorsivamente.
 Il K-means è un clustering a partizionamento, mentre DBSCAN è basato sulla densità.
 
 116. Si considerino le seguenti tre parole: "gattone", "pescatore", "giocare". Qual è il risultato della lemmatizzazione?
