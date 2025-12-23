@@ -274,7 +274,8 @@ def load_quiz_data(file_path):
             
         m_q = q_start_pattern.match(line)
         if m_q:
-            if current_q:
+            # Check if valid question (must have options)
+            if current_q and len(current_q['options']) >= 2:
                 parsed_questions.append(current_q)
             q_id = int(m_q.group(1))
             q_text = m_q.group(2)
@@ -306,7 +307,7 @@ def load_quiz_data(file_path):
              # Append multi-line explanation
              current_q['explanation'] += " " + stripped
 
-    if current_q:
+    if current_q and len(current_q['options']) >= 2:
         parsed_questions.append(current_q)
 
     answer_map = {}
