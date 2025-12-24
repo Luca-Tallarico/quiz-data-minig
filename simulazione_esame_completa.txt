@@ -1074,7 +1074,7 @@ Il *Knowledge Discovery Process* (Opzione B) si riferisce tipicamente all'intero
    C. Il Text Mining si concentra sulla sintassi.
    D. Nessuna delle precedenti.
 
-140. Una delle seguenti affermazioni sul Text Mining è errata. Quale?
+140. Una delle seguenti affermazioni sul Text Mining è ERRATA. Quale?
    A. Il Text Mining è una tecnologia integrata di NLP, Pattern Classification e Machine Learning.
    B. Il Text Mining è una tecnica di NLP.
    C. I compiti di Text Mining non sono solitamente lineari poiché l'informazione è concepita nel testo.
