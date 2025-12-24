@@ -976,7 +976,7 @@ Il *Knowledge Discovery Process* (Opzione B) si riferisce tipicamente all'intero
 
 125. Schema Relazionale. Seleziona la risposta che rappresenta meglio le proprietà di un database relazionale.
    A. Structured data; Tables; Primary Key
-   B. **Tables** (Tabelle/Entità)
+   B. Tables (Tabelle/Entità)
    C. Unstructured data; Tables; Primary Key
    D. Structured data; Tables; Primary Key; External Key
 
