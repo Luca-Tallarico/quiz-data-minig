@@ -1410,10 +1410,11 @@ def show_reverse_mode(all_questions):
     
     selection = st.radio("Scegli:", [opt['text'] for opt in options], key=f"rev_{target['id']}")
     
-    c1, c2 = st.columns([1, 1])
+    # Layout: Button Left (Conferma) --- Spacer --- Button Right (Termina)
+    c1, c_space, c2 = st.columns([2, 6, 2])
     
     # Conferma (Left)
-    if c1.button("Conferma", use_container_width=True):
+    if c1.button("Conferma"):
         if selection == target['text']:
             st.success("Indovinato!")
             st.balloons()
@@ -1427,7 +1428,7 @@ def show_reverse_mode(all_questions):
                 st.rerun()
 
     # Termina (Right)
-    if c2.button("Termina", type="primary", use_container_width=True):
+    if c2.button("Termina", type="primary"):
          st.session_state.mode = None
          st.rerun()
 
