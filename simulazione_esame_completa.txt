@@ -280,7 +280,7 @@
     C. Come distanza tra i due punti più lontani appartenenti ai due cluster diversi.
     D. Come distanza tra i due punti più vicini appartenenti ai due cluster diversi.
 
-   **Spiegazione:** Nelle dispense (Lecture 06) si afferma esplicitamente che i "Pooling layers" servono a fare **downsample** (sottocampionamento) dei feature vectors, ottenendo una "smaller representation" (versione più piccola) dei dati. L'opzione A si riferisce ai *Convolutional Layers* (che estraggono le feature), mentre l'opzione D descrive l'opposto del pooling (upsampling). 
+   **Spiegazione:** Nel **Single Linkage** (o Nearest Neighbor), la distanza tra due cluster è definita come la distanza minima tra qualsiasi punto del primo cluster e qualsiasi punto del secondo. È come dire che due gruppi "si toccano" nel loro punto più vicino. Questo metodo tende a creare cluster allungati (effetto *chaining*). 
 
 ### PARTE 4: NEURAL NETWORKS & DEEP LEARNING
 
@@ -352,7 +352,7 @@
     C. Ridurre la dimensionalità spaziale (downsampling) delle feature map, rendendo la rappresentazione più compatta e robusta.
     D. Aumentare artificialmente la risoluzione dell'immagine di input.
 
-   **Spiegazione:** Il documento "APPUNTI LEZIONE_mining copia.pdf" contiene un paragrafo intitolato "La Sfida della Rappresentazione Vettoriale". In esso si legge testualmente: *"Nonostante l'efficacia a livello lessicale, il limite risiede nel collegamento della semantica delle singole parole alla semantica di insiemi più grandi di parole, come frasi, proposizioni, paragrafi e la semantica del discorso."* Questo concetto si riferisce alla difficoltà di passare dalla semantica delle parole singole (dove word2vec eccelle) alla semantica composizionale di frasi intere. 
+   **Spiegazione:** Nelle dispense (Lecture 06) si afferma esplicitamente che i "Pooling layers" servono a fare **downsample** (sottocampionamento) dei feature vectors, ottenendo una "smaller representation" (versione più piccola) dei dati. L'opzione A si riferisce ai *Convolutional Layers* (che estraggono le feature), mentre l'opzione D descrive l'opposto del pooling (upsampling). 
 
 45. Per quale tipo di dati sono ideali le *Recurrent Neural Networks (RNN)*?
     A. Immagini statiche ad alta risoluzione.
