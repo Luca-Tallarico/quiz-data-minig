@@ -1172,6 +1172,7 @@ def main():
 # SURVIVAL MODE
 # -----------------------------------------------------------------------------
 def show_survival_mode(all_questions):
+    st.sidebar.button("🏠 Torna alla Home", key="home_surv", on_click=lambda: st.session_state.update(mode=None))
     st.markdown("## 🔥 Survival Mode")
 
     # If game over
@@ -1214,9 +1215,13 @@ def show_survival_mode(all_questions):
     
     # Interaction
     # We use a key based on score/streak so it resets every question
-    selection = st.radio("Scegli la risposta:", options, key=f"surv_{st.session_state.game_score}")
+    selection = st.radio("Scegli la risposta:", options, index=None, key=f"surv_{st.session_state.game_score}")
     
     if st.button("Conferma"):
+        if not selection:
+            st.warning("⚠️ Seleziona una risposta prima di confermare!")
+            return
+
         correct_char = q['correct']
         selected_char = selection.split(".")[0]
         
@@ -1241,6 +1246,7 @@ def show_survival_mode(all_questions):
 # TIME ATTACK MODE (REFACTORED)
 # -----------------------------------------------------------------------------
 def show_time_attack_mode(all_questions):
+    st.sidebar.button("🏠 Torna alla Home", key="home_ta", on_click=lambda: st.session_state.update(mode=None))
     st.markdown("## ⚡ Time Attack")
     
     # COUNTDOWN PHASE
@@ -1338,6 +1344,7 @@ def show_time_attack_mode(all_questions):
 # REVERSE MODE
 # -----------------------------------------------------------------------------
 def show_reverse_mode(all_questions):
+    st.sidebar.button("🏠 Torna alla Home", key="home_rev", on_click=lambda: st.session_state.update(mode=None))
     st.markdown("## 🃏 Reverse Quiz")
     st.info("Indovina la domanda a partire dalla spiegazione!")
     
