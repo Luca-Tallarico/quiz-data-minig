@@ -1092,6 +1092,246 @@ Il *Knowledge Discovery Process* (Opzione B) si riferisce tipicamente all'intero
    C. Computational Cost (Costo Computazionale).
    D. Nessuna delle precedenti.
 
+### PARTE SPECIALE: RAGIONAMENTO E LOGICA APPLICATA
+
+143. Stai analizzando un dataset di transazioni bancarie per rilevare frodi. Le frodi sono rarissime (0.1%). Addestri un classificatore che ottiene un'Accuracy del 99.9%. Tuttavia, il sistema non rileva nessuna frode. Qual è il problema logico?
+   A. Hai usato un Learning Rate troppo alto, causando overfitting sulla classe minoritaria.
+   B. Il modello ha bisogno di più dati di "Non Frode" per capire meglio la normalità.
+   C. In caso di classi sbilanciate, l'Accuracy è fuorviante (Accuracy Paradox). Il modello sta semplicemente predicendo sempre la classe maggioritaria ("Non Frode").
+   D. L'Accuracy è la metrica perfetta, quindi il modello è ottimo; probabilmente non ci sono frodi nel test set.
+
+   **Spiegazione:** Quando le classi sono sbilanciate (es. 99.9% vs 0.1%), un modello che predice sempre la classe maggioritaria avrà un'accuracy altissima (99.9%) ma sarà inutile (Recall sulle frodi = 0%). Bisogna usare Precision, Recall o F1-Score.
+
+144. Un tuo collega propone di usare K-Means per clusterizzare un dataset che contiene cluster di forma allungata e irregolare (non sferica) e molto noise. Perché questa scelta è logicamente sbagliata?
+   A. K-Means assume cluster sferici (minimizza la varianza) e soffre molto gli outlier, quindi fallirà nel separare forme complesse. DBSCAN sarebbe più indicato.
+   B. K-Means è ottimo per forme irregolari ma lento.
+   C. K-Means funziona solo su dati categorici, mentre le forme implicano coordinate numeriche.
+   D. Non è sbagliata, basta impostare K molto alto.
+
+   **Spiegazione:** K-Means cerca cluster convessi (sferici/globulari). Se i dati hanno cluster non sferici o densità variabile, K-Means "spacca" i cluster naturali in modo errato. DBSCAN segue la densità e gestisce forme arbitrarie.
+
+145. Hai una tabella SQL `Ordini` e una `Clienti`. Vuoi trovare tutti i Clienti che NON hanno mai effettuato un ordine. Quale logica di JOIN useresti?
+   A. INNER JOIN tra Clienti e Ordini.
+   B. CROSS JOIN per vedere tutte le combinazioni.
+   C. RIGHT JOIN da Clienti a Ordini.
+   D. LEFT JOIN da Clienti a Ordini, filtrando DOVE l'ID Ordine IS NULL.
+
+   **Spiegazione:** Un LEFT JOIN prende tutti i Clienti. Se non c'è corrispondenza in Ordini, i campi dell'Ordine saranno NULL. Filtrando per `Ordine.ID IS NULL` isoli chi non ha comprato.
+
+146. Stai addestrando una Rete Neurale e noti che l'errore sul Training Set scende costantemente, ma l'errore sul Validation Set inizia a salire dopo l'epoca 50. Cosa sta succedendo e come intervieni?
+   A. Underfitting. Devi aggiungere più neuroni.
+   B. Overfitting. Il modello sta memorizzando il rumore del training. Devi fermarti (Early Stopping) o usare regolarizzazione (Dropout).
+   C. Il Learning Rate è troppo basso. Devi aumentarlo.
+   D. È normale, l'errore di validazione deve salire.
+
+   **Spiegazione:** La divergenza tra Training Loss (che scende) e Validation Loss (che sale) è il segno classico di Overfitting: il modello perde capacità di generalizzare.
+
+147. Durante il pre-processing di testo per un motore di ricerca, elimini le Stop Words. Tuttavia, per query come "To be or not to be", il sistema non restituisce nulla. Qual è il trade-off logico qui?
+   A. Le Stop Words non servono mai, l'errore è nel motore di ricerca.
+   B. Avresti dovuto usare lo Stemming invece delle Stop Words.
+   C. Rimuovere le Stop Words riduce l'indice, ma si perde la capacità di cercare frasi esatte dove quelle particelle sono essenziali per il significato (Phrase Query).
+   D. Bisognava usare un database NoSQL.
+
+   **Spiegazione:** Stop Words comuni (to, be, or, not) sono inutili per la "topic detection" ma essenziali per frasi specifiche ("Phrase Queries") o quando la negazione ("not") inverte il senso.
+
+148. Hai un attributo "Reddito" con valori da 10k a 100k e un attributo "Età" da 0 a 100. Se applichi K-Means senza normalizzare, cosa succederà logicamente?
+   A. L'attributo "Reddito" dominerà il calcolo della distanza euclidea, rendendo l'"Età" irrilevante per il clustering.
+   B. Nulla, K-Means è invariante alla scala.
+   C. L'attributo "Età" dominerà perché ha un range più piccolo e compatto.
+   D. L'algoritmo andrà in errore per overflow.
+
+   **Spiegazione:** K-Means usa la distanza Euclidea. Una differenza di 1000 nel reddito pesa molto più di una differenza di 50 anni in età. Senza normalizzazione (z-score/min-max), il clustering segue solo il reddito.
+
+149. La clausola SQL `HAVING` differisce da `WHERE` perché:
+   A. `WHERE` filtra i gruppi dopo l'aggregazione, `HAVING` prima.
+   B. `WHERE` filtra le singole righe prima dell'aggregazione, `HAVING` filtra i risultati aggregati (es. SUM(prezzo) > 100).
+   C. `HAVING` è deprecato nelle versioni moderne di SQL.
+   D. Sono sinonimi esatti.
+
+   **Spiegazione:** Logica SQL fondamentale: Non puoi usare `WHERE SUM(x) > 10` perché al momento del WHERE l'aggregazione non esiste ancora. Devi usare `HAVING` dopo il `GROUP BY`.
+
+150. In un Dendrogramma (Clustering Gerarchico), se tagli l'albero a un livello molto alto (vicino alla radice), ottieni:
+   A. Pochi cluster grandi e generici.
+   B. Moltissimi cluster piccoli e specifici.
+   C. Nessun cluster.
+   D. Esattamente K cluster dove K è la radice quadrata di N.
+
+   **Spiegazione:** Il Dendrogramma parte dal basso (tanti punti singoli) verso l'alto (un unico cluster). Tagliare in alto significa fermarsi quando i gruppi sono pochi e grossi.
+
+151. Se usi DBSCAN con un `Epsilon` molto piccolo e un `MinPts` molto alto, cosa accadrà logicamente ai tuoi dati?
+   A. Tutti i punti diventeranno un unico grande cluster.
+   B. Otterrai un ottimo clustering bilanciato.
+   C. La maggior parte dei punti sarà classificata come NOISE (Outlier), perché è troppo difficile soddisfare la densità richiesta.
+   D. L'algoritmo creerà cluster sferici perfetti.
+
+   **Spiegazione:** Epsilon piccolo = raggio stretto. MinPts alto = serve tanta folla in quel raggio stretto. Condizione molto restrittiva -> quasi nessun punto diventa "Core Point" -> quasi tutto è Noise.
+
+152. Vuoi calcolare la similarità tra due documenti di lunghezza molto diversa. Perché la Distanza Euclidea tra i vettori TF (Term Frequency) grezzi non è una buona idea?
+   A. Perché i documenti lunghi avranno vettori con magnitudo molto maggiore (più parole totali), risultando "distanti" anche se parlano delle stesse cose. Meglio la Cosine Similarity.
+   B. Perché la Distanza Euclidea funziona solo con numeri negativi.
+   C. Perché i documenti corti hanno sempre valori negativi.
+   D. È un'ottima idea, la lunghezza conta.
+
+   **Spiegazione:** La Cosine Similarity guarda l'angolo (orientamento) dei vettori, ignorando la loro lunghezza (magnitudo). Due testi identici ma uno ripetuto 2 volte avranno coseno 1 (angolo 0) ma distanza euclidea grande.
+
+153. Se il tuo modello di classificazione ha un alto Bias e bassa Varianza (Underfitting), quale azione ha più senso logico?
+   A. Aggiungere più dati di training.
+   B. Ridurre la complessità del modello (togliere feature, ridurre layer).
+   C. Aumentare la complessità del modello (aggiungere feature polinomiali, più layer neuroni) per catturare meglio le relazioni.
+   D. Usare una regolarizzazione L2 molto forte.
+
+   **Spiegazione:** Alto Bias significa che il modello è "stupido", troppo semplice. Aggiungere dati a un modello stupido non aiuta. Devi renderlo più "intelligente" (complesso).
+
+154. In un'analisi Market Basket, trovi la regola `{Pane} -> {Latte}` con Confidenza 100% ma Supporto 0.0001%. È una regola utile?
+   A. Sì, è una certezza assoluta, importantissima per il business.
+   B. Sì, il Supporto non conta, conta solo la Confidenza.
+   C. No, perché accade troppe poche volte (probabilmente 1 o 2 transazioni su milioni) per essere statisticamente rilevante o sfruttabile commercialmente (Noise).
+   D. No, la Confidenza deve essere almeno 110%.
+
+   **Spiegazione:** Regole con supporto infinitesimale sono spesso casualità o eventi unici. Nel mining si cerca "statisticamente frequente".
+
+155. Qual è la conseguenza logica di impostare un valore K=1 nell'algoritmo K-NN (K-Nearest Neighbors)?
+   A. Il modello diventa robustissimo al rumore.
+   B. Il modello diventa sensibilissimo al rumore (overfitting locale): basta un singolo outlier vicino per sbagliare la classificazione.
+   C. Il modello impara la media globale dei dati.
+   D. Il confine decisionale diventa una linea retta perfetta.
+
+   **Spiegazione:** K=1 significa "copia il vicino più prossimo". Se il vicino è un outlier o un errore, classifichi errato. K più alto "liscia" il confine decisionale.
+
+156. Se applichi una PCA (Principal Component Analysis) e mantieni le prime 2 componenti che spiegano il 95% della varianza, cosa hai ottenuto?
+   A. Hai eliminato le feature meno importanti semanticamente.
+   B. Hai fatto clustering.
+   C. Hai selezionato le 2 colonne originali migliori.
+   D. Hai proiettato i dati da N dimensioni a 2 dimensioni, preservando la massima informazione possibile, visualizzandoli su un piano.
+
+   **Spiegazione:** La PCA crea *nuove* variabili (componenti) combinando linearmente quelle vecchie. Non seleziona colonne, comprime lo spazio.
+
+157. Perché in una rete neurale non si inizializzano tutti i pesi a zero (Symmetry Breaking)?
+   A. Perché altrimenti tutti i neuroni calcolerebbero la stessa identica funzione e lo stesso gradiente, rendendo inutile avere più neuroni.
+   B. Perché lo zero causa divisione per zero.
+   C. Perché lo zero è un numero sfortunato in informatica.
+   D. Si può fare, è la pratica standard.
+
+   **Spiegazione:** Se i pesi sono tutti uguali (es. 0), durante la backpropagation tutti i neuroni dello stesso strato riceveranno lo stesso aggiornamento. La rete non impara feature diverse.
+
+158. Stai usando Naive Bayes per classificare email. Una parola "W" appare nel training set SPAM ma MAI nel training set NON-SPAM. Quando classifichi una nuova mail, la probabilità P(W|Non-Spam) sarà 0. Cosa succede a tutta la formula della probabilità e come risolvi?
+   A. Non succede nulla, 0 è un valore valido.
+   B. La probabilità totale diventa 0 (annullando tutto). Si risolve con lo Smoothing (Laplace Smoothing) aggiungendo un conteggio fittizio (+1).
+   C. Il modello esplode.
+   D. Si risolve eliminando la parola "W".
+
+   **Spiegazione:** Essendo Naive Bayes un prodotto di probabilità, un singolo fattore 0 annulla tutto il prodotto. Lo Smoothing serve a dire "mai visto non vuol dire impossibile".
+
+159. In SQL, qual è la differenza logica tra `COUNT(*)` e `COUNT(column_name)`?
+   A. `COUNT(*)` conta tutte le righe inclusi i NULL. `COUNT(column)` conta solo le righe dove quella specifica colonna NON è NULL.
+   B. Nessuna.
+   C. `COUNT(*)` è più lento.
+   D. `COUNT(column)` conta anche i duplicati, `COUNT(*)` no.
+
+160. Se un algoritmo di classificazione (es. Decision Tree) crea regole del tipo "SE ID_Cliente = 123 ALLORA Compra", cos'è successo?
+   A. Ha trovato un pattern molto personalizzato, ottimo.
+   B. Ha fatto underfitting.
+   C. È un comportamento corretto per il CRM.
+   D. Ha fatto Overfitting memorizzando gli ID univoci invece di imparare pattern generalizzabili (es. Età, Residenza).
+
+   **Spiegazione:** Usare ID univoci come predittori è l'esempio classico di "imparare a memoria". Non funzionerà mai su nuovi clienti.
+
+161. Stai analizzando recensioni. Lemmatizzi "Best" -> "Good". Cosa perdi logicamente?
+   A. Nulla, sono sinonimi.
+   B. Perdi statistiche di frequenza.
+   C. La distinzione grammaticale tra superlativo e positivo. Perdi l'intensità del sentimento (Sentiment Analysis).
+   D. Il testo diventa illeggibile.
+
+   **Spiegazione:** In task come la Sentiment Analysis, "Best" vale molto più di "Good". Normalizzare troppo aggressivamente appiattisce le sfumature.
+
+162. Hai un dataset con feature categoriche (Colore: Rosso, Verde, Blu). K-Means non accetta stringhe. Converti in: Rosso=1, Verde=2, Blu=3. Qual è l'errore logico gravissimo?
+   A. Stai introducendo un ordine (Blu > Verde > Rosso) e una distanza che non esistono nella realtà. K-Means penserà che Blu è più simile a Verde che a Rosso. Devi usare One-Hot Encoding.
+   B. Nessun errore.
+   C. Dovevi usare numeri negativi.
+   D. Dovevi usare numeri decimali.
+
+   **Spiegazione:** Label Encoding su dati nominali (senza ordine) introduce relazioni spurie che gli algoritmi geometrici interpretano falsamente.
+
+163. Qual è l'implicazione del "Curse of Dimensionality" (Maledizione della Dimensionalità) per gli algoritmi basati sulla distanza (come KNN)?
+   A. Più dimensioni ci sono, più accurata diventa la distanza.
+   B. All'aumentare delle dimensioni (feature), lo spazio diventa talmente vasto e sparso che tutti i punti tendono ad essere equidistanti tra loro, rendendo il concetto di "vicino" privo di significato.
+   C. Il calcolo diventa troppo veloce.
+   D. Le dimensioni collassano su se stesse.
+
+   **Spiegazione:** In alta dimensionalità la differenza tra la distanza minima e massima tende a zero. Gli algoritmi di "vicinato" smettono di funzionare bene.
+
+164. Se un grafico "Elbow Method" per K-Means non mostra un gomito netto ma una curva dolce e continua, cosa deduci logicamente?
+   A. Che K deve essere infinito.
+   B. Che devi usare K=1.
+   C. Che hai sbagliato il grafico.
+   D. Che i dati non hanno una struttura a cluster ben definita e separata (forse sono distribuiti uniformemente).
+
+   **Spiegazione:** L'assenza di gomito indica che aggiungere cluster migliora la varianza in modo marginale e costante, non c'è un punto di "svolta" dove i gruppi si consolidano.
+
+165. In una Cross-Validation a 10 fold, se ottieni performance drasticamente diverse in ogni fold (es. 90%, 50%, 95%...), cosa suggerisce?
+   A. Che il modello è robusto.
+   B. Che i dati non sono distribuiti in modo omogeneo (il dataset potrebbe essere ordinato temporalmente o per classe prima dello split, o i campioni sono troppo pochi/rumorosi). Instabilità.
+   C. Che hai usato un computer difettoso.
+   D. Che devi fare la media e basta.
+
+   **Spiegazione:** L'alta varianza tra fold suggerisce che il modello dipende troppo da QUALI dati vede, quindi non è stabile. Bisogna mescolare (shuffle) meglio o raccogliere più dati.
+
+166. Vuoi prevedere il prezzo delle case. Usi la Regressione Lineare. I residui (Errori) mostrano un pattern a forma di "U" quando plottati. Cosa significa?
+   A. Che i dati sono perfetti.
+   B. Che il modello lineare non è sufficiente. La relazione tra le variabili è probabilmente non-lineare (quadratica).
+   C. Che hai degli outlier.
+   D. Che devi usare la classificazione.
+
+   **Spiegazione:** Se i residui non sono casuali ma hanno un pattern, il modello non sta catturando un'informazione sistematica (la curvatura).
+
+167. Nel calcolo di TF-IDF, se una parola appare in TUTTI i documenti del corpus, quanto varrà il suo IDF (Inverse Document Frequency)?
+   A. Infinito.
+   B. Uno.
+   C. Massimo.
+   D. Zero (o molto vicino a zero), rendendo il peso della parola nullo.
+
+   **Spiegazione:** IDF = log(N/df). Se df=N (appare in tutti), log(1) = 0. Giustamente: se una parola è ovunque (es. "il"), non distingue nessun documento.
+
+168. Stai analizzando i log di accesso. Un utente fa login alle 10:00 da Roma e alle 10:05 da New York. Un sistema a regole (Rule-based) lo flaga subito. Un modello statistico medio potrebbe non farlo se addestrato solo su "numero di login". Qual è il vantaggio dell'approccio a regole qui?
+   A. Le regole possono catturare logicamente vincoli fisici ("Impossibile viaggiare così veloce") che un modello statistico puro potrebbe ignorare se non ha la feature "velocità di spostamento" esplicita.
+   B. Nessuno.
+   C. Il modello statistico è sempre superiore.
+   D. Le regole sono più veloci.
+
+   **Spiegazione:** A volte la "Domain Knowledge" esplicita (regole fisiche) batte l'inferenza statistica cieca su feature incomplete.
+
+169. Perché si usa lo "Stratified Sampling" invece del "Random Sampling" per creare il Test Set in problemi di classificazione sbilanciata?
+   A. Per mescolare meglio i dati.
+   B. Per fare prima.
+   C. Per garantire che la proporzione delle classi (es. 99% sani, 1% malati) sia mantenuta identica sia nel Train che nel Test set, evitando che il Test set finisca per non avere nessun "malato".
+   D. Per eliminare i duplicati.
+
+   **Spiegazione:** Casualmente potresti pescare solo sani nel test set. Stratified forza la presenza dell'1% di malati anche nel test.
+
+170. Qual è l'effetto di avere variabili altamente correlate (Multicollinearità) in una Regressione Lineare Multipla?
+   A. Rende instabili le stime dei coefficienti (pesi): piccoli cambiamenti nei dati possono ribaltare il segno o il valore dei coefficienti, rendendo difficile l'interpretazione (Feature Importance).
+   B. Aumenta la precisione.
+   C. Blocca il calcolo.
+   D. Nessun effetto.
+
+   **Spiegazione:** Se X1 e X2 dicono la stessa cosa, il modello non sa se attribuire l'effetto a X1 o X2 (infinite soluzioni matematiche), rendendo i pesi inaffidabili.
+
+171. Stai usando un algoritmo genetico per ottimizzare una funzione. La popolazione converge istantaneamente dopo 2 generazioni su una soluzione mediocre e non migliora più. Cosa è successo?
+   A. L'algoritmo è velocissimo e ha trovato l'ottimo globale.
+   B. Premature Convergence (Convergenza Prematura). La diversità genetica è persa troppo presto (minimo locale).
+   C. La mutazione è troppo alta.
+   D. Hai troppi individui.
+
+   **Spiegazione:** Come l'inincrocio in biologia: se tutti sono uguali, l'evoluzione si ferma. Bisogna aumentare la mutazione o la dimensione della popolazione.
+
+172. In un database colonnare (rispetto a uno 'row-based'), quale operazione è logicamente molto più veloce?
+   A. Inserire una nuova riga completa (INSERT).
+   B. Recuperare tutti i dati di un singolo utente specifico.
+   C. Calcolare la media di una singola colonna su miliardi di righe (es. AVG(Salary)).
+   D. Aggiornare una riga.
+
+   **Spiegazione:** I DB colonnari memorizzano i dati di una colonna vicini su disco. Leggere una colonna sola è sequenziale e velocissimo. Leggere una riga richiede salti.
+
 ---
 
 ### RISPOSTE CORRETTE
@@ -1110,4 +1350,7 @@ Il *Knowledge Discovery Process* (Opzione B) si riferisce tipicamente all'intero
 111:B, 112:C, 113:D, 114:A, 115:C, 116:B, 117:B, 118:C, 119:D, 120:C,
 121:C, 122:A, 123:A, 124:B, 125:D, 126:C, 127:A, 128:D, 129:D, 130:B,
 131:C, 132:C, 133:A, 134:B, 135:A, 136:B, 137:B, 138:C, 139:A, 140:B,
-141:B, 142:B
+141:B, 142:B, 143:C, 144:A, 145:D, 146:B, 147:C, 148:A, 149:B, 150:A,
+151:C, 152:A, 153:C, 154:C, 155:B, 156:D, 157:A, 158:B, 159:A, 160:D,
+161:C, 162:A, 163:B, 164:D, 165:B, 166:B, 167:D, 168:A, 169:C, 170:A,
+171:B, 172:C
