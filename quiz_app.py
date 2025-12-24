@@ -1408,7 +1408,7 @@ def show_reverse_mode(all_questions):
     
     st.write("### Qual era la domanda?")
     
-    selection = st.radio("Scegli:", [opt['text'] for opt in options], key=f"rev_{target['id']}")
+    selection = st.radio("Scegli:", [opt['text'] for opt in options], index=None, key=f"rev_{target['id']}")
     
     # Layout: Button Left (Conferma) --- Spacer --- Button Right (Termina)
     c1, c_space, c2 = st.columns([2, 6, 2])
