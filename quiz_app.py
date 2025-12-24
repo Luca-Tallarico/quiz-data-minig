@@ -490,7 +490,7 @@ def show_home_page(all_questions):
                 <div class="card-title text-blue">🏋️ Quizzone</div>
                 <div class="card-desc">La modalità classica per esercitarsi senza pressione.</div>
                 <ul class="feature-list">
-                    <li class="feature-item"><span class="icon-box bg-blue-light">📚</span> Accesso a&nbsp;<b>142&nbsp;domande</b></li>
+                    <li class="feature-item"><span class="icon-box bg-blue-light">📚</span> Accesso a&nbsp;<b>172&nbsp;domande</b></li>
                     <li class="feature-item"><span class="icon-box bg-blue-light">♾️</span> Senza limiti di tempo</li>
                     <li class="feature-item"><span class="icon-box bg-blue-light">💡</span> Feedback immediato</li>
                     <li class="feature-item"><span class="icon-box bg-blue-light">🔍</span> Verifica passo-passo</li>
