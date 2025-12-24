@@ -1365,7 +1365,7 @@ def show_time_attack_mode(all_questions):
                         st.stop()
         
         # Force a UI refresh to update timer roughly every second if no interaction
-        time.sleep(0.1) 
+        time.sleep(1) 
         st.rerun()
         
         st.divider()
