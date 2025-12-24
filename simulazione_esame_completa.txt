@@ -107,7 +107,7 @@
    **Spiegazione:** La Chiave Primaria (Primary Key) è l'attributo (o set di attributi) che identifica in modo univoco ogni record in una tabella.
 
 14. Come si definisce un *Data Lake*?
-    A. Un piccolo database dipartimentale (Data Mart) specifico per un singolo team.
+    A. Un piccolo database dipartimentale specifico per un singolo team.
     B. Un vasto repository che immagazzina grandi quantità di dati grezzi nel loro formato nativo (strutturati e non).
     C. Un dashboard grafico per la visualizzazione dei flussi di dati in tempo reale.
     D. Un sistema di backup su nastro per l'archiviazione a lungo termine.
