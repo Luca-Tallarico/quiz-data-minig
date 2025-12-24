@@ -971,12 +971,12 @@ Il *Knowledge Discovery Process* (Opzione B) si riferisce tipicamente all'intero
 124. Cosa significa l'acronimo KDD?
    A. Knowledge Database Discovery
    B. Knowledge Discovery Data
-   C. Nessuna delle precedenti (Knowledge Discovery from Data)
+   C. Nessuna delle precedenti 
    D. Knowledge Detection in Databases
 
 125. Schema Relazionale. Seleziona la risposta che rappresenta meglio le proprietà di un database relazionale.
    A. Structured data; Tables; Primary Key
-   B. Tables (Tabelle/Entità)
+   B. **Tables** (Tabelle/Entità)
    C. Unstructured data; Tables; Primary Key
    D. Structured data; Tables; Primary Key; External Key
 
