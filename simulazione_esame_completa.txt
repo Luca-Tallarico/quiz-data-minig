@@ -393,10 +393,10 @@
     D. Il Perceptron introduce pesi e bias *apprendibili*, mentre il Neurode implementava una logica fissa predeterminata.
 
 50. La funzione di attivazione *Softmax* viene tipicamente utilizzata:
-    A. Per rimuovere l'influenza del bias dai calcoli.
-    B. Per inizializzare tutti i pesi della rete a zero.
-    C. Nello strato di output di reti per classificazione multi-classe, per trasformare i valori in una distribuzione di probabilità.
-    D. Nello strato di input per normalizzare i dati grezzi.
+    A. Per rimuovere influenze di bias dai calcoli e normalizzare i gradienti durante la backpropagation per una convergenza stabile.
+    B. Per inizializzare casualmente tutti i pesi della rete neurale a zero, garantendo una distribuzione uniforme all'inizio.
+    C. Nello strato di output per trasformare i logits in una distribuzione di probabilità valida (somma = 1).
+    D. Nello strato di input per scalare le feature tra 0 e 1, riducendo la sensibilità agli outlier dei dati grezzi.
 
    **Spiegazione:** La pulizia dei dati (Cleaning) avviene all'inizio del KDP per rimuovere rumore e incongruenze, preparando dati di qualità per l'analisi.
 
@@ -1245,10 +1245,10 @@ Il *Knowledge Discovery Process* (Opzione B) si riferisce tipicamente all'intero
    **Spiegazione:** In task come la Sentiment Analysis, "Best" vale molto più di "Good". Normalizzare troppo aggressivamente appiattisce le sfumature.
 
 162. Hai un dataset con feature categoriche (Colore: Rosso, Verde, Blu). K-Means non accetta stringhe. Converti in: Rosso=1, Verde=2, Blu=3. Qual è l'errore logico gravissimo?
-   A. Stai introducendo un ordine (Blu > Verde > Rosso) e una distanza che non esistono nella realtà. K-Means penserà che Blu è più simile a Verde che a Rosso. Devi usare One-Hot Encoding.
-   B. Nessun errore.
-   C. Dovevi usare numeri negativi.
-   D. Dovevi usare numeri decimali.
+   A. Introduci un ordine artificiale (Blu > Verde > Rosso) che altera falsamente la distanza.
+   B. Nessun errore, K-Means gestisce bene gli ordinali.
+   C. Dovevi usare numeri negativi per i colori freddi per bilanciare lo spettro.
+   D. Dovevi usare numeri decimali per aumentare la precisione del calcolo.
 
    **Spiegazione:** Label Encoding su dati nominali (senza ordine) introduce relazioni spurie che gli algoritmi geometrici interpretano falsamente.
 
@@ -1301,10 +1301,10 @@ Il *Knowledge Discovery Process* (Opzione B) si riferisce tipicamente all'intero
    **Spiegazione:** A volte la "Domain Knowledge" esplicita (regole fisiche) batte l'inferenza statistica cieca su feature incomplete.
 
 169. Perché si usa lo "Stratified Sampling" invece del "Random Sampling" per creare il Test Set in problemi di classificazione sbilanciata?
-   A. Per mescolare meglio i dati.
-   B. Per fare prima.
-   C. Per garantire che la proporzione delle classi (es. 99% sani, 1% malati) sia mantenuta identica sia nel Train che nel Test set, evitando che il Test set finisca per non avere nessun "malato".
-   D. Per eliminare i duplicati.
+   A. Per mescolare meglio i dati in modo puramente stocastico.
+   B. Per velocizzare il processo di selezione durante il bootstrap.
+   C. Per mantenere la proporzione originale delle classi (es. 1% malati) anche nel Test Set.
+   D. Per eliminare eventuali duplicati ridondanti nel dataset.
 
    **Spiegazione:** Casualmente potresti pescare solo sani nel test set. Stratified forza la presenza dell'1% di malati anche nel test.
 
