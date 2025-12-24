@@ -1172,7 +1172,6 @@ def main():
 # SURVIVAL MODE
 # -----------------------------------------------------------------------------
 def show_survival_mode(all_questions):
-    st.sidebar.button("🏠 Torna alla Home", key="home_surv", on_click=lambda: st.session_state.update(mode=None))
     st.markdown("## 🔥 Survival Mode")
 
     # If game over
@@ -1217,7 +1216,10 @@ def show_survival_mode(all_questions):
     # We use a key based on score/streak so it resets every question
     selection = st.radio("Scegli la risposta:", options, index=None, key=f"surv_{st.session_state.game_score}")
     
-    if st.button("Conferma"):
+    c1, c2 = st.columns([1, 1])
+    
+    # Conferma (Left)
+    if c1.button("Conferma", use_container_width=True):
         if not selection:
             st.warning("⚠️ Seleziona una risposta prima di confermare!")
             return
@@ -1238,6 +1240,11 @@ def show_survival_mode(all_questions):
             if st.session_state.game_lives <= 0:
                 pass # Will show game over next rerun
             st.rerun()
+            
+    # Termina (Right)
+    if c2.button("Termina", type="primary", use_container_width=True):
+         st.session_state.mode = None
+         st.rerun()
 
 # -----------------------------------------------------------------------------
 # TIME ATTACK MODE
@@ -1246,105 +1253,130 @@ def show_survival_mode(all_questions):
 # TIME ATTACK MODE (REFACTORED)
 # -----------------------------------------------------------------------------
 def show_time_attack_mode(all_questions):
-    st.sidebar.button("🏠 Torna alla Home", key="home_ta", on_click=lambda: st.session_state.update(mode=None))
     st.markdown("## ⚡ Time Attack")
     
     # COUNTDOWN PHASE
     if st.session_state.time_attack_status == 'ready':
         st.session_state.time_attack_status = 'countdown'
+        st.session_state.question_start_time = None # Reset timer
         st.rerun()
 
     if st.session_state.time_attack_status == 'countdown':
-        placeholder = st.empty()
+        # Create a container for the countdown to avoid layout shifts
+        countdown_container = st.empty()
+        
+        # 3... 2... 1...
         for i in range(3, 0, -1):
-            placeholder.markdown(f"<h1 style='text-align: center; font-size: 100px;'>{i}</h1>", unsafe_allow_html=True)
+            countdown_container.markdown(f"<h1 style='text-align: center; font-size: 150px; color: #ffeb3b;'>{i}</h1>", unsafe_allow_html=True)
             time.sleep(1)
-        placeholder.markdown(f"<h1 style='text-align: center; font-size: 100px; color: green;'>VIA!</h1>", unsafe_allow_html=True)
+            
+        countdown_container.markdown(f"<h1 style='text-align: center; font-size: 150px; color: #32cd32;'>VIA!</h1>", unsafe_allow_html=True)
         time.sleep(0.5)
-        placeholder.empty()
+        
+        countdown_container.empty()
         st.session_state.time_attack_status = 'playing'
+        st.session_state.question_start_time = datetime.now() # START TIMER HERE
         st.rerun()
 
     # PLAYING PHASE
-    # Manage Question Start Time
-    if st.session_state.question_start_time is None:
-        st.session_state.question_start_time = datetime.now()
+    if st.session_state.time_attack_status == 'playing':
+        # Default safety: if start time is missing (should not happen due to above), set it
+        if st.session_state.question_start_time is None:
+            st.session_state.question_start_time = datetime.now()
 
-    # Timer Logic
-    elapsed = (datetime.now() - st.session_state.question_start_time).total_seconds()
-    limit = 15.0
-    remaining = limit - elapsed
-    
-    # Check Timeout
-    if remaining <= 0:
-        st.error(f"⏱️ TEMPO SCADUTO! Punteggio Finale: {st.session_state.game_score}")
-        if st.button("Riprova"):
-            reset_state()
-            st.session_state.mode = 'time_attack'
-            st.rerun()
-        return
-
-    # Dashboard
-    c1, c2 = st.columns(2)
-    c1.metric("Punteggio", st.session_state.game_score)
-    
-    # Dynamic styling for timer
-    timer_color = "green"
-    if remaining < 5: timer_color = "red"
-    elif remaining < 10: timer_color = "orange"
-    
-    c2.markdown(f"<h3 style='color: {timer_color}; margin: 0;'>{remaining:.1f}s</h3>", unsafe_allow_html=True)
-    
-    st.progress(max(0.0, min(1.0, remaining / limit))) 
-    
-    # Get Question
-    if st.session_state.current_question is None:
-        pool = [q for q in all_questions if q['id'] not in st.session_state.verified_ids]
-        if not pool: pool = all_questions # reset if exhausted
+        # Timer Logic
+        # Calculate remaining time
+        elapsed = (datetime.now() - st.session_state.question_start_time).total_seconds()
+        limit = 15.0
+        remaining = limit - elapsed
         
-        q = random.choice(pool)
-        st.session_state.current_question = q
-        st.session_state.verified_ids.add(q['id'])
-    
-    q = st.session_state.current_question
-    st.markdown(f"### {q['text']}")
-    
-    options = [f"{k}. {v}" for k, v in sorted(q['options'].items())]
-    
-    # We use buttons for speed!
-    cols = st.columns(2)
-    for i, opt in enumerate(options):
-        with cols[i % 2]:
-            if st.button(opt, key=f"ta_{st.session_state.game_score}_{i}", use_container_width=True):
-                # Check Answer
-                correct_char = q['correct']
-                selected_char = opt.split(".")[0]
-                
-                if selected_char == correct_char:
-                    # Correct
-                    st.toast("Corretto! 🚀", icon="✅")
-                    st.session_state.game_score += 1
-                    st.session_state.current_question = None
-                    st.session_state.question_start_time = None # Reset timer
-                    st.rerun()
-                else:
-                    # Wrong -> Game Over
-                    st.error(f"❌ SBAGLIATO! La risposta era {correct_char}.")
-                    st.markdown(f"### Punteggio Finale: {st.session_state.game_score}")
-                    if st.button("Riprova Subito"):
-                        reset_state()
-                        st.session_state.mode = 'time_attack'
-                        st.session_state.time_attack_status = 'ready'
-                        st.rerun()
+        # Check Timeout
+        if remaining <= 0:
+            st.error(f"⏱️ TEMPO SCADUTO! Punteggio Finale: {st.session_state.game_score}")
+            c_retry, c_home = st.columns(2)
+            if c_retry.button("Riprova"):
+                reset_state()
+                st.session_state.mode = 'time_attack'
+                st.rerun()
+            if c_home.button("Termina"):
+                st.session_state.mode = None
+                st.rerun()
+            return
+
+        # Dashboard and Timer Display
+        c1, c2 = st.columns(2)
+        c1.metric("Punteggio", st.session_state.game_score)
+        
+        # Dynamic styling for timer
+        timer_color = "#32cd32" # Lime Green
+        if remaining < 5: timer_color = "#ff4b4b" # Streamlit Red
+        elif remaining < 10: timer_color = "#ffa500" # Orange
+        
+        c2.markdown(f"<div style='text-align:right'><h2 style='color: {timer_color}; margin: 0;'>{remaining:.1f}s</h2></div>", unsafe_allow_html=True)
+        
+        st.progress(max(0.0, min(1.0, remaining / limit))) 
+        
+        # Get Question logic
+        if st.session_state.current_question is None:
+            pool = [q for q in all_questions if q['id'] not in st.session_state.verified_ids]
+            if not pool: pool = all_questions # reset if exhausted
+            
+            q = random.choice(pool)
+            st.session_state.current_question = q
+            st.session_state.verified_ids.add(q['id'])
+        
+        q = st.session_state.current_question
+        st.markdown(f"### {q['text']}")
+        
+        options = [f"{k}. {v}" for k, v in sorted(q['options'].items())]
+        
+        # Options buttons grid
+        cols = st.columns(2)
+        for i, opt in enumerate(options):
+            with cols[i % 2]:
+                if st.button(opt, key=f"ta_{st.session_state.game_score}_{i}", use_container_width=True):
+                    # CHECK ANSWER
+                    correct_char = q['correct']
+                    selected_char = opt.split(".")[0]
                     
-                    # Stop execution to show Game Over state
-                    st.stop()
+                    if selected_char == correct_char:
+                        # Correct
+                        st.toast("Corretto! 🚀", icon="✅")
+                        st.session_state.game_score += 1
+                        st.session_state.current_question = None
+                        st.session_state.question_start_time = datetime.now() # Reset timer for next question immediately
+                        st.rerun()
+                    else:
+                        # Wrong -> Game Over
+                        st.error(f"❌ SBAGLIATO! La risposta era {correct_char}.")
+                        st.markdown(f"### Punteggio Finale: {st.session_state.game_score}")
+                        
+                        cols_end = st.columns(2)
+                        if cols_end[0].button("Riprova Subito"):
+                            reset_state()
+                            st.session_state.mode = 'time_attack'
+                            st.session_state.time_attack_status = 'ready'
+                            st.rerun()
+                        if cols_end[1].button("Termina"):
+                             st.session_state.mode = None
+                             st.rerun()
+                        
+                        # Stop execution to show Game Over state
+                        st.stop()
+        
+        # Force a UI refresh to update timer roughly every second if no interaction
+        time.sleep(0.1) 
+        st.rerun()
+        
+        st.divider()
+        if st.button("Termina Partita", type="primary", use_container_width=True):
+             st.session_state.mode = None
+             st.rerun()
 
 # -----------------------------------------------------------------------------
 # REVERSE MODE
 # -----------------------------------------------------------------------------
 def show_reverse_mode(all_questions):
-    st.sidebar.button("🏠 Torna alla Home", key="home_rev", on_click=lambda: st.session_state.update(mode=None))
     st.markdown("## 🃏 Reverse Quiz")
     st.info("Indovina la domanda a partire dalla spiegazione!")
     
@@ -1365,11 +1397,12 @@ def show_reverse_mode(all_questions):
     target = st.session_state.current_question
     options = st.session_state.reverse_options
     
-    # Display Explanation
+    # Display Explanation (VISUAL FIX: Use transparent box with colored border for dark/light mode compatibility)
+    # Removing fixed background color to support dark mode text visibility.
     st.markdown(f"""
-    <div style="padding:20px; border-radius:10px; background-color:#f0f2f6; border-left: 5px solid #8b5cf6;">
-        <h4>📝 Spiegazione</h4>
-        <p style="font-size:1.1rem; font-style:italic;">{target['explanation']}</p>
+    <div style="padding:20px; border-radius:10px; border: 2px solid #8b5cf6; margin-bottom: 20px;">
+        <h4 style="color: #8b5cf6;">📝 Spiegazione</h4>
+        <div style="font-size:1.1rem; font-style:italic;">{target['explanation']}</div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -1377,7 +1410,10 @@ def show_reverse_mode(all_questions):
     
     selection = st.radio("Scegli:", [opt['text'] for opt in options], key=f"rev_{target['id']}")
     
-    if st.button("Conferma"):
+    c1, c2 = st.columns([1, 1])
+    
+    # Conferma (Left)
+    if c1.button("Conferma", use_container_width=True):
         if selection == target['text']:
             st.success("Indovinato!")
             st.balloons()
@@ -1389,6 +1425,11 @@ def show_reverse_mode(all_questions):
             if st.button("Prossima"):
                 st.session_state.current_question = None
                 st.rerun()
+
+    # Termina (Right)
+    if c2.button("Termina", type="primary", use_container_width=True):
+         st.session_state.mode = None
+         st.rerun()
 
 if __name__ == "__main__":
     main()
