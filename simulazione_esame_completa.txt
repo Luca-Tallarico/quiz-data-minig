@@ -1041,7 +1041,7 @@ Il *Knowledge Discovery Process* (Opzione B) si riferisce tipicamente all'intero
    D. None of the above
 
 135. Quale dei seguenti è un acronimo che rappresenta il Data Mining da una prospettiva formale?
-   A. KDD (Knowledge Discovery in Databases)
+   A. KDD 
    B. KDP
    C. DM
    D. All of the above (Tutte le precedenti)
