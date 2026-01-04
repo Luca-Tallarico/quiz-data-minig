@@ -602,17 +602,17 @@
 
 76. Qual è la complessità temporale dell'algoritmo *K-means*?
     A. Esponenziale rispetto al numero di dati.
-    B. Lineare ($O(n \cdot k \cdot d \cdot i)$) dove n è il numero di oggetti, rendendolo efficiente.
-    C. Cubica ($O(n^3)$), quindi molto lento.
-    D. Costante ($O(1)$), istantaneo.
+    B. Lineare (O(n * k * d * i)) dove n è il numero di oggetti, rendendolo efficiente.
+    C. Cubica (O(n^3)), quindi molto lento.
+    D. Costante (O(1)), istantaneo.
 
    **Spiegazione:** Il Cross-Validation (es. K-Fold) serve a stimare l'affidabilità del modello dividendo i dati in K parti e ruotando training/test.
 
 77. Qual è la complessità temporale tipica del *Clustering Gerarchico* standard?
-    A. $O(n^3)$ o $O(n^2 \log n)$, rendendolo computazionalmente oneroso per grandi dataset.
-    B. Lineare $O(n)$, molto veloce.
-    C. Costante $O(1)$.
-    D. $O(k)$, dipendente solo dal numero di cluster.
+    A. O(n^3) o O(n^2 \log n), rendendolo computazionalmente oneroso per grandi dataset.
+    B. Lineare O(n), molto veloce.
+    C. Costante O(1).
+    D. O(k), dipendente solo dal numero di cluster.
 
 78. Il comando SQL `INSERT INTO` viene utilizzato per:
     A. Aggiungere nuovi record (righe) in una tabella esistente.
